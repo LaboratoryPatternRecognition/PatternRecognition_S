@@ -1,0 +1,1190 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>What is Projection? &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/StudentEffort/projection';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction of PR</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Clustering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Regression</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Regression/Introduction_Regression.html">Regression</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classification</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Classification/PR_intro_Classification.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contact</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FPR/StudentEffort/projection.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/PR/StudentEffort/projection.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>What is Projection?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-projection-in-mathbb-r-2">Definition of Projection in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-derivation">Projection Derivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-methods-in-mathbb-r-2-vector-to-vector">Projection methods in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>  (vector to vector)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-of-vector-vec-b-4-1-onto-vec-a-1-4">Projection of Vector <span class="math notranslate nohighlight">\(\vec{b} = [4, 1]\)</span> onto <span class="math notranslate nohighlight">\(\vec{a} = [1, 4]\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-1-projection-onto-a-line">Method 1: Projection onto a Line</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-2-projection-using-a-unit-vector">Method 2: Projection Using a Unit Vector</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-3-projection-as-a-linear-transformation">Method 3: Projection as a Linear Transformation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-result">Final Result</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-methods-in-mathbb-r-2-implementation-in-python">Projection methods in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> implementation in python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-methods-in-mathbb-r-3-vector-to-vector">Projection methods in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> (Vector to Vector)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-of-vector-vec-b-4-1-2-onto-vec-a-1-4-3">Projection of Vector <span class="math notranslate nohighlight">\(\vec{b} = [4, 1, 2]\)</span> onto <span class="math notranslate nohighlight">\(\vec{a} = [1, 4, 3]\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Method 1: Projection onto a Line</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps">Steps:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Method 2: Projection Using a Unit Vector</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#method-3-projection-as-a-matrix-vector-product">Method 3: Projection as a Matrix-Vector Product</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Final Result</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-methods-in-mathbb-r-3-implementation-in-python-vector-to-vector">Projection methods in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> implementation in python (Vector to Vector)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-projection-in-mathbb-r-n">Definition of Projection in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-expression"><strong>Mathematical Expression:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-interpretation"><strong>Geometric Interpretation:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-characteristics"><strong>Key Characteristics:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications"><strong>Applications:</strong></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="what-is-projection">
+<h1>What is Projection?<a class="headerlink" href="#what-is-projection" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Author  : Mustafa Sadeghi</p></li>
+<li><p>Contact : <a class="reference external" href="mailto:mustafasadeghi&#37;&#52;&#48;mail&#46;um&#46;ac&#46;ir">mustafasadeghi<span>&#64;</span>mail<span>&#46;</span>um<span>&#46;</span>ac<span>&#46;</span>ir</a></p></li>
+</ul>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.udemy.com/share/101v8o3&#64;fHufa0IjIR6w9gVciigDE_K-G97dcQnjSqtQ9Sosr6lSPiGVdasF6mrsBBxODb7o6g==/">Linear Algebra Course taught by Krista King</a></p></li>
+<li><p><a class="reference external" href="https://youtu.be/fNk_zzaMoSs?si=kxb7JrvVHPPMJsHm">Essence of linear algebra by 3Blue1Brown</a></p></li>
+<li><p><a class="reference external" href="https://www.udemy.com/share/101XOW3&#64;R6BMg-hx5EKdAcPe9_B_J06R13oOYAWtiMDKZTOXe-urPV2kgy8lVb776Ta2YKxE7Q==/">Linear Algebra Course taught by Dr.Mike X cohen</a></p></li>
+<li><p><a class="reference external" href="https://youtu.be/t-n4a18AW08?si=w7fQpi6N2XiUazMo">Projection into Subspaces by MIT OpenCourseWare - Instructor: Nikola Kamburov</a></p></li>
+<li><p><a class="reference external" href="https://youtu.be/Y_Ac6KiQ1t0?si=aVAyXRKd6UzYTdmT">Projection into Subspaces by MIT OpenCourseWare - Instructor: Gilbert Strang</a></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="definition-of-projection-in-mathbb-r-2">
+<h2>Definition of Projection in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span><a class="headerlink" href="#definition-of-projection-in-mathbb-r-2" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<p>The <strong>projection of a vector</strong> <span class="math notranslate nohighlight">\( \vec{b} \)</span> onto another vector <span class="math notranslate nohighlight">\( \vec{a} \)</span> is the component of <span class="math notranslate nohighlight">\( \vec{b} \)</span> that lies along the direction of <span class="math notranslate nohighlight">\( \vec{a} \)</span>. This projection represents the closest vector along the line defined by <span class="math notranslate nohighlight">\( \vec{a} \)</span> to the vector <span class="math notranslate nohighlight">\( \vec{b} \)</span>. The projection minimizes the difference between <span class="math notranslate nohighlight">\( \vec{b} \)</span> and its projection, making the residual orthogonal to <span class="math notranslate nohighlight">\( \vec{a} \)</span>.</p>
+<p>The formula for the projection of <span class="math notranslate nohighlight">\( \vec{b} \)</span> onto <span class="math notranslate nohighlight">\( \vec{a} \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Proj}_{\vec{a}}(\vec{b}) = \frac{\vec{a}^T \vec{b}}{\vec{a}^T \vec{a}} \vec{a}
+\]</div>
+<div style="text-align: center;">
+    <img src="img1.png" alt="Geometric Implementation" title="Geometric Implementation" />
+</div>
+<p>In this formula:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \vec{a}^T \vec{b} \)</span> represents the dot product of <span class="math notranslate nohighlight">\( \vec{b} \)</span> and <span class="math notranslate nohighlight">\( \vec{a} \)</span>, which measures how much <span class="math notranslate nohighlight">\( \vec{b} \)</span> aligns with <span class="math notranslate nohighlight">\( \vec{a} \)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \vec{a}^T \vec{a} \)</span> represents the magnitude (length) of vector <span class="math notranslate nohighlight">\( \vec{a} \)</span>, ensuring that the projection accounts for the size of <span class="math notranslate nohighlight">\( \vec{a} \)</span>.</p></li>
+<li><p>The result is a scaled version of <span class="math notranslate nohighlight">\( \vec{a} \)</span> that points in the same direction as <span class="math notranslate nohighlight">\( \vec{a} \)</span>, but has a magnitude such that the difference between <span class="math notranslate nohighlight">\( \vec{b} \)</span> and its projection is minimized.</p></li>
+</ul>
+<p>In summary, <strong>projection</strong> is the transformation that gives the closest vector along the direction of <span class="math notranslate nohighlight">\( \vec{a} \)</span> to <span class="math notranslate nohighlight">\( \vec{b} \)</span>, ensuring orthogonality between the residual and <span class="math notranslate nohighlight">\( \vec{a} \)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="c1"># line b</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mi">4</span><span class="p">,</span><span class="mi">1</span> <span class="p">])</span>
+
+<span class="c1"># line a</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span> <span class="p">])</span>
+
+<span class="c1"># beta</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="nd">@b</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="nd">@a</span><span class="p">)</span>
+
+<span class="c1"># draw!</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+
+<span class="c1"># now plot projection line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">beta</span><span class="o">*</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">beta</span><span class="o">*</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;b-$\beta$a&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;square&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">((</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/657c0e330146eec953cf38f20652e63dfa3a3d731de06cf6841c583b50cb396d.png" src="../../_images/657c0e330146eec953cf38f20652e63dfa3a3d731de06cf6841c583b50cb396d.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="projection-derivation">
+<h2>Projection Derivation<a class="headerlink" href="#projection-derivation" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<ol class="arabic simple">
+<li><p><strong>Start with the condition for projection:</strong></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\vec{a}^T (\vec{b} - \vec{a}\beta) = 0
+\]</div>
+<p>This states that the vector <span class="math notranslate nohighlight">\(\vec{b} - \vec{a}\beta\)</span>, which represents the error between <span class="math notranslate nohighlight">\(\vec{b}\)</span>and its projection onto <span class="math notranslate nohighlight">\(\vec{a}\)</span>, must be orthogonal to <span class="math notranslate nohighlight">\(\vec{a}\)</span>.</p>
+<ol class="arabic simple" start="2">
+<li><p><strong>Expand and rearrange:</strong></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\vec{a}^T \vec{b} - \vec{a}^T \vec{a} \beta = 0
+\]</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Solve for <span class="math notranslate nohighlight">\(\beta\)</span>:</strong></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\vec{a}^T \vec{a} \beta = \vec{a}^T \vec{b}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\beta = \frac{\vec{a}^T \vec{b}}{\vec{a}^T \vec{a}}
+\]</div>
+<p>Thus, the scalar <span class="math notranslate nohighlight">\(\beta\)</span> is the factor by which <span class="math notranslate nohighlight">\(\vec{a}\)</span> is scaled to give the projection of <span class="math notranslate nohighlight">\(\vec{b}\)</span> onto <span class="math notranslate nohighlight">\(\vec{a}\)</span>.</p>
+<p>Finally, the <strong>projection</strong> of <span class="math notranslate nohighlight">\(\vec{b}\)</span> onto <span class="math notranslate nohighlight">\(\vec{a}\)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Proj}_{\vec{a}}(\vec{b}) = \beta \vec{a} = \frac{\vec{a}^T \vec{b}}{\vec{a}^T \vec{a}} \vec{a}
+\]</div>
+<p>notice : <span class="math notranslate nohighlight">\(\beta \vec{a}\)</span> is as close as possible to point b withuot living the line a.</p>
+</section>
+<hr class="docutils" />
+<section id="projection-methods-in-mathbb-r-2-vector-to-vector">
+<h2>Projection methods in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>  (vector to vector)<a class="headerlink" href="#projection-methods-in-mathbb-r-2-vector-to-vector" title="Link to this heading">#</a></h2>
+</section>
+<hr class="docutils" />
+<section id="projection-of-vector-vec-b-4-1-onto-vec-a-1-4">
+<h2>Projection of Vector <span class="math notranslate nohighlight">\(\vec{b} = [4, 1]\)</span> onto <span class="math notranslate nohighlight">\(\vec{a} = [1, 4]\)</span><a class="headerlink" href="#projection-of-vector-vec-b-4-1-onto-vec-a-1-4" title="Link to this heading">#</a></h2>
+<section id="method-1-projection-onto-a-line">
+<h3>Method 1: Projection onto a Line<a class="headerlink" href="#method-1-projection-onto-a-line" title="Link to this heading">#</a></h3>
+<p>The projection of <span class="math notranslate nohighlight">\(\vec{b}\)</span> onto a line defined by <span class="math notranslate nohighlight">\(\vec{a}\)</span> is calculated as:
+$<span class="math notranslate nohighlight">\(
+\text{Proj}_L(\vec{b}) = \left( \frac{\vec{b} \cdot \vec{a}}{\vec{a} \cdot \vec{a}} \right) \vec{a}
+\)</span>$</p>
+<p><strong>Steps:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Dot product of <span class="math notranslate nohighlight">\(\vec{b} \cdot \vec{a}\)</span>:</strong>
+$<span class="math notranslate nohighlight">\(
+\vec{b} \cdot \vec{a} = (4)(1) + (1)(4) = 4 + 4 = 8
+\)</span><span class="math notranslate nohighlight">\(
+This step finds the magnitude of the projection of \)</span>\vec{b}<span class="math notranslate nohighlight">\( in the direction of \)</span>\vec{a}$.</p></li>
+<li><p><strong>Dot product of <span class="math notranslate nohighlight">\(\vec{a} \cdot \vec{a}\)</span>:</strong>
+$<span class="math notranslate nohighlight">\(
+\vec{a} \cdot \vec{a} = (1)(1) + (4)(4) = 1 + 16 = 17
+\)</span><span class="math notranslate nohighlight">\(
+This calculates the magnitude of vector \)</span>\vec{a}$, which helps in scaling the projection correctly.</p></li>
+<li><p><strong>Scalar <span class="math notranslate nohighlight">\(\beta\)</span>:</strong>
+$<span class="math notranslate nohighlight">\(
+\beta = \frac{8}{17}
+\)</span><span class="math notranslate nohighlight">\(
+The ratio of the dot products gives the scalar that determines how much of \)</span>\vec{a}<span class="math notranslate nohighlight">\( is in the direction of \)</span>\vec{b}$.</p></li>
+<li><p><strong>Final projection:</strong>
+$<span class="math notranslate nohighlight">\(
+\text{Proj}_a(\vec{b}) = \frac{8}{17} \times [1, 4] = \left[\frac{8}{17}, \frac{32}{17}\right] \approx [0.47, 1.88]
+\)</span><span class="math notranslate nohighlight">\(
+The vector \)</span>\vec{a}<span class="math notranslate nohighlight">\( is scaled by \)</span>\beta$ to get the projection.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="method-2-projection-using-a-unit-vector">
+<h3>Method 2: Projection Using a Unit Vector<a class="headerlink" href="#method-2-projection-using-a-unit-vector" title="Link to this heading">#</a></h3>
+<p>In this method, we first normalize <span class="math notranslate nohighlight">\(\vec{a}\)</span> to create a unit vector, then calculate the projection.</p>
+<p><strong>Steps:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Normalize <span class="math notranslate nohighlight">\(\vec{a}\)</span>:</strong>
+$<span class="math notranslate nohighlight">\(
+\|\vec{a}\| = \sqrt{(1)^2 + (4)^2} = \sqrt{17}, \quad \hat{u} = \frac{1}{\sqrt{17}} [1, 4]
+\)</span><span class="math notranslate nohighlight">\(
+This step ensures that the projection is independent of the magnitude of \)</span>\vec{a}$, focusing only on the direction.</p></li>
+<li><p><strong>Dot product of <span class="math notranslate nohighlight">\(\vec{b} \cdot \hat{u}\)</span>:</strong>
+$<span class="math notranslate nohighlight">\(
+\vec{b} \cdot \hat{u} = 4 \times \frac{1}{\sqrt{17}} + 1 \times \frac{4}{\sqrt{17}} = \frac{8}{\sqrt{17}}
+\)</span><span class="math notranslate nohighlight">\(
+This calculates the component of \)</span>\vec{b}<span class="math notranslate nohighlight">\( in the direction of the unit vector \)</span>\hat{u}$.</p></li>
+<li><p><strong>Final projection:</strong>
+$<span class="math notranslate nohighlight">\(
+\text{Proj}_a(\vec{b}) = \frac{8}{\sqrt{17}} \times \left[\frac{1}{\sqrt{17}}, \frac{4}{\sqrt{17}}\right] = \left[\frac{8}{17}, \frac{32}{17}\right] \approx [0.47, 1.88]
+\)</span><span class="math notranslate nohighlight">\(
+The projection is obtained by scaling the unit vector \)</span>\hat{u}$.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="method-3-projection-as-a-linear-transformation">
+<h3>Method 3: Projection as a Linear Transformation<a class="headerlink" href="#method-3-projection-as-a-linear-transformation" title="Link to this heading">#</a></h3>
+<p>Since projections are linear transformations, they can also be expressed as a matrix-vector multiplication.</p>
+<p><strong>Steps:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Unit vector <span class="math notranslate nohighlight">\(\hat{u}\)</span>:</strong>
+From Method 2, the unit vector is:
+$<span class="math notranslate nohighlight">\(
+\hat{u} = \left[\frac{1}{\sqrt{17}}, \frac{4}{\sqrt{17}}\right]
+\)</span>$</p></li>
+<li><p><strong>Construct the projection matrix <span class="math notranslate nohighlight">\(A\)</span>:</strong>
+$<span class="math notranslate nohighlight">\(
+A = \begin{bmatrix} u_1^2 &amp; u_1 u_2 \\ u_1 u_2 &amp; u_2^2 \end{bmatrix} = \begin{bmatrix} \frac{1}{17} &amp; \frac{4}{17} \\ \frac{4}{17} &amp; \frac{16}{17} \end{bmatrix}
+\)</span><span class="math notranslate nohighlight">\(
+This matrix represents the transformation that projects any vector onto the line defined by \)</span>\hat{u}$.</p></li>
+<li><p><strong>Matrix multiplication:</strong>
+$<span class="math notranslate nohighlight">\(
+A \vec{b} = \begin{bmatrix} \frac{1}{17} &amp; \frac{4}{17} \\ \frac{4}{17} &amp; \frac{16}{17} \end{bmatrix} \begin{bmatrix} 4 \\ 1 \end{bmatrix} = \begin{bmatrix} \frac{8}{17} \\ \frac{32}{17} \end{bmatrix} \approx [0.47, 1.88]
+\)</span><span class="math notranslate nohighlight">\(
+The projection is found by multiplying the matrix \)</span>A<span class="math notranslate nohighlight">\( by \)</span>\vec{b}$.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="final-result">
+<h3>Final Result<a class="headerlink" href="#final-result" title="Link to this heading">#</a></h3>
+<p>For all three methods, the projection of <span class="math notranslate nohighlight">\(\vec{b} = [4, 1]\)</span> onto <span class="math notranslate nohighlight">\(\vec{a} = [1, 4]\)</span> is:
+$<span class="math notranslate nohighlight">\(
+\text{Proj}_a(\vec{b}) = \left[\frac{8}{17}, \frac{32}{17}\right] \approx [0.47, 1.88]
+\)</span>$</p>
+<p>These methods illustrate different approaches to the same problem, each confirming the correctness of the projection result.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="projection-methods-in-mathbb-r-2-implementation-in-python">
+<h2>Projection methods in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> implementation in python<a class="headerlink" href="#projection-methods-in-mathbb-r-2-implementation-in-python" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Method1</span>
+<span class="k">def</span> <span class="nf">projection_onto_line</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="n">dot_product_b_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+    <span class="n">dot_product_a_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">dot_product_b_a</span> <span class="o">/</span> <span class="n">dot_product_a_a</span>
+    <span class="n">proj</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">a</span>
+    <span class="k">return</span> <span class="n">proj</span>
+
+<span class="c1"># Merhod2</span>
+<span class="k">def</span> <span class="nf">projection_using_unit_vector</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="n">norm_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">u_hat</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">norm_a</span>
+    <span class="n">dot_product_b_u_hat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">u_hat</span><span class="p">)</span>
+    <span class="n">proj</span> <span class="o">=</span> <span class="n">dot_product_b_u_hat</span> <span class="o">*</span> <span class="n">u_hat</span>
+    <span class="k">return</span> <span class="n">proj</span>
+
+<span class="c1"># Method3</span>
+<span class="k">def</span> <span class="nf">projection_as_matrix_product</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="n">norm_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">u_hat</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">norm_a</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">u_hat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">u_hat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">u_hat</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+                  <span class="p">[</span><span class="n">u_hat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">u_hat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u_hat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">]])</span>
+    <span class="n">proj</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">b</span>
+    <span class="k">return</span> <span class="n">proj</span>
+
+<span class="k">def</span> <span class="nf">plot_projection</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">proj</span><span class="p">,</span> <span class="n">method_name</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+    <span class="c1"># Plot original vectors and projection</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Vector b&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Vector a&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">proj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">proj</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Projection (</span><span class="si">{</span><span class="n">method_name</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+    
+    <span class="c1"># Plot projection line</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">proj</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">proj</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;b to Projection&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Set limits and grid</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">,</span> <span class="n">adjustable</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Projection of Vector b onto Vector a - </span><span class="si">{</span><span class="n">method_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Define the vectors</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># Vector b</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>  <span class="c1"># Vector a</span>
+
+<span class="c1"># Calculate projections</span>
+<span class="n">proj_line</span> <span class="o">=</span> <span class="n">projection_onto_line</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<span class="n">proj_unit_vector</span> <span class="o">=</span> <span class="n">projection_using_unit_vector</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<span class="n">proj_matrix_product</span> <span class="o">=</span> <span class="n">projection_as_matrix_product</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="c1"># Create a figure with subplots in one row</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plotting the projections</span>
+<span class="n">plot_projection</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">proj_line</span><span class="p">,</span> <span class="s2">&quot;Line Projection&quot;</span><span class="p">,</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plot_projection</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">proj_unit_vector</span><span class="p">,</span> <span class="s2">&quot;Unit Vector Projection&quot;</span><span class="p">,</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plot_projection</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">proj_matrix_product</span><span class="p">,</span> <span class="s2">&quot;Matrix-Vector Product Projection&quot;</span><span class="p">,</span> <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Method 1: </span><span class="si">{</span><span class="n">proj_line</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Method 2: </span><span class="si">{</span><span class="n">proj_unit_vector</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Method 3: </span><span class="si">{</span><span class="n">proj_matrix_product</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/c27327c5568fc08f508a140e95778adbb6d5da6000b9a62168012bde3887132a.png" src="../../_images/c27327c5568fc08f508a140e95778adbb6d5da6000b9a62168012bde3887132a.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Method 1: [0.47 1.88]
+Method 2: [0.47 1.88]
+Method 3: [0.47 1.88]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="projection-methods-in-mathbb-r-3-vector-to-vector">
+<h2>Projection methods in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> (Vector to Vector)<a class="headerlink" href="#projection-methods-in-mathbb-r-3-vector-to-vector" title="Link to this heading">#</a></h2>
+</section>
+<hr class="docutils" />
+<section id="projection-of-vector-vec-b-4-1-2-onto-vec-a-1-4-3">
+<h2>Projection of Vector <span class="math notranslate nohighlight">\(\vec{b} = [4, 1, 2]\)</span> onto <span class="math notranslate nohighlight">\(\vec{a} = [1, 4, 3]\)</span><a class="headerlink" href="#projection-of-vector-vec-b-4-1-2-onto-vec-a-1-4-3" title="Link to this heading">#</a></h2>
+</section>
+<section id="id1">
+<h2>Method 1: Projection onto a Line<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>The projection of <span class="math notranslate nohighlight">\(\vec{b}\)</span> onto <span class="math notranslate nohighlight">\(\vec{a}\)</span> is calculated as:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Proj}_a(\vec{b}) = \left(\frac{\vec{b} \cdot \vec{a}}{\vec{a} \cdot \vec{a}}\right) \vec{a}
+\]</div>
+<section id="steps">
+<h3>Steps:<a class="headerlink" href="#steps" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Dot product <span class="math notranslate nohighlight">\(\vec{b} \cdot \vec{a}\)</span></strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\vec{b} \cdot \vec{a} = (4)(1) + (1)(4) + (2)(3) = 4 + 4 + 6 = 14
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Dot product $<span class="math notranslate nohighlight">\(\vec{a} \cdot \vec{a}\)</span>$</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\vec{a} \cdot \vec{a} = (1)(1) + (4)(4) + (3)(3) = 1 + 16 + 9 = 26
+\]</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Calculate scalar <span class="math notranslate nohighlight">\(\beta\)</span></strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\beta = \frac{14}{26} = \frac{7}{13}
+\]</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Final projection</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\text{Proj}_a(\vec{b}) = \frac{7}{13} \cdot [1, 4, 3] = \left[\frac{7}{13}, \frac{28}{13}, \frac{21}{13}\right] \approx [0.54, 2.15, 1.62]
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id2">
+<h2>Method 2: Projection Using a Unit Vector<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Normalize <span class="math notranslate nohighlight">\(\vec{a}\)</span></strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\|\vec{a}\| = \sqrt{(1)^2 + (4)^2 + (3)^2} = \sqrt{1 + 16 + 9} = \sqrt{26}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\hat{u} = \frac{1}{\sqrt{26}}[1, 4, 3]
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Dot product <span class="math notranslate nohighlight">\(\vec{b} \cdot \hat{u}\)</span></strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\vec{b} \cdot \hat{u} = 4 \cdot \frac{1}{\sqrt{26}} + 1 \cdot \frac{4}{\sqrt{26}} + 2 \cdot \frac{3}{\sqrt{26}} = \frac{4 + 4 + 6}{\sqrt{26}} = \frac{14}{\sqrt{26}}
+\]</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Final projection</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\text{Proj}_a(\vec{b}) = \left(\frac{14}{\sqrt{26}}\right) \cdot \left(\frac{1}{\sqrt{26}}, \frac{4}{\sqrt{26}}, \frac{3}{\sqrt{26}}\right) = \left[\frac{14}{26}, \frac{56}{26}, \frac{42}{26}\right] = \left[\frac{7}{13}, \frac{28}{13}, \frac{21}{13}\right] \approx [0.54, 2.15, 1.62]
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="method-3-projection-as-a-matrix-vector-product">
+<h2>Method 3: Projection as a Matrix-Vector Product<a class="headerlink" href="#method-3-projection-as-a-matrix-vector-product" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Unit vector <span class="math notranslate nohighlight">\(\hat{u}\)</span></strong> (as calculated earlier):</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\hat{u} = \left[\frac{1}{\sqrt{26}}, \frac{4}{\sqrt{26}}, \frac{3}{\sqrt{26}}\right]
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Construct the projection matrix ( A )</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A = \begin{bmatrix} 
+u_1^2 &amp; u_1 u_2 &amp; u_1 u_3 \\ 
+u_1 u_2 &amp; u_2^2 &amp; u_2 u_3 \\ 
+u_1 u_3 &amp; u_2 u_3 &amp; u_3^2 
+\end{bmatrix} 
+ =\begin{bmatrix}
+\left(\frac{1}{\sqrt{26}}\right)^2 &amp; \left(\frac{1}{\sqrt{26}}\right)\left(\frac{4}{\sqrt{26}}\right) &amp; \left(\frac{1}{\sqrt{26}}\right)\left(\frac{3}{\sqrt{26}}\right) \\
+\left(\frac{4}{\sqrt{26}}\right)\left(\frac{1}{\sqrt{26}}\right) &amp; \left(\frac{4}{\sqrt{26}}\right)^2 &amp; \left(\frac{4}{\sqrt{26}}\right)\left(\frac{3}{\sqrt{26}}\right) \\
+\left(\frac{3}{\sqrt{26}}\right)\left(\frac{1}{\sqrt{26}}\right) &amp; \left(\frac{3}{\sqrt{26}}\right)\left(\frac{4}{\sqrt{26}}\right) &amp; \left(\frac{3}{\sqrt{26}}\right)^2
+\end{bmatrix}
+\end{split}\]</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Matrix multiplication</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A \vec{b} = A \begin{bmatrix} 4 \\ 1 \\ 2 \end{bmatrix} = \begin{bmatrix}
+\frac{4 + 4 + 6}{26} \\
+\frac{16 + 16 + 24}{26} \\
+\frac{12 + 12 + 18}{26}
+\end{bmatrix} = \begin{bmatrix}
+\frac{14}{26} \\
+\frac{56}{26} \\
+\frac{42}{26}
+\end{bmatrix} = \begin{bmatrix}
+\frac{7}{13} \\
+\frac{28}{13} \\
+\frac{21}{13}
+\end{bmatrix} \approx [0.54, 2.15, 1.62]
+\end{split}\]</div>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h2>Final Result<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>For all three methods, the projection of <span class="math notranslate nohighlight">\(\vec{b} = [4, 1, 2]\)</span> onto <span class="math notranslate nohighlight">\(\vec{a} = [1, 4, 3]\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Proj}_a(\vec{b}) = \left[\frac{7}{13}, \frac{28}{13}, \frac{21}{13}\right] \approx [0.54, 2.15, 1.62]
+\]</div>
+<p>These methods confirm the correctness of the projection result in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>.</p>
+</section>
+<hr class="docutils" />
+<section id="projection-methods-in-mathbb-r-3-implementation-in-python-vector-to-vector">
+<h2>Projection methods in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> implementation in python (Vector to Vector)<a class="headerlink" href="#projection-methods-in-mathbb-r-3-implementation-in-python-vector-to-vector" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+
+<span class="c1"># Define the vectors</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="c1"># Method 1: Projection onto a Line</span>
+<span class="k">def</span> <span class="nf">projection_line</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span> <span class="o">*</span> <span class="n">a</span>
+
+<span class="n">proj_line</span> <span class="o">=</span> <span class="n">projection_line</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="c1"># Method 2: Projection Using a Unit Vector</span>
+<span class="k">def</span> <span class="nf">projection_unit</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>  <span class="c1"># Normalize a</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span>
+
+<span class="n">proj_unit</span> <span class="o">=</span> <span class="n">projection_unit</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="c1"># Method 3: Projection as a Matrix-Vector Product</span>
+<span class="k">def</span> <span class="nf">projection_matrix</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>  <span class="c1"># Normalize a</span>
+    <span class="n">projection_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>  <span class="c1"># Outer product to form the matrix</span>
+    <span class="k">return</span> <span class="n">projection_matrix</span> <span class="o">@</span> <span class="n">b</span>  <span class="c1"># Matrix-vector multiplication</span>
+
+<span class="n">proj_matrix</span> <span class="o">=</span> <span class="n">projection_matrix</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="c1"># Prepare the figure</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Plot Method 1: Direct Projection</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">131</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Vector b&#39;</span><span class="p">,</span> <span class="n">arrow_length_ratio</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Vector a&#39;</span><span class="p">,</span> <span class="n">arrow_length_ratio</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">proj_line</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">proj_line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">proj_line</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Projection&#39;</span><span class="p">,</span> <span class="n">arrow_length_ratio</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="c1"># Dashed line from b to the projection point</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">proj_line</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">proj_line</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">proj_line</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Line to Projection&#39;</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Projection onto a Line&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X axis&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y axis&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Z axis&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Plot Method 2: Using a Unit Vector</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">132</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Vector b&#39;</span><span class="p">,</span> <span class="n">arrow_length_ratio</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Vector a&#39;</span><span class="p">,</span> <span class="n">arrow_length_ratio</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">proj_unit</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">proj_unit</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">proj_unit</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Projection&#39;</span><span class="p">,</span> <span class="n">arrow_length_ratio</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="c1"># Dashed line from b to the projection point</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">proj_unit</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">proj_unit</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">proj_unit</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Line to Projection&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Projection using a Unit Vector&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X axis&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y axis&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Z axis&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Plot Method 3: Matrix-Vector Product</span>
+<span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">133</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Vector b&#39;</span><span class="p">,</span> <span class="n">arrow_length_ratio</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Vector a&#39;</span><span class="p">,</span> <span class="n">arrow_length_ratio</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">proj_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">proj_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">proj_matrix</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Projection&#39;</span><span class="p">,</span> <span class="n">arrow_length_ratio</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="c1"># Dashed line from b to the projection point</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">proj_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">proj_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">proj_matrix</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Line to Projection&#39;</span><span class="p">)</span>
+
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Projection using Matrix-Vector Product&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X axis&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y axis&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Z axis&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Show the plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># Define the vectors</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;plotly&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="definition-of-projection-in-mathbb-r-n">
+<h2>Definition of Projection in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span><a class="headerlink" href="#definition-of-projection-in-mathbb-r-n" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<p>The <strong>projection of a vector</strong> <span class="math notranslate nohighlight">\( \vec{b} \in \mathbb{R}^n \)</span> onto the <strong>column space</strong> of a matrix <span class="math notranslate nohighlight">\( A \in \mathbb{R}^{n \times m} \)</span> is the vector in the column space of <span class="math notranslate nohighlight">\( A \)</span> that is closest to <span class="math notranslate nohighlight">\( \vec{b} \)</span> in terms of Euclidean distance. This projection minimizes the difference between <span class="math notranslate nohighlight">\( \vec{b} \)</span> and the vector <span class="math notranslate nohighlight">\( A \vec{x} \)</span>, where <span class="math notranslate nohighlight">\( \vec{x} \in \mathbb{R}^m \)</span> is the solution to the least squares problem.</p>
+<section id="mathematical-expression">
+<h3><strong>Mathematical Expression:</strong><a class="headerlink" href="#mathematical-expression" title="Link to this heading">#</a></h3>
+<p>The projection of <span class="math notranslate nohighlight">\( \vec{b} \)</span> onto the column space of <span class="math notranslate nohighlight">\( A \)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Proj}_A(\vec{b}) = A (A^T A)^{-1} A^T \vec{b}
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( A^T A \)</span> is the <strong>Gram matrix</strong>, representing the inner products of the columns of <span class="math notranslate nohighlight">\( A \)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\( (A^T A)^{-1} \)</span> is the <strong>inverse</strong> of the Gram matrix (if it exists),</p></li>
+<li><p><span class="math notranslate nohighlight">\( A^T \vec{b} \)</span> is the <strong>projection of <span class="math notranslate nohighlight">\( \vec{b} \)</span></strong> onto the rows of <span class="math notranslate nohighlight">\( A \)</span>.</p></li>
+</ul>
+</section>
+<section id="geometric-interpretation">
+<h3><strong>Geometric Interpretation:</strong><a class="headerlink" href="#geometric-interpretation" title="Link to this heading">#</a></h3>
+<p>The resulting vector <span class="math notranslate nohighlight">\( \text{Proj}_A(\vec{b}) \)</span> lies in the column space of <span class="math notranslate nohighlight">\( A \)</span>, meaning it can be expressed as a <strong>linear combination</strong> of the columns of <span class="math notranslate nohighlight">\( A \)</span>. This projection ensures that the <strong>residual</strong> vector <span class="math notranslate nohighlight">\( \vec{b} - \text{Proj}_A(\vec{b}) \)</span> is orthogonal to the column space of <span class="math notranslate nohighlight">\( A \)</span>.</p>
+</section>
+<section id="key-characteristics">
+<h3><strong>Key Characteristics:</strong><a class="headerlink" href="#key-characteristics" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The projection <strong>minimizes the distance</strong> between <span class="math notranslate nohighlight">\( \vec{b} \)</span> and the column space of <span class="math notranslate nohighlight">\( A \)</span>.</p></li>
+<li><p>The <strong>residual</strong> <span class="math notranslate nohighlight">\( \vec{b} - A \vec{x} \)</span> is <strong>orthogonal</strong> to the column space of <span class="math notranslate nohighlight">\( A \)</span>.</p></li>
+<li><p>This method is used in solving <strong>least squares problems</strong>, where the system <span class="math notranslate nohighlight">\( A \vec{x} = \vec{b} \)</span> may have no exact solution due to being overdetermined (more equations than unknowns).</p></li>
+</ul>
+</section>
+<section id="applications">
+<h3><strong>Applications:</strong><a class="headerlink" href="#applications" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Least squares regression</strong>, fitting a model to data points.</p></li>
+<li><p><strong>Dimensionality reduction</strong>, projecting high-dimensional data into a lower-dimensional subspace.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR\StudentEffort"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-projection-in-mathbb-r-2">Definition of Projection in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-derivation">Projection Derivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-methods-in-mathbb-r-2-vector-to-vector">Projection methods in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>  (vector to vector)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-of-vector-vec-b-4-1-onto-vec-a-1-4">Projection of Vector <span class="math notranslate nohighlight">\(\vec{b} = [4, 1]\)</span> onto <span class="math notranslate nohighlight">\(\vec{a} = [1, 4]\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-1-projection-onto-a-line">Method 1: Projection onto a Line</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-2-projection-using-a-unit-vector">Method 2: Projection Using a Unit Vector</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-3-projection-as-a-linear-transformation">Method 3: Projection as a Linear Transformation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-result">Final Result</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-methods-in-mathbb-r-2-implementation-in-python">Projection methods in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> implementation in python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-methods-in-mathbb-r-3-vector-to-vector">Projection methods in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> (Vector to Vector)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-of-vector-vec-b-4-1-2-onto-vec-a-1-4-3">Projection of Vector <span class="math notranslate nohighlight">\(\vec{b} = [4, 1, 2]\)</span> onto <span class="math notranslate nohighlight">\(\vec{a} = [1, 4, 3]\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Method 1: Projection onto a Line</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps">Steps:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Method 2: Projection Using a Unit Vector</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#method-3-projection-as-a-matrix-vector-product">Method 3: Projection as a Matrix-Vector Product</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Final Result</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-methods-in-mathbb-r-3-implementation-in-python-vector-to-vector">Projection methods in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> implementation in python (Vector to Vector)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-projection-in-mathbb-r-n">Definition of Projection in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-expression"><strong>Mathematical Expression:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-interpretation"><strong>Geometric Interpretation:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-characteristics"><strong>Key Characteristics:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications"><strong>Applications:</strong></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
