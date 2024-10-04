@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
   
@@ -62,7 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'PR/StudentEffort/Whyprojection1';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Supplementary Documents" href="../SupplementaryDocuments/Supplementary1.html" />
+    <link rel="next" title="Star Coordinates" href="Star%20Coordinates/Star_Coordinates.html" />
     <link rel="prev" title="Gaussian Mixture Model" href="../BayesEstimation/GMM.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -233,6 +233,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Student Effort</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">What is Projection?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Star%20Coordinates/Star_Coordinates.html">Star Coordinates</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary</span></p>
 <ul class="nav bd-sidenav">
@@ -579,86 +580,106 @@ document.write(`
 <h2>Projection of Vector <span class="math notranslate nohighlight">\(\vec{b} = [4, 1]\)</span> onto <span class="math notranslate nohighlight">\(\vec{a} = [1, 4]\)</span><a class="headerlink" href="#projection-of-vector-vec-b-4-1-onto-vec-a-1-4" title="Link to this heading">#</a></h2>
 <section id="method-1-projection-onto-a-line">
 <h3>Method 1: Projection onto a Line<a class="headerlink" href="#method-1-projection-onto-a-line" title="Link to this heading">#</a></h3>
-<p>The projection of <span class="math notranslate nohighlight">\(\vec{b}\)</span> onto a line defined by <span class="math notranslate nohighlight">\(\vec{a}\)</span> is calculated as:
-$<span class="math notranslate nohighlight">\(
-\text{Proj}_L(\vec{b}) = \left( \frac{\vec{b} \cdot \vec{a}}{\vec{a} \cdot \vec{a}} \right) \vec{a}
-\)</span>$</p>
+<p>The projection of <span class="math notranslate nohighlight">\(\vec{b}\)</span> onto a line defined by <span class="math notranslate nohighlight">\(\vec{a}\)</span> is calculated as:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Proj}_a(\vec{b}) = \left( \frac{\vec{b} \cdot \vec{a}}{\vec{a} \cdot \vec{a}} \right) \vec{a}
+\]</div>
 <p><strong>Steps:</strong></p>
-<ol class="arabic simple">
-<li><p><strong>Dot product of <span class="math notranslate nohighlight">\(\vec{b} \cdot \vec{a}\)</span>:</strong>
-$<span class="math notranslate nohighlight">\(
-\vec{b} \cdot \vec{a} = (4)(1) + (1)(4) = 4 + 4 = 8
-\)</span><span class="math notranslate nohighlight">\(
-This step finds the magnitude of the projection of \)</span>\vec{b}<span class="math notranslate nohighlight">\( in the direction of \)</span>\vec{a}$.</p></li>
-<li><p><strong>Dot product of <span class="math notranslate nohighlight">\(\vec{a} \cdot \vec{a}\)</span>:</strong>
-$<span class="math notranslate nohighlight">\(
-\vec{a} \cdot \vec{a} = (1)(1) + (4)(4) = 1 + 16 = 17
-\)</span><span class="math notranslate nohighlight">\(
-This calculates the magnitude of vector \)</span>\vec{a}$, which helps in scaling the projection correctly.</p></li>
-<li><p><strong>Scalar <span class="math notranslate nohighlight">\(\beta\)</span>:</strong>
-$<span class="math notranslate nohighlight">\(
-\beta = \frac{8}{17}
-\)</span><span class="math notranslate nohighlight">\(
-The ratio of the dot products gives the scalar that determines how much of \)</span>\vec{a}<span class="math notranslate nohighlight">\( is in the direction of \)</span>\vec{b}$.</p></li>
-<li><p><strong>Final projection:</strong>
-$<span class="math notranslate nohighlight">\(
-\text{Proj}_a(\vec{b}) = \frac{8}{17} \times [1, 4] = \left[\frac{8}{17}, \frac{32}{17}\right] \approx [0.47, 1.88]
-\)</span><span class="math notranslate nohighlight">\(
-The vector \)</span>\vec{a}<span class="math notranslate nohighlight">\( is scaled by \)</span>\beta$ to get the projection.</p></li>
+<ol class="arabic">
+<li><p><strong>Dot product of <span class="math notranslate nohighlight">\(\vec{b} \cdot \vec{a}\)</span>:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+   \vec{b} \cdot \vec{a} = (4)(1) + (1)(4) = 4 + 4 = 8
+   \]</div>
+<p>This step finds the magnitude of the projection of <span class="math notranslate nohighlight">\(\vec{b}\)</span> in the direction of <span class="math notranslate nohighlight">\(\vec{a}\)</span>.</p>
+</li>
+<li><p><strong>Dot product of <span class="math notranslate nohighlight">\(\vec{a} \cdot \vec{a}\)</span>:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+   \vec{a} \cdot \vec{a} = (1)(1) + (4)(4) = 1 + 16 = 17
+   \]</div>
+<p>This calculates the magnitude of vector <span class="math notranslate nohighlight">\(\vec{a}\)</span>, which helps in scaling the projection correctly.</p>
+</li>
+<li><p><strong>Scalar <span class="math notranslate nohighlight">\(\beta\)</span>:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+   \beta = \frac{8}{17}
+   \]</div>
+<p>The ratio of the dot products gives the scalar that determines how much of <span class="math notranslate nohighlight">\(\vec{a}\)</span> is in the direction of <span class="math notranslate nohighlight">\(\vec{b}\)</span>.</p>
+</li>
+<li><p><strong>Final projection:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+   \text{Proj}_a(\vec{b}) = \frac{8}{17} \times [1, 4] = \left[\frac{8}{17}, \frac{32}{17}\right] \approx [0.47, 1.88]
+   \]</div>
+<p>The vector <span class="math notranslate nohighlight">\(\vec{a}\)</span> is scaled by <span class="math notranslate nohighlight">\(\beta\)</span> to get the projection.</p>
+</li>
 </ol>
 </section>
 <section id="method-2-projection-using-a-unit-vector">
 <h3>Method 2: Projection Using a Unit Vector<a class="headerlink" href="#method-2-projection-using-a-unit-vector" title="Link to this heading">#</a></h3>
 <p>In this method, we first normalize <span class="math notranslate nohighlight">\(\vec{a}\)</span> to create a unit vector, then calculate the projection.</p>
 <p><strong>Steps:</strong></p>
-<ol class="arabic simple">
-<li><p><strong>Normalize <span class="math notranslate nohighlight">\(\vec{a}\)</span>:</strong>
-$<span class="math notranslate nohighlight">\(
-\|\vec{a}\| = \sqrt{(1)^2 + (4)^2} = \sqrt{17}, \quad \hat{u} = \frac{1}{\sqrt{17}} [1, 4]
-\)</span><span class="math notranslate nohighlight">\(
-This step ensures that the projection is independent of the magnitude of \)</span>\vec{a}$, focusing only on the direction.</p></li>
-<li><p><strong>Dot product of <span class="math notranslate nohighlight">\(\vec{b} \cdot \hat{u}\)</span>:</strong>
-$<span class="math notranslate nohighlight">\(
-\vec{b} \cdot \hat{u} = 4 \times \frac{1}{\sqrt{17}} + 1 \times \frac{4}{\sqrt{17}} = \frac{8}{\sqrt{17}}
-\)</span><span class="math notranslate nohighlight">\(
-This calculates the component of \)</span>\vec{b}<span class="math notranslate nohighlight">\( in the direction of the unit vector \)</span>\hat{u}$.</p></li>
-<li><p><strong>Final projection:</strong>
-$<span class="math notranslate nohighlight">\(
-\text{Proj}_a(\vec{b}) = \frac{8}{\sqrt{17}} \times \left[\frac{1}{\sqrt{17}}, \frac{4}{\sqrt{17}}\right] = \left[\frac{8}{17}, \frac{32}{17}\right] \approx [0.47, 1.88]
-\)</span><span class="math notranslate nohighlight">\(
-The projection is obtained by scaling the unit vector \)</span>\hat{u}$.</p></li>
+<ol class="arabic">
+<li><p><strong>Normalize <span class="math notranslate nohighlight">\(\vec{a}\)</span>:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+   \|\vec{a}\| = \sqrt{(1)^2 + (4)^2} = \sqrt{17}, \quad \hat{u} = \frac{1}{\sqrt{17}} [1, 4]
+   \]</div>
+<p>This step ensures that the projection is independent of the magnitude of <span class="math notranslate nohighlight">\(\vec{a}\)</span>, focusing only on the direction.</p>
+</li>
+<li><p><strong>Dot product of <span class="math notranslate nohighlight">\(\vec{b} \cdot \hat{u}\)</span>:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+   \vec{b} \cdot \hat{u} = 4 \times \frac{1}{\sqrt{17}} + 1 \times \frac{4}{\sqrt{17}} = \frac{8}{\sqrt{17}}
+   \]</div>
+<p>This calculates the component of <span class="math notranslate nohighlight">\(\vec{b}\)</span> in the direction of the unit vector <span class="math notranslate nohighlight">\(\hat{u}\)</span>.</p>
+</li>
+<li><p><strong>Final projection:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+   \text{Proj}_a(\vec{b}) = \frac{8}{\sqrt{17}} \times \left[\frac{1}{\sqrt{17}}, \frac{4}{\sqrt{17}}\right] = \left[\frac{8}{17}, \frac{32}{17}\right] \approx [0.47, 1.88]
+   \]</div>
+<p>The projection is obtained by scaling the unit vector <span class="math notranslate nohighlight">\(\hat{u}\)</span>.</p>
+</li>
 </ol>
 </section>
-<hr class="docutils" />
 <section id="method-3-projection-as-a-linear-transformation">
 <h3>Method 3: Projection as a Linear Transformation<a class="headerlink" href="#method-3-projection-as-a-linear-transformation" title="Link to this heading">#</a></h3>
 <p>Since projections are linear transformations, they can also be expressed as a matrix-vector multiplication.</p>
 <p><strong>Steps:</strong></p>
-<ol class="arabic simple">
+<ol class="arabic">
 <li><p><strong>Unit vector <span class="math notranslate nohighlight">\(\hat{u}\)</span>:</strong>
-From Method 2, the unit vector is:
-$<span class="math notranslate nohighlight">\(
-\hat{u} = \left[\frac{1}{\sqrt{17}}, \frac{4}{\sqrt{17}}\right]
-\)</span>$</p></li>
-<li><p><strong>Construct the projection matrix <span class="math notranslate nohighlight">\(A\)</span>:</strong>
-$<span class="math notranslate nohighlight">\(
-A = \begin{bmatrix} u_1^2 &amp; u_1 u_2 \\ u_1 u_2 &amp; u_2^2 \end{bmatrix} = \begin{bmatrix} \frac{1}{17} &amp; \frac{4}{17} \\ \frac{4}{17} &amp; \frac{16}{17} \end{bmatrix}
-\)</span><span class="math notranslate nohighlight">\(
-This matrix represents the transformation that projects any vector onto the line defined by \)</span>\hat{u}$.</p></li>
-<li><p><strong>Matrix multiplication:</strong>
-$<span class="math notranslate nohighlight">\(
-A \vec{b} = \begin{bmatrix} \frac{1}{17} &amp; \frac{4}{17} \\ \frac{4}{17} &amp; \frac{16}{17} \end{bmatrix} \begin{bmatrix} 4 \\ 1 \end{bmatrix} = \begin{bmatrix} \frac{8}{17} \\ \frac{32}{17} \end{bmatrix} \approx [0.47, 1.88]
-\)</span><span class="math notranslate nohighlight">\(
-The projection is found by multiplying the matrix \)</span>A<span class="math notranslate nohighlight">\( by \)</span>\vec{b}$.</p></li>
+From Method 2, the unit vector is:</p>
+<div class="math notranslate nohighlight">
+\[
+   \hat{u} = \left[\frac{1}{\sqrt{17}}, \frac{4}{\sqrt{17}}\right]
+   \]</div>
+</li>
+<li><p><strong>Construct the projection matrix <span class="math notranslate nohighlight">\(A\)</span>:</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   A = \begin{bmatrix} u_1^2 &amp; u_1 u_2 \\ u_1 u_2 &amp; u_2^2 \end{bmatrix} = \begin{bmatrix} \frac{1}{17} &amp; \frac{4}{17} \\ \frac{4}{17} &amp; \frac{16}{17} \end{bmatrix}
+   \end{split}\]</div>
+<p>This matrix represents the transformation that projects any vector onto the line defined by <span class="math notranslate nohighlight">\(\hat{u}\)</span>.</p>
+</li>
+<li><p><strong>Matrix multiplication:</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   A \vec{b} = \begin{bmatrix} \frac{1}{17} &amp; \frac{4}{17} \\ \frac{4}{17} &amp; \frac{16}{17} \end{bmatrix} \begin{bmatrix} 4 \\ 1 \end{bmatrix} = \begin{bmatrix} \frac{8}{17} \\ \frac{32}{17} \end{bmatrix} \approx [0.47, 1.88]
+   \end{split}\]</div>
+<p>The projection is found by multiplying the matrix <span class="math notranslate nohighlight">\(A\)</span> by <span class="math notranslate nohighlight">\(\vec{b}\)</span>.</p>
+</li>
 </ol>
 </section>
-<hr class="docutils" />
 <section id="final-result">
 <h3>Final Result<a class="headerlink" href="#final-result" title="Link to this heading">#</a></h3>
-<p>For all three methods, the projection of <span class="math notranslate nohighlight">\(\vec{b} = [4, 1]\)</span> onto <span class="math notranslate nohighlight">\(\vec{a} = [1, 4]\)</span> is:
-$<span class="math notranslate nohighlight">\(
+<p>For all three methods, the projection of <span class="math notranslate nohighlight">\(\vec{b} = [4, 1]\)</span> onto <span class="math notranslate nohighlight">\(\vec{a} = [1, 4]\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
 \text{Proj}_a(\vec{b}) = \left[\frac{8}{17}, \frac{32}{17}\right] \approx [0.47, 1.88]
-\)</span>$</p>
+\]</div>
 <p>These methods illustrate different approaches to the same problem, each confirming the correctness of the projection result.</p>
 </section>
 </section>
@@ -796,7 +817,6 @@ Method 3: [0.47 1.88]
 \]</div>
 </section>
 </section>
-<hr class="docutils" />
 <section id="id2">
 <h2>Method 2: Projection Using a Unit Vector<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
@@ -886,7 +906,6 @@ A \vec{b} = A \begin{bmatrix} 4 \\ 1 \\ 2 \end{bmatrix} = \begin{bmatrix}
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
-<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
 
 <span class="c1"># Define the vectors</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
@@ -977,18 +996,7 @@ A \vec{b} = A \begin{bmatrix} 4 \\ 1 \\ 2 \end{bmatrix} = \begin{bmatrix}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># Define the vectors</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;plotly&#39;
-</pre></div>
-</div>
+<img alt="../../_images/931670895ae71d247e7c77e8edd9965e22e60b1a1b1ce82bf490973573eebcbd.png" src="../../_images/931670895ae71d247e7c77e8edd9965e22e60b1a1b1ce82bf490973573eebcbd.png" />
 </div>
 </div>
 </section>
@@ -1081,11 +1089,11 @@ A \vec{b} = A \begin{bmatrix} 4 \\ 1 \\ 2 \end{bmatrix} = \begin{bmatrix}
       </div>
     </a>
     <a class="right-next"
-       href="../SupplementaryDocuments/Supplementary1.html"
+       href="Star%20Coordinates/Star_Coordinates.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Supplementary Documents</p>
+        <p class="prev-next-title">Star Coordinates</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
