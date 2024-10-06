@@ -1,0 +1,1255 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Linear Least Square Method &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/StudentEffort/linear-least-square/Least-Square-Method-2';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction of PR</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/PR_intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/Model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Clustering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/PR_intro_Clustering.html">Clustering Concept</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Regression</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Introduction_Regression.html">Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classification</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/PR_intro_Classification.html">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">BayesEstimation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/BayesEstimation.html">Bayes Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Student Effort</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Whyprojection1.html">What is Projection?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Star%20Coordinates/Star_Coordinates.html">Star Coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Covariance_Fekri/Covariance_Poorya.html">Covariance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contact</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FPR/StudentEffort/linear-least-square/Least-Square-Method-2.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/PR/StudentEffort/linear-least-square/Least-Square-Method-2.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Linear Least Square Method</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Linear Least Square Method</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-description">Project Description</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-insights">Mathematical Insights:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perpendicular-residuals-calculation-using-pca">Perpendicular Residuals Calculation Using PCA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#refrence-to-this-part-pca-in-machine-learning-course-tought-by-dr-hadi-sadoghi-yazdi">Refrence to this part : PCA in Machine Learning Course tought by Dr.Hadi Sadoghi Yazdi</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-function">Cost Function</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-function-used-sum-of-squared-distances-ssd">Cost Function Used: Sum of Squared Distances (SSD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-possible-cost-functions">Other Possible Cost Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#refrence-to-this-part-cost-function-in-pattern-recognation-course-tought-by-dr-hadi-sadoghi-yazdi">Refrence to this part : Cost_Function in Pattern Recognation Course tought by Dr.Hadi Sadoghi Yazdi</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-implementation">Project Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-necessary-libraries">1. Import necessary libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-random-linear-data">2. Generate random linear data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-function-for-perpendicular-projection">3. Define the function for perpendicular projection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-functions-to-compute-least-squares-regression-lines">4. Define functions to compute least squares regression lines</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-regression-and-residuals">5. Plot regression and residuals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-interactive-widgets">6. Create interactive widgets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-labels-dynamically">7. Update labels dynamically</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attach-the-update-function-to-widgets">8. Attach the update function to widgets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arrange-widgets-in-a-horizontal-layout">9. Arrange widgets in a horizontal layout</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-function-to-update-the-plot">10. Define the function to update the plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#display-the-interactive-plot-and-controls">11. Display the interactive plot and controls</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#print-the-execution-time">Print the execution time</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#link-to-online-app-with-streamlit">link to online app with streamlit</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#refrences">Refrences</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="linear-least-square-method">
+<h1>Linear Least Square Method<a class="headerlink" href="#linear-least-square-method" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p><strong>Author</strong> : Mustafa Sadeghi</p></li>
+<li><p><strong>Contact</strong> : <a class="reference external" href="mailto:mustafasadeghi&#37;&#52;&#48;mail&#46;um&#46;ac&#46;ir">mustafasadeghi<span>&#64;</span>mail<span>&#46;</span>um<span>&#46;</span>ac<span>&#46;</span>ir</a></p></li>
+</ul>
+<img src="img.jpg" alt="My Image" width="100" height="100" style="border-radius: 15px;"/>
+<section id="project-description">
+<h2>Project Description<a class="headerlink" href="#project-description" title="Link to this heading">#</a></h2>
+<p>This code provides an interactive visualization of different methods to compute the <strong>Least Squares Regression Line</strong> using vertical, horizontal, and perpendicular residuals. The goal of this visualization is to allow users to manually adjust the slope (<span class="math notranslate nohighlight">\(\beta_1\)</span>) and intercept (<span class="math notranslate nohighlight">\(\beta_0\)</span>) of a regression line and compare it with the automatically computed <strong>Least Squares Line</strong> for each residual type.</p>
+<p>The code calculates the <strong>Sum of Squared Distances (SSD)</strong> for both the user-defined line and the automatically computed least squares line. The user can interactively visualize the effect of different slope and intercept values on the regression line’s fit, using sliders for adjustments.</p>
+<section id="mathematical-insights">
+<h3>Mathematical Insights:<a class="headerlink" href="#mathematical-insights" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>Linear Regression with Different Residuals</strong>:</p>
+<ul>
+<li><p>In standard <strong>Least Squares Regression</strong>, the goal is to minimize the vertical distance between the data points and the regression line. This approach uses the formula:</p>
+<div class="math notranslate nohighlight">
+\[ y = \beta_1 x + \beta_0 + \epsilon_i \]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\beta_1\)</span> is the <strong>slope</strong> of the line.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta_0\)</span> is the <strong>intercept</strong> of the line (the value of <span class="math notranslate nohighlight">\(y\)</span> when <span class="math notranslate nohighlight">\(x = 0\)</span>).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon_i\)</span> represents the <strong>residual</strong> for the <span class="math notranslate nohighlight">\(i\)</span>-th data point, which is the difference between the actual value <span class="math notranslate nohighlight">\(y_i\)</span> and the predicted value <span class="math notranslate nohighlight">\(\hat{y_i}\)</span>.</p></li>
+</ul>
+</li>
+<li><p>The goal is to find values for <span class="math notranslate nohighlight">\(\beta_1\)</span> and <span class="math notranslate nohighlight">\(\beta_0\)</span> that minimize the sum of the squared residuals (SSR):</p>
+<div class="math notranslate nohighlight">
+\[ SSR = \sum_{i=1}^{n} \epsilon_i^2 = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 \]</div>
+</li>
+</ul>
+</li>
+<li><p><strong>Three Types of Residuals</strong>:</p>
+<ul>
+<li><p>This code allows users to visualize three different types of residuals:</p>
+<ul>
+<li><p><strong>Vertical Residuals</strong>: The vertical difference between the data point and the regression line, commonly used in standard Least Squares Regression.</p>
+<div class="math notranslate nohighlight">
+\[ \text{Vertical Residual} = y_i - \hat{y}_i = y_i - (\beta_1 x_i + \beta_0) \]</div>
+</li>
+<li><p><strong>Horizontal Residuals</strong>: The horizontal distance between the data point and the regression line. This method reverses the roles of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> in the regression.</p>
+<div class="math notranslate nohighlight">
+\[ \text{Horizontal Residual} = x_i - \hat{x}_i \]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat{x}_i\)</span> is found by solving for <span class="math notranslate nohighlight">\(x\)</span> when <span class="math notranslate nohighlight">\(y_i = \beta_1 x + \beta_0\)</span>.</p>
+<p>To compute the regression line that minimizes horizontal residuals, the axes are swapped, and a linear fit is performed on <span class="math notranslate nohighlight">\(x\)</span> as a function of <span class="math notranslate nohighlight">\(y\)</span>:
+$<span class="math notranslate nohighlight">\(
+c = \text{slope for horizontal residuals}, \quad d = \text{intercept for horizontal residuals}
+\)</span><span class="math notranslate nohighlight">\(
+After fitting \)</span>x = c \cdot y + d<span class="math notranslate nohighlight">\(, the slope and intercept are inverted to get the proper regression line:
+\)</span><span class="math notranslate nohighlight">\(
+\beta_1 = \frac{1}{c}, \quad \beta_0 = -\frac{d}{c}
+\)</span>$</p>
+</li>
+<li><p><strong>Perpendicular Residuals</strong>: The shortest (perpendicular) distance from the data point to the regression line, computed using geometric methods. This approach is more accurate geometrically but is not typically used in standard regression.</p>
+<div class="math notranslate nohighlight">
+\[ \text{Perpendicular Distance} = \frac{|y_i - \beta_1 x_i - \beta_0|}{\sqrt{\beta_1^2 + 1}} \]</div>
+<p>The line is computed using <strong>principal component analysis (PCA)</strong>, where the direction of the line is determined by the largest eigenvalue of the covariance matrix of the data points. Here’s how the slope and intercept are derived:</p>
+<ol class="arabic simple">
+<li><p>Center the data by subtracting the mean of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> from each data point.</p></li>
+<li><p>Compute the covariance matrix of the centered data.</p></li>
+<li><p>Perform eigenvalue decomposition on the covariance matrix to find the eigenvectors.</p></li>
+<li><p>The eigenvector corresponding to the largest eigenvalue gives the direction of the line:
+$<span class="math notranslate nohighlight">\(
+\beta_1 = \frac{\text{eigenvector}[1]}{\text{eigenvector}[0]}
+\)</span><span class="math notranslate nohighlight">\(
+The intercept is calculated as:
+\)</span><span class="math notranslate nohighlight">\(
+\beta_0 = y_{\text{mean}} - \beta_1 \cdot x_{\text{mean}}
+\)</span>$</p></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Sum of Squared Distances (SSD)</strong>:</p>
+<ul>
+<li><p>In this code, the <strong>Sum of Squared Distances (SSD)</strong> is computed dynamically for both the user-defined line and the least squares line for each type of residual.</p></li>
+<li><p>The formula for SSD is similar to the sum of squared residuals:</p>
+<div class="math notranslate nohighlight">
+\[ SSD = \sum_{i=1}^{n} \epsilon_i^2 = \sum_{i=1}^{n} \text{Residual}_i^2 \]</div>
+<p>The goal is to minimize the SSD by adjusting <span class="math notranslate nohighlight">\(\beta_1\)</span> and <span class="math notranslate nohighlight">\(\beta_0\)</span>. The code visualizes how different residual types affect the computed SSD.</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Least Squares Method for Each Residual Type</strong>:</p>
+<ul>
+<li><p>The code computes the <strong>Least Squares Regression Line</strong> using vertical, horizontal, and perpendicular residuals. For each type, the slope and intercept are calculated differently:</p>
+<ul>
+<li><p><strong>Vertical Residuals</strong>: Use the standard <strong>Least Squares Method</strong> formula:</p>
+<div class="math notranslate nohighlight">
+\[ \beta_1 = \frac{n(\sum x_i y_i) - (\sum x_i)(\sum y_i)}{n(\sum x_i^2) - (\sum x_i)^2} \]</div>
+<div class="math notranslate nohighlight">
+\[ \beta_0 = \frac{(\sum y_i) - \beta_1(\sum x_i)}{n} \]</div>
+</li>
+<li><p><strong>Horizontal Residuals</strong>: The axes are swapped to fit <span class="math notranslate nohighlight">\(x\)</span> as a function of <span class="math notranslate nohighlight">\(y\)</span>. The calculated slope and intercept are then inverted to get the proper regression line:</p>
+<div class="math notranslate nohighlight">
+\[
+           x = cy +d
+       \]</div>
+<div class="math notranslate nohighlight">
+\[ 
+         SSH = \sum_{i=1}^{n} (x_i - \hat{x}_i)^2 = \sum_{i=1}^{n} \left( x_i - (c y_i + d) \right)^2
+       \]</div>
+<div class="math notranslate nohighlight">
+\[
+         c = \frac{n \sum y_i x_i - \sum y_i \sum x_i}{n \sum y_i^2 - (\sum y_i)^2}
+       \]</div>
+<div class="math notranslate nohighlight">
+\[
+         d = \frac{\sum x_i - c \sum y_i}{n}
+       \]</div>
+<div class="math notranslate nohighlight">
+\[
+       \beta_1 = \frac{1}{c}, \quad \beta_0 = -\frac{d}{c}
+       \]</div>
+</li>
+<li><p><strong>Perpendicular Residuals</strong>: The line is computed using <strong>principal component analysis (PCA)</strong>, where the direction of the line is determined by the largest eigenvalue of the covariance matrix of the data points:</p>
+<div class="math notranslate nohighlight">
+\[
+       \beta_1 = \frac{\text{eigenvector}[1]}{\text{eigenvector}[0]}, \quad \beta_0 = y_{\text{mean}} - \beta_1 \cdot x_{\text{mean}}
+       \]</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="key-features">
+<h3>Key Features:<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Interactive Plot</strong>:</p>
+<ul class="simple">
+<li><p>The plot displays the data points along with both the user-defined regression line and the least squares regression line. The user can manually adjust the slope (<span class="math notranslate nohighlight">\(\beta_1\)</span>) and intercept (<span class="math notranslate nohighlight">\(\beta_0\)</span>) via sliders, and the plot updates in real-time to show the new lines.</p></li>
+</ul>
+</li>
+<li><p><strong>Residual Visualization</strong>:</p>
+<ul class="simple">
+<li><p>The distances (residuals) between each data point and the regression line are visualized as lines on the plot. The user can switch between three types of residuals (vertical, horizontal, and perpendicular) using a dropdown menu.</p></li>
+</ul>
+</li>
+<li><p><strong>Sum of Squared Distances (SSD)</strong>:</p>
+<ul class="simple">
+<li><p>The SSD for both the user-defined line and the least squares line is displayed on the plot. The SSD is recalculated as the user adjusts the slope and intercept, helping users understand the effect of different residual types on the overall error.</p></li>
+</ul>
+</li>
+<li><p><strong>Mathematical Insight</strong>:</p>
+<ul class="simple">
+<li><p>The code offers a deep understanding of the least squares method by allowing users to explore different types of residuals and see their impact on the regression line and SSD. Users can learn why vertical residuals are typically used in the classic least squares method and how alternative methods (horizontal and perpendicular) affect the fit.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+<section id="perpendicular-residuals-calculation-using-pca">
+<h2>Perpendicular Residuals Calculation Using PCA<a class="headerlink" href="#perpendicular-residuals-calculation-using-pca" title="Link to this heading">#</a></h2>
+<p>In the <strong>Perpendicular Least Squares</strong> method, we use <strong>Principal Component Analysis (PCA)</strong> to find the best-fitting line that minimizes the perpendicular distances from each point to the regression line. Here’s a step-by-step breakdown of the mathematical process:</p>
+<ol class="arabic">
+<li><p><strong>Centering the Data</strong>:
+First, we center the data by subtracting the mean of the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> values from each data point. This ensures the data is centered around the origin:</p>
+<div class="math notranslate nohighlight">
+\[
+   x_{\text{cent}} = x_i - \bar{x}, \quad y_{\text{cent}} = y_i - \bar{y}
+   \]</div>
+<p>where <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\(\bar{y}\)</span> are the mean values of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>, respectively.</p>
+</li>
+<li><p><strong>Covariance Matrix</strong>:
+Next, we calculate the <strong>covariance matrix</strong> of the centered <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> values. The covariance matrix provides insight into how much the two variables vary together:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   \text{Cov} = 
+   \begin{bmatrix}
+   \text{Var}(x_{\text{cent}}) &amp; \text{Cov}(x_{\text{cent}}, y_{\text{cent}}) \\
+   \text{Cov}(x_{\text{cent}}, y_{\text{cent}}) &amp; \text{Var}(y_{\text{cent}})
+   \end{bmatrix}
+   \end{split}\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\text{Var}(x_{\text{cent}})\)</span> is the variance of the centered <span class="math notranslate nohighlight">\(x\)</span> values.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Var}(y_{\text{cent}})\)</span> is the variance of the centered <span class="math notranslate nohighlight">\(y\)</span> values.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Cov}(x_{\text{cent}}, y_{\text{cent}})\)</span> is the covariance between the centered <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> values.</p></li>
+</ul>
+</li>
+<li><p><strong>Eigenvalue and Eigenvector Decomposition</strong>:
+We then perform <strong>eigenvalue decomposition</strong> on the covariance matrix to find the <strong>eigenvalues</strong> and <strong>eigenvectors</strong>. These represent the directions of the principal components and the variance along these directions:</p>
+<div class="math notranslate nohighlight">
+\[
+   \text{Cov} \cdot v = \lambda v
+   \]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\lambda\)</span> are the eigenvalues (representing variance in each direction).</p></li>
+<li><p><span class="math notranslate nohighlight">\(v\)</span> are the eigenvectors (representing the direction of maximum variance).</p></li>
+</ul>
+</li>
+<li><p><strong>Choosing the Principal Component (Line of Best Fit)</strong>:
+The eigenvector corresponding to the largest eigenvalue (<span class="math notranslate nohighlight">\(\lambda_1\)</span>) gives the direction of the principal component, which represents the line that minimizes the perpendicular residuals:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   v_1 = \begin{bmatrix} v_{x_1} \\ v_{y_1} \end{bmatrix}
+   \end{split}\]</div>
+<p>The slope of the best-fitting line, <span class="math notranslate nohighlight">\(\beta_1\)</span>, is calculated from the ratio of the components of this eigenvector:</p>
+<div class="math notranslate nohighlight">
+\[
+   \beta_1 = \frac{v_{y_1}}{v_{x_1}}
+   \]</div>
+</li>
+<li><p><strong>Calculating the Intercept</strong>:
+Once we have the slope <span class="math notranslate nohighlight">\(\beta_1\)</span>, the next step is to calculate the intercept <span class="math notranslate nohighlight">\(\beta_0\)</span>. This is done using the means of the original (uncentered) <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> values:</p>
+<div class="math notranslate nohighlight">
+\[
+   \beta_0 = \bar{y} - \beta_1 \cdot \bar{x}
+   \]</div>
+<p>This gives the equation of the line of best fit: <span class="math notranslate nohighlight">\(y = \beta_1 x + \beta_0\)</span>.</p>
+</li>
+<li><p><strong>Perpendicular Distance</strong>:
+Finally, we compute the <strong>perpendicular distance</strong> from each data point <span class="math notranslate nohighlight">\((x_i, y_i)\)</span> to the line <span class="math notranslate nohighlight">\(y = \beta_1 x + \beta_0\)</span>. This distance is given by the following formula:</p>
+<div class="math notranslate nohighlight">
+\[
+   \text{Perpendicular Distance} = \frac{|y_i - \beta_1 x_i - \beta_0|}{\sqrt{\beta_1^2 + 1}}
+   \]</div>
+<p>This formula gives the shortest distance between a point and a line in 2D space, representing the <strong>Perpendicular Residual</strong> for each point.</p>
+</li>
+</ol>
+<section id="summary">
+<h3>Summary:<a class="headerlink" href="#summary" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Center the Data</strong>: Subtract the mean of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> to center the data around the origin.</p></li>
+<li><p><strong>Covariance Matrix</strong>: Calculate the covariance matrix to understand the spread of the data.</p></li>
+<li><p><strong>Eigenvalue Decomposition</strong>: Decompose the covariance matrix to find the eigenvectors and eigenvalues, which represent the directions of maximum variance.</p></li>
+<li><p><strong>Principal Component</strong>: Use the eigenvector with the largest eigenvalue to calculate the slope and intercept of the line that minimizes perpendicular residuals.</p></li>
+<li><p><strong>Perpendicular Distance</strong>: Compute the shortest distance from each data point to the line, representing the residual for that point.</p></li>
+</ul>
+</section>
+<section id="refrence-to-this-part-pca-in-machine-learning-course-tought-by-dr-hadi-sadoghi-yazdi">
+<h3>Refrence to this part : <a class="reference external" href="https://laboratorypatternrecognition.github.io/MachineLearningS/ML/FeatureReduction/PCA.html">PCA in Machine Learning Course tought by Dr.Hadi Sadoghi Yazdi</a><a class="headerlink" href="#refrence-to-this-part-pca-in-machine-learning-course-tought-by-dr-hadi-sadoghi-yazdi" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="cost-function">
+<h2>Cost Function<a class="headerlink" href="#cost-function" title="Link to this heading">#</a></h2>
+<p>In this project, we have used the <strong>Sum of Squared Distances (SSD)</strong> as the cost function to calculate the error between the actual data points and the regression line. The SSD is a variant of the <strong>Mean Squared Error (MSE)</strong> without averaging, and it calculates the sum of the squared differences between the predicted values and the actual values. The goal is to minimize this SSD by adjusting the slope (<span class="math notranslate nohighlight">\(\beta_1\)</span>) and intercept (<span class="math notranslate nohighlight">\(\beta_0\)</span>) of the regression line.</p>
+<section id="cost-function-used-sum-of-squared-distances-ssd">
+<h3>Cost Function Used: Sum of Squared Distances (SSD)<a class="headerlink" href="#cost-function-used-sum-of-squared-distances-ssd" title="Link to this heading">#</a></h3>
+<p>The SSD is defined as:</p>
+<div class="math notranslate nohighlight">
+\[ SSD = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 \]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(y_i\)</span> are the actual values.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{y}_i\)</span> are the predicted values based on the regression line.</p></li>
+</ul>
+<p>In this case, we are minimizing the <strong>vertical</strong>, <strong>horizontal</strong>, or <strong>perpendicular</strong> residuals by computing the SSD for each method.</p>
+</section>
+<section id="other-possible-cost-functions">
+<h3>Other Possible Cost Functions<a class="headerlink" href="#other-possible-cost-functions" title="Link to this heading">#</a></h3>
+<p>While the <strong>SSD</strong> (or MSE) is widely used in regression problems, there are other cost functions that could be used depending on the nature of the data and the project requirements. Here are two alternative cost functions:</p>
+<ol class="arabic">
+<li><p><strong>Mean Absolute Error (MAE)</strong>:
+The MAE calculates the mean of the absolute differences between predicted and actual values. This cost function is less sensitive to outliers compared to MSE, as it treats all differences equally.</p>
+<div class="math notranslate nohighlight">
+\[ MAE = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i| \]</div>
+<ul class="simple">
+<li><p><strong>Advantages</strong>: MAE is robust to outliers since it does not square the errors, so large errors have less impact on the overall cost.</p></li>
+<li><p><strong>Disadvantages</strong>: It might be less sensitive to small errors and harder to optimize due to its absolute value operation, which is not differentiable at 0.
+<br></p></li>
+</ul>
+</li>
+<li><p><strong>Huber Loss</strong>:
+The Huber loss function is a hybrid of MSE and MAE. For small errors, it behaves like MSE (quadratic), while for larger errors, it behaves like MAE (linear). This makes it robust to outliers while still maintaining some sensitivity to smaller errors.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} L_{\delta}(y_i, \hat{y}_i) = \begin{cases} 
+      \frac{1}{2}(y_i - \hat{y}_i)^2 &amp; \text{if } |y_i - \hat{y}_i| \leq \delta \\
+      \delta \cdot (|y_i - \hat{y}_i| - \frac{1}{2} \delta) &amp; \text{otherwise}
+   \end{cases} \end{split}\]</div>
+<ul class="simple">
+<li><p><strong>Advantages</strong>: It balances between penalizing large errors and remaining sensitive to smaller ones. It’s a good compromise between MSE and MAE.</p></li>
+<li><p><strong>Disadvantages</strong>: Choosing the correct <span class="math notranslate nohighlight">\(\delta\)</span> value can be tricky. If <span class="math notranslate nohighlight">\(\delta\)</span> is too small, the loss behaves too much like MAE; if it’s too large, it behaves like MSE.
+<br></p></li>
+</ul>
+</li>
+<li><p><strong>Mean Squared Error (MSE)</strong>:
+The MSE is the mean of the squared differences between the predicted and actual values. It penalizes larger errors more heavily due to squaring the residuals, which makes it sensitive to outliers.</p>
+<div class="math notranslate nohighlight">
+\[ MSE = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 \]</div>
+<ul class="simple">
+<li><p><strong>Advantages</strong>: MSE gives more weight to larger errors, making it useful when large deviations are undesirable.</p></li>
+<li><p><strong>Disadvantages</strong>: It is highly sensitive to outliers, and large errors can dominate the cost function.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="conclusion">
+<h3>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h3>
+<p>In this project, we primarily use <strong>SSD</strong> (similar to <strong>MSE</strong>) to compute the cost, but depending on the nature of the data and the specific goals of the analysis, we could consider using <strong>MAE</strong> or <strong>Huber Loss</strong> to account for outliers or to ensure a different type of sensitivity to errors.</p>
+</section>
+<section id="refrence-to-this-part-cost-function-in-pattern-recognation-course-tought-by-dr-hadi-sadoghi-yazdi">
+<h3>Refrence to this part : <a class="reference external" href="https://laboratorypatternrecognition.github.io/PatternRecognition_S/PR/Introduction/Cost.html">Cost_Function in Pattern Recognation Course tought by Dr.Hadi Sadoghi Yazdi</a><a class="headerlink" href="#refrence-to-this-part-cost-function-in-pattern-recognation-course-tought-by-dr-hadi-sadoghi-yazdi" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="project-implementation">
+<h2>Project Implementation<a class="headerlink" href="#project-implementation" title="Link to this heading">#</a></h2>
+<section id="import-necessary-libraries">
+<h3>1. Import necessary libraries<a class="headerlink" href="#import-necessary-libraries" title="Link to this heading">#</a></h3>
+<p>This block imports the essential libraries for the code:</p>
+<ul class="simple">
+<li><p><strong>NumPy</strong>: For handling numerical operations and generating data points.</p></li>
+<li><p><strong>Plotly</strong>: For creating interactive, web-based plots.</p></li>
+<li><p><strong>ipywidgets</strong>: For adding interactive sliders and dropdowns.</p></li>
+<li><p><strong>IPython.display</strong>: For displaying the interactive widgets and plot in the notebook.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="nn">go</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">FloatSlider</span><span class="p">,</span> <span class="n">Dropdown</span><span class="p">,</span> <span class="n">Layout</span><span class="p">,</span> <span class="n">HBox</span><span class="p">,</span> <span class="n">VBox</span><span class="p">,</span> <span class="n">interactive_output</span><span class="p">,</span> <span class="n">HTML</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">import</span> <span class="nn">time</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="nn">go</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">FloatSlider</span><span class="p">,</span> <span class="n">Dropdown</span><span class="p">,</span> <span class="n">Layout</span><span class="p">,</span> <span class="n">HBox</span><span class="p">,</span> <span class="n">VBox</span><span class="p">,</span> <span class="n">interactive_output</span><span class="p">,</span> <span class="n">HTML</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;plotly&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="generate-random-linear-data">
+<h3>2. Generate random linear data<a class="headerlink" href="#generate-random-linear-data" title="Link to this heading">#</a></h3>
+<p>This block generates random linear data for <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p><strong>x</strong>: A sequence of 50 evenly spaced values between -5 and 5.</p></li>
+<li><p><strong>y</strong>: A linear function of <code class="docutils literal notranslate"><span class="pre">x</span></code> with added random noise to simulate real-world variations.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="define-the-function-for-perpendicular-projection">
+<h3>3. Define the function for perpendicular projection<a class="headerlink" href="#define-the-function-for-perpendicular-projection" title="Link to this heading">#</a></h3>
+<p>This function calculates the perpendicular projection of a point (<code class="docutils literal notranslate"><span class="pre">x0</span></code>, <code class="docutils literal notranslate"><span class="pre">y0</span></code>) onto a line defined by its <strong>slope</strong> and <strong>intercept</strong>. The function accounts for both regular and vertical lines.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">perpendicular_projection</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">slope</span><span class="p">):</span>
+        <span class="n">x_proj</span> <span class="o">=</span> <span class="n">intercept</span>
+        <span class="n">y_proj</span> <span class="o">=</span> <span class="n">y0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x_proj</span> <span class="o">=</span> <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">slope</span> <span class="o">*</span> <span class="p">(</span><span class="n">y0</span> <span class="o">-</span> <span class="n">intercept</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">slope</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">y_proj</span> <span class="o">=</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x_proj</span> <span class="o">+</span> <span class="n">intercept</span>
+    <span class="k">return</span> <span class="n">x_proj</span><span class="p">,</span> <span class="n">y_proj</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="define-functions-to-compute-least-squares-regression-lines">
+<h3>4. Define functions to compute least squares regression lines<a class="headerlink" href="#define-functions-to-compute-least-squares-regression-lines" title="Link to this heading">#</a></h3>
+<p>These functions compute the <strong>Least Squares Regression</strong> lines for different types of distances (vertical, horizontal, and perpendicular).</p>
+<ul class="simple">
+<li><p><strong>Vertical Regression</strong>: Uses NumPy’s <code class="docutils literal notranslate"><span class="pre">polyfit</span></code> function to calculate the slope and intercept.</p></li>
+<li><p><strong>Horizontal Regression</strong>: Reverses the axes (fitting <span class="math notranslate nohighlight">\(x\)</span> to <span class="math notranslate nohighlight">\(y\)</span>).</p></li>
+<li><p><strong>Perpendicular Regression</strong>: Uses eigenvalue decomposition to calculate the best-fitting line using principal components analysis.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_least_squares_vertical</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span>
+
+<span class="k">def</span> <span class="nf">compute_least_squares_horizontal</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">slope</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">c</span>
+        <span class="n">intercept</span> <span class="o">=</span> <span class="o">-</span><span class="n">d</span> <span class="o">/</span> <span class="n">c</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">slope</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">intercept</span> <span class="o">=</span> <span class="n">d</span>
+    <span class="k">return</span> <span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span>
+
+<span class="k">def</span> <span class="nf">compute_least_squares_perpendicular</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">x_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">y_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">x_cent</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">x_mean</span>
+    <span class="n">y_cent</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_mean</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">x_cent</span><span class="p">,</span> <span class="n">y_cent</span><span class="p">))</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">eigvals</span><span class="p">)</span>
+    <span class="n">direction</span> <span class="o">=</span> <span class="n">eigvecs</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">direction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">slope</span> <span class="o">=</span> <span class="n">direction</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">direction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">intercept</span> <span class="o">=</span> <span class="n">y_mean</span> <span class="o">-</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x_mean</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">slope</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+        <span class="n">intercept</span> <span class="o">=</span> <span class="n">x_mean</span>
+    <span class="k">return</span> <span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-regression-and-residuals">
+<h3>5. Plot regression and residuals<a class="headerlink" href="#plot-regression-and-residuals" title="Link to this heading">#</a></h3>
+<p>This function generates an interactive plot showing the regression line and residuals based on the type of distance chosen by the user.</p>
+<ul class="simple">
+<li><p><strong>User Line</strong>: The regression line that the user manually adjusts via sliders.</p></li>
+<li><p><strong>Least Squares Line</strong>: The line computed using the least squares method for the selected distance type (vertical, horizontal, or perpendicular).</p></li>
+<li><p><strong>Residuals</strong>: Visualized lines between the data points and the regression line, and the <strong>Sum of Squared Distances (SSD)</strong> is calculated for both the user and least squares lines.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_regression_plotly</span><span class="p">(</span><span class="n">slope</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">intercept</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">distance_type</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">):</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">intercept</span>
+    <span class="k">if</span> <span class="n">distance_type</span> <span class="o">==</span> <span class="s2">&quot;vertical&quot;</span><span class="p">:</span>
+        <span class="n">ls_slope</span><span class="p">,</span> <span class="n">ls_intercept</span> <span class="o">=</span> <span class="n">compute_least_squares_vertical</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">distance_type</span> <span class="o">==</span> <span class="s2">&quot;horizontal&quot;</span><span class="p">:</span>
+        <span class="n">ls_slope</span><span class="p">,</span> <span class="n">ls_intercept</span> <span class="o">=</span> <span class="n">compute_least_squares_horizontal</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">distance_type</span> <span class="o">==</span> <span class="s2">&quot;perpendicular&quot;</span><span class="p">:</span>
+        <span class="n">ls_slope</span><span class="p">,</span> <span class="n">ls_intercept</span> <span class="o">=</span> <span class="n">compute_least_squares_perpendicular</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;markers&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Data points&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)))</span>
+    <span class="n">line_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">line_y</span> <span class="o">=</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">line_x</span> <span class="o">+</span> <span class="n">intercept</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">line_x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">line_y</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;User Line: y = </span><span class="si">{</span><span class="n">slope</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">x + </span><span class="si">{</span><span class="n">intercept</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">ls_slope</span><span class="p">):</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">ls_intercept</span><span class="p">,</span> <span class="n">ls_intercept</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Least Squares Line&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">line_x_ls</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="n">line_y_ls</span> <span class="o">=</span> <span class="n">ls_slope</span> <span class="o">*</span> <span class="n">line_x_ls</span> <span class="o">+</span> <span class="n">ls_intercept</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">line_x_ls</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">line_y_ls</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Least Squares Line: y = </span><span class="si">{</span><span class="n">ls_slope</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">x + </span><span class="si">{</span><span class="n">ls_intercept</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)))</span>
+    <span class="n">ssd</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">distance_type</span> <span class="o">==</span> <span class="s2">&quot;vertical&quot;</span><span class="p">:</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s1">&#39;dash&#39;</span><span class="p">)))</span>
+            <span class="n">ssd</span> <span class="o">+=</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">distance_type</span> <span class="o">==</span> <span class="s2">&quot;horizontal&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">slope</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">x_proj</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">intercept</span><span class="p">)</span> <span class="o">/</span> <span class="n">slope</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">x_proj</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s1">&#39;dash&#39;</span><span class="p">)))</span>
+                <span class="n">ssd</span> <span class="o">+=</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_proj</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ssd</span> <span class="o">+=</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">distance_type</span> <span class="o">==</span> <span class="s2">&quot;perpendicular&quot;</span><span class="p">:</span>
+            <span class="n">x_proj</span><span class="p">,</span> <span class="n">y_proj</span> <span class="o">=</span> <span class="n">perpendicular_projection</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">)</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">x_proj</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_proj</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s1">&#39;dash&#39;</span><span class="p">)))</span>
+            <span class="n">perp_dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_proj</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_proj</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">ssd</span> <span class="o">+=</span> <span class="n">perp_dist</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">ssd_ls</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">distance_type</span> <span class="o">==</span> <span class="s2">&quot;vertical&quot;</span><span class="p">:</span>
+            <span class="n">y_pred_ls</span> <span class="o">=</span> <span class="n">ls_slope</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">ls_intercept</span>
+            <span class="n">ssd_ls</span> <span class="o">+=</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_pred_ls</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">distance_type</span> <span class="o">==</span> <span class="s2">&quot;horizontal&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ls_slope</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">x_proj_ls</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">ls_intercept</span><span class="p">)</span> <span class="o">/</span> <span class="n">ls_slope</span>
+                <span class="n">ssd_ls</span> <span class="o">+=</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_proj_ls</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ssd_ls</span> <span class="o">+=</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">distance_type</span> <span class="o">==</span> <span class="s2">&quot;perpendicular&quot;</span><span class="p">:</span>
+            <span class="n">x_proj_ls</span><span class="p">,</span> <span class="n">y_proj_ls</span> <span class="o">=</span> <span class="n">perpendicular_projection</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">ls_slope</span><span class="p">,</span> <span class="n">ls_intercept</span><span class="p">)</span>
+            <span class="n">perp_dist_ls</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_proj_ls</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_proj_ls</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">ssd_ls</span> <span class="o">+=</span> <span class="n">perp_dist_ls</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Sum of squared distances (</span><span class="si">{</span><span class="n">distance_type</span><span class="si">}</span><span class="s1">):&lt;br&gt;User Line SSD = </span><span class="si">{</span><span class="n">ssd</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, Least Squares SSD = </span><span class="si">{</span><span class="n">ssd_ls</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="n">xaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">]),</span>
+        <span class="n">yaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">]),</span>
+        <span class="n">showlegend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span>  
+        <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>  
+        <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>  
+    <span class="p">)</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="create-interactive-widgets">
+<h3>6. Create interactive widgets<a class="headerlink" href="#create-interactive-widgets" title="Link to this heading">#</a></h3>
+<p>This block creates interactive widgets using <code class="docutils literal notranslate"><span class="pre">ipywidgets</span></code>:</p>
+<ul class="simple">
+<li><p><strong>Slope Slider</strong>: Allows the user to adjust the slope of the regression line.</p></li>
+<li><p><strong>Intercept Slider</strong>: Allows the user to adjust the intercept of the regression line.</p></li>
+<li><p><strong>Distance Type Dropdown</strong>: Lets the user choose how the distances (residuals) are calculated—either vertically, horizontally, or perpendicularly.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">slope_slider</span> <span class="o">=</span> <span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="mf">3.0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">))</span>
+<span class="n">intercept_slider</span> <span class="o">=</span> <span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="mf">5.0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">))</span>
+<span class="n">distance_type_dropdown</span> <span class="o">=</span> <span class="n">Dropdown</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="s2">&quot;perpendicular&quot;</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">))</span>
+<span class="n">slope_label</span> <span class="o">=</span> <span class="n">HTML</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;&lt;b&gt;Slope:&lt;/b&gt; </span><span class="si">{</span><span class="n">slope_slider</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">intercept_label</span> <span class="o">=</span> <span class="n">HTML</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;&lt;b&gt;Intercept:&lt;/b&gt; </span><span class="si">{</span><span class="n">intercept_slider</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">distance_type_label</span> <span class="o">=</span> <span class="n">HTML</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;&lt;b&gt;Distance type:&lt;/b&gt; </span><span class="si">{</span><span class="n">distance_type_dropdown</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="update-labels-dynamically">
+<h3>7. Update labels dynamically<a class="headerlink" href="#update-labels-dynamically" title="Link to this heading">#</a></h3>
+<p>This function updates the text labels for slope, intercept, and distance type dynamically as the user interacts with the sliders and dropdown menu. It ensures the displayed labels always reflect the current settings.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_labels</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
+    <span class="n">slope_label</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;Slope:&lt;/b&gt; </span><span class="si">{</span><span class="n">slope_slider</span><span class="o">.</span><span class="n">value</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">intercept_label</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;Intercept:&lt;/b&gt; </span><span class="si">{</span><span class="n">intercept_slider</span><span class="o">.</span><span class="n">value</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">distance_type_label</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&lt;b&gt;Distance type:&lt;/b&gt; </span><span class="si">{</span><span class="n">distance_type_dropdown</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="attach-the-update-function-to-widgets">
+<h3>8. Attach the update function to widgets<a class="headerlink" href="#attach-the-update-function-to-widgets" title="Link to this heading">#</a></h3>
+<p>In this block, the <code class="docutils literal notranslate"><span class="pre">update_labels</span></code> function is attached to the slope and intercept sliders and the distance type dropdown. This ensures that every time the user modifies a value, the corresponding labels update.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">slope_slider</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">update_labels</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+<span class="n">intercept_slider</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">update_labels</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+<span class="n">distance_type_dropdown</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">update_labels</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="arrange-widgets-in-a-horizontal-layout">
+<h3>9. Arrange widgets in a horizontal layout<a class="headerlink" href="#arrange-widgets-in-a-horizontal-layout" title="Link to this heading">#</a></h3>
+<p>This block arranges the sliders and dropdown widgets in a horizontal box (<code class="docutils literal notranslate"><span class="pre">HBox</span></code>) for a clean and organized layout within the notebook. Each control (slope, intercept, distance type) is placed side by side.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">controls</span> <span class="o">=</span> <span class="n">HBox</span><span class="p">([</span><span class="n">VBox</span><span class="p">([</span><span class="n">slope_label</span><span class="p">,</span> <span class="n">slope_slider</span><span class="p">]),</span> <span class="n">VBox</span><span class="p">([</span><span class="n">intercept_label</span><span class="p">,</span> <span class="n">intercept_slider</span><span class="p">]),</span> <span class="n">VBox</span><span class="p">([</span><span class="n">distance_type_label</span><span class="p">,</span> <span class="n">distance_type_dropdown</span><span class="p">])])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="define-the-function-to-update-the-plot">
+<h3>10. Define the function to update the plot<a class="headerlink" href="#define-the-function-to-update-the-plot" title="Link to this heading">#</a></h3>
+<p>This function updates the plot based on the current values of the slope, intercept, and selected distance type. Every time the user interacts with the widgets, this function recalculates the residuals and updates the plot accordingly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_plot</span><span class="p">(</span><span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">distance_type</span><span class="p">):</span>
+    <span class="n">plot_regression_plotly</span><span class="p">(</span><span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">distance_type</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="display-the-interactive-plot-and-controls">
+<h3>11. Display the interactive plot and controls<a class="headerlink" href="#display-the-interactive-plot-and-controls" title="Link to this heading">#</a></h3>
+<p>This block combines the interactive controls (sliders and dropdown) with the plot output. It uses <code class="docutils literal notranslate"><span class="pre">interactive_output</span></code> to link the plot to the widgets, so the plot updates dynamically when the user changes any value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">output</span> <span class="o">=</span> <span class="n">interactive_output</span><span class="p">(</span><span class="n">update_plot</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;slope&#39;</span><span class="p">:</span> <span class="n">slope_slider</span><span class="p">,</span> <span class="s1">&#39;intercept&#39;</span><span class="p">:</span> <span class="n">intercept_slider</span><span class="p">,</span> <span class="s1">&#39;distance_type&#39;</span><span class="p">:</span> <span class="n">distance_type_dropdown</span><span class="p">})</span>
+<span class="n">display</span><span class="p">(</span><span class="n">controls</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "32a4ffecd74143a99bfe8b59fe044195", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "79eaac9fe1f04f48bf3b2f7ce202661a", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="print-the-execution-time">
+<h2>Print the execution time<a class="headerlink" href="#print-the-execution-time" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">execution_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Program execution time: </span><span class="si">{</span><span class="n">execution_time</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Program execution time: 0.3518 seconds
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="link-to-online-app-with-streamlit">
+<h2><a class="reference external" href="https://appapplsq-7x2z46qr9c6dpabj65xp6p.streamlit.app/">link to online app with streamlit</a><a class="headerlink" href="#link-to-online-app-with-streamlit" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="refrences">
+<h1>Refrences<a class="headerlink" href="#refrences" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="https://shinyserv.es/shiny/least-squares/">shinyserv.es/shiny/least-squares</a></p></li>
+<li><p><a class="reference external" href="https://youtu.be/S0ptaAXNxBU?si=rmAQlbvIyfxXnA4L">What is Least Squares?</a></p></li>
+<li><p><a class="reference external" href="https://byjus.com/maths/least-square-method/">Least Square Method</a></p></li>
+<li><p><a class="reference external" href="https://www.udemy.com/share/103adN3&#64;czOWJrj9jn_4NyLh_HQjPNq_E7u0kDShhaJUuEHXuXZYcDRohxOp7WR4rG4BZd2UFw==/">Master statistics &amp; machine learning taught by Dr.Mike X Cohen</a></p></li>
+</ul>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR\StudentEffort\linear-least-square"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Linear Least Square Method</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-description">Project Description</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-insights">Mathematical Insights:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perpendicular-residuals-calculation-using-pca">Perpendicular Residuals Calculation Using PCA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#refrence-to-this-part-pca-in-machine-learning-course-tought-by-dr-hadi-sadoghi-yazdi">Refrence to this part : PCA in Machine Learning Course tought by Dr.Hadi Sadoghi Yazdi</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-function">Cost Function</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-function-used-sum-of-squared-distances-ssd">Cost Function Used: Sum of Squared Distances (SSD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-possible-cost-functions">Other Possible Cost Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#refrence-to-this-part-cost-function-in-pattern-recognation-course-tought-by-dr-hadi-sadoghi-yazdi">Refrence to this part : Cost_Function in Pattern Recognation Course tought by Dr.Hadi Sadoghi Yazdi</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-implementation">Project Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-necessary-libraries">1. Import necessary libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-random-linear-data">2. Generate random linear data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-function-for-perpendicular-projection">3. Define the function for perpendicular projection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-functions-to-compute-least-squares-regression-lines">4. Define functions to compute least squares regression lines</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-regression-and-residuals">5. Plot regression and residuals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-interactive-widgets">6. Create interactive widgets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-labels-dynamically">7. Update labels dynamically</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attach-the-update-function-to-widgets">8. Attach the update function to widgets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arrange-widgets-in-a-horizontal-layout">9. Arrange widgets in a horizontal layout</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-function-to-update-the-plot">10. Define the function to update the plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#display-the-interactive-plot-and-controls">11. Display the interactive plot and controls</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#print-the-execution-time">Print the execution time</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#link-to-online-app-with-streamlit">link to online app with streamlit</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#refrences">Refrences</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
