@@ -1,0 +1,1259 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Understanding Correntropy as a Loss Function &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/StudentEffort/correntropy/correntropy';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Supplementary Documents" href="../../SupplementaryDocuments/Supplementary1.html" />
+    <link rel="prev" title="ECG: Measurement of heart rate and probability of heart attack" href="../ECG/ecg.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction of PR</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/PR_intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/Model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Clustering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/PR_intro_Clustering.html">Clustering Concept</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Regression</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Introduction_Regression.html">Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classification</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/PR_intro_Classification.html">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">BayesEstimation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/BayesEstimation.html">Bayes Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Student Effort</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Whyprojection1.html">What is Projection?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Star%20Coordinates/Star_Coordinates.html">Star Coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Covariance_Fekri/Covariance_Poorya.html">Covariance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-least-square-final/least-square.html">Linear Least Square Method</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../ECG/ecg.html">ECG: Measurement of heart rate and probability of heart attack</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Understanding Correntropy as a Loss Function</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contact</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FPR/StudentEffort/correntropy/correntropy.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/PR/StudentEffort/correntropy/correntropy.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Understanding Correntropy as a Loss Function</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-correntropy">2. What is the correntropy?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">3. Mathematical Formulation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy-function">3.1 Correntropy Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-correntropy">3.2 Interpretation of Correntropy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-correntropy">4. Properties of Correntropy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy-is-symmetric">4.1 Correntropy is symmetric:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy-is-positive-and-bounded">4.2 Correntropy is positive and bounded:</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#positivity">Positivity</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#boundedness">Boundedness</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy-involves-all-the-even-moments">4.3 Correntropy involves all the even moments</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-to-find-the-parameter-values-of-a-regression-model-using-correntropy-cost-function-and-derivation">5. An example to find the parameter values ​​of a regression model using correntropy cost function and derivation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-setup">Model Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy-loss-function">Correntropy Loss Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivative-with-respect-to-w-0">Derivative with Respect to <span class="math notranslate nohighlight">\(( w_0 )\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivative-with-respect-to-w-1">Derivative with Respect to <span class="math notranslate nohighlight">\(( w_1 )\)</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#effect-of-changing">6. Effect of Changing σ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-example-for-effect-of-changing">Code Example for Effect of Changing σ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">7. Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-machine-learning-algorithms-using-correntropy">8. Types of Machine Learning Algorithms Using Correntropy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-other-cost-functions">9. Comparison with Other Cost Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error-mse">9.1 Mean Squared Error (MSE)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-absolute-error-mae">9.2 Mean Absolute Error (MAE)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy">9.3 Correntropy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-summary">Comparison Summary</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">10. Visualization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-example-for-visualization">Code Example for Visualization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-sensitivity-to-outliers">11. Example of sensitivity to Outliers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-finding-parameters-in-linear-regression-using-correntropy-cost-function-and-gradient-descent">12. Example of finding parameters in linear regression using correntropy cost function and gradient descent</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">13. Conclusion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="understanding-correntropy-as-a-loss-function">
+<h1>Understanding Correntropy as a Loss Function<a class="headerlink" href="#understanding-correntropy-as-a-loss-function" title="Link to this heading">#</a></h1>
+<p><img alt="Payam" src="../../../_images/payam.jpg" /></p>
+<ul class="simple">
+<li><p>Author  : Payam Parvazmanesh</p></li>
+<li><p>Contact : <a class="reference external" href="mailto:payam&#46;manesh&#37;&#52;&#48;gmail&#46;com">payam<span>&#46;</span>manesh<span>&#64;</span>gmail<span>&#46;</span>com</a></p></li>
+<li><p>Pattern Recognition</p></li>
+</ul>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>In machine learning and Pattern Recognition, loss functions are crucial for guiding the training process of models by quantifying the difference between predicted and actual values. Traditional loss functions like Mean Squared Error (MSE) are widely used; however, they can be sensitive to outlier(In statistics, an outlier is a data point that differs significantly from other observations).  Correntropy is a robust alternative that addresses this issue by focusing on the similarity of distributions rather than individual errors. This notebook explores correntropy in depth, covering its mathematical foundation, properties, applications, and implementation.</p>
+</section>
+<section id="what-is-the-correntropy">
+<h2>2. What is the correntropy?<a class="headerlink" href="#what-is-the-correntropy" title="Link to this heading">#</a></h2>
+<p>Correntropy is a statistical measure that quantifies the similarity between two random variables or signals, by considering their statistical properties and temporal structure. It is particularly useful for analyzing non-linear relationships and robustness to noise in data.</p>
+<p>The
+name correntropy comes from correlation and entropy:</p>
+<ul class="simple">
+<li><p>Correlation shows the relationship between two or more variables. when one variable changes, how does the other respond? A strong correlation means that the variables move together in a predictable way.</p></li>
+</ul>
+<p><img alt="correlation" src="../../../_images/correlation.png" /></p>
+<ul class="simple">
+<li><p>Entropy shows the amount of disorder and uncertainty in a system or distribution. Imagine you have a deck of cards; if it’s perfectly ordered, the entropy is low. If the cards are shuffled randomly, the entropy is high. So, in statistical terms, higher entropy means more unpredictability, while lower entropy suggests a more orderly situation.</p></li>
+</ul>
+<p><img alt="entropy" src="../../../_images/entropy.jpg" /></p>
+</section>
+<section id="mathematical-formulation">
+<h2>3. Mathematical Formulation<a class="headerlink" href="#mathematical-formulation" title="Link to this heading">#</a></h2>
+<section id="correntropy-function">
+<h3>3.1 Correntropy Function<a class="headerlink" href="#correntropy-function" title="Link to this heading">#</a></h3>
+<p>The correntropy function is defined mathematically as:</p>
+<div class="math notranslate nohighlight">
+\[
+V_\sigma(X, Y) = \mathbb{E} [ k_\sigma(X, Y) ]
+\]</div>
+<p>Where kσ(.) refers to the kernel function.and <span class="math notranslate nohighlight">\(E[.]\)</span> showes the mathematical expectation.</p>
+<p>One of the advantages of using the kernel is that we can transfer the data that cannot be separated linearly to a space with more dimensions so that we can separate them linearly.</p>
+<p>Suppose we intend to use the Gaussian kernel:
+$<span class="math notranslate nohighlight">\( k_{\sigma}(u) = \exp\left(-\frac{u^2}{2\sigma^2}\right) \)</span>$</p>
+<p>If Gaussian kernel is used, the correntropy formula is as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+V(y_i, f(x_i)) = 1 - \exp\left(-\frac{(y_i - f(x_i))^2}{2\sigma^2}\right)
+\]</div>
+<p>And if we want to calculate the expectation value for the loss function, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E} \left[ k_\sigma(y_i, f(x_i)) \right] \approx \frac{1}{N} \sum_{i=1}^{N} V(y_i - f(x_i))
+\]</div>
+<p><strong>Breaking down the components:</strong></p>
+<ul class="simple">
+<li><p><strong><span class="math notranslate nohighlight">\(V(y_i, f(x_i))\)</span></strong>: Represents the correntropy between the actual value <span class="math notranslate nohighlight">\(y_i\)</span> and the predicted value <span class="math notranslate nohighlight">\((f(x_i))\)</span>.</p></li>
+<li><p><strong><span class="math notranslate nohighlight">\(y_i\)</span></strong>: The true target value for the <span class="math notranslate nohighlight">\((i)-th\)</span> sample in the dataset.</p></li>
+<li><p><strong><span class="math notranslate nohighlight">\(f(x_i)\)</span></strong>: The predicted value from the model for the <span class="math notranslate nohighlight">\((i)-th\)</span> input <span class="math notranslate nohighlight">\((x_i)\)</span>.</p></li>
+<li><p><strong>σ</strong>: A bandwidth parameter that controls the width of the Gaussian kernel.</p></li>
+<li><p><strong>exp</strong>: The exponential function transforms the squared difference into a similarity measure.</p></li>
+</ul>
+</section>
+<section id="interpretation-of-correntropy">
+<h3>3.2 Interpretation of Correntropy<a class="headerlink" href="#interpretation-of-correntropy" title="Link to this heading">#</a></h3>
+<p>The output of the correntropy function ranges from 0 to 1:</p>
+<ul class="simple">
+<li><p><strong>0</strong>: Indicates perfect similarity.</p></li>
+<li><p><strong>1</strong>: Indicates no similarity at all.</p></li>
+</ul>
+<p>This design makes correntropy particularly robust to outliers by smoothing the influence of significant deviations.</p>
+</section>
+</section>
+<section id="properties-of-correntropy">
+<h2>4. Properties of Correntropy<a class="headerlink" href="#properties-of-correntropy" title="Link to this heading">#</a></h2>
+<p>Some important properties of correntropy are presented here.</p>
+<section id="correntropy-is-symmetric">
+<h3>4.1 Correntropy is symmetric:<a class="headerlink" href="#correntropy-is-symmetric" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[Vσ(A,B)=Vσ (B,A)\]</div>
+<ul class="simple">
+<li><p><strong>Proof Steps</strong>:</p></li>
+</ul>
+<ol class="arabic">
+<li><p><strong>Start with the Definition</strong>:<br />
+The correntropy can be expressed using the kernel function k(.):</p>
+<div class="math notranslate nohighlight">
+\[
+   V_\sigma(A, B) = \mathbb{E}[\kappa(A - B)]
+   \]</div>
+</li>
+<li><p><strong>Change of Variables</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+   V_\sigma(B, A) = \mathbb{E}[\kappa(B - A)]
+   \]</div>
+</li>
+<li><p><strong>Relationship Between ( A - B ) and ( B - A )</strong>:<br />
+Notice that:</p>
+<div class="math notranslate nohighlight">
+\[
+   B - A = - (A - B)
+   \]</div>
+</li>
+<li><p><strong>Using the Kernel Function</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+   V_\sigma(B, A) = \mathbb{E}[\kappa(B - A)] = \mathbb{E}[\kappa(- (A - B))]
+   \]</div>
+</li>
+<li><p><strong>Properties of Kernel Function</strong>:<br />
+If the kernel function is an even function (which is typical for many common kernels, such as Gaussian or polynomial kernels), then:</p>
+<div class="math notranslate nohighlight">
+\[
+   \kappa(-x) = \kappa(x)
+   \]</div>
+<p>Therefore,</p>
+<div class="math notranslate nohighlight">
+\[
+   V_\sigma(B, A) = \mathbb{E}[\kappa(- (A - B))] = \mathbb{E}[\kappa(A - B)]
+   \]</div>
+</li>
+</ol>
+</section>
+<section id="correntropy-is-positive-and-bounded">
+<h3>4.2 Correntropy is positive and bounded:<a class="headerlink" href="#correntropy-is-positive-and-bounded" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Proof Steps</strong>:</p></li>
+</ul>
+<section id="positivity">
+<h4>Positivity<a class="headerlink" href="#positivity" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>When ( error = 0 )</strong>:
+$<span class="math notranslate nohighlight">\(
+V(0) = 1 - \exp(0) = 1 - 1 = 0
+\)</span>$
+So ( V(0) = 0 ).</p></li>
+<li><p><strong>When <span class="math notranslate nohighlight">\(( error \neq 0 )\)</span></strong>:
+The term <span class="math notranslate nohighlight">\(( -0.5 \left(\frac{error}{\sigma}\right)^2 )\)</span> is negative, making <span class="math notranslate nohighlight">\(( \exp\left(-0.5 \left(\frac{error}{\sigma}\right)^2\right) )\)</span> a positive value less than 1. Therefore:
+$<span class="math notranslate nohighlight">\(
+1 - \exp\left(-0.5 \left(\frac{error}{\sigma}\right)^2\right) &gt; 0 \quad \text{(for \( error \neq 0 \))}
+\)</span><span class="math notranslate nohighlight">\(
+Thus, \)</span>( V(error) &gt; 0 )<span class="math notranslate nohighlight">\( for all \)</span>( error \neq 0 )$.</p></li>
+</ol>
+</section>
+<section id="boundedness">
+<h4>Boundedness<a class="headerlink" href="#boundedness" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>As <span class="math notranslate nohighlight">\(( |error| \to \infty )\)</span></strong>:
+$<span class="math notranslate nohighlight">\(
+-0.5 \left(\frac{error}{\sigma}\right)^2 \to -\infty \quad \Rightarrow \quad \exp\left(-0.5 \left(\frac{error}{\sigma}\right)^2\right) \to 0
+\)</span><span class="math notranslate nohighlight">\(
+Therefore, \( V(error) \) approaches:
+\)</span><span class="math notranslate nohighlight">\(
+V(error) \to 1 - 0 = 1
+\)</span>$</p></li>
+<li><p><strong>Upper Bound</strong>:
+Since <span class="math notranslate nohighlight">\(( \exp(-x))\)</span> is always less than or equal to 1 for any real <span class="math notranslate nohighlight">\(( x )\)</span>, it follows that:
+$<span class="math notranslate nohighlight">\(
+1 - \exp\left(-0.5 \left(\frac{error}{\sigma}\right)^2\right) &lt; 1
+\)</span>$</p></li>
+</ol>
+</section>
+</section>
+<section id="correntropy-involves-all-the-even-moments">
+<h3>4.3 Correntropy involves all the even moments<a class="headerlink" href="#correntropy-involves-all-the-even-moments" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Proof Steps</strong>:</p></li>
+</ul>
+<ol class="arabic">
+<li><p><strong>Exponential Function and Taylor Series:</strong></p>
+<p>The exponential function can be expanded using a Taylor series:
+$<span class="math notranslate nohighlight">\(
+\exp(x) = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots
+\)</span>$</p>
+<p>For our case, we want to look at:</p>
+</li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\exp\left(-\frac{(y-f(x_i))^2}{2\sigma^2}\right)
+\]</div>
+<ol class="arabic" start="3">
+<li><p><strong>Expansion of the Exponential:</strong>
+$<span class="math notranslate nohighlight">\(
+\exp\left(-\frac{(y-f(x_i))^2}{2\sigma^2}\right) = 1 - \frac{(y-f(x_i))^2}{2\sigma^2} + \frac{(y-f(x_i))^4}{4! (2\sigma^2)^2} - \frac{(y-f(x_i))^6}{6! (2\sigma^2)^3} + \cdots
+\)</span>$</p></li>
+<li><p><strong>Plugging into Correntropy Formula:</strong></p>
+<p>Substituting this back into the correntropy definition gives us:
+$<span class="math notranslate nohighlight">\(
+V(y-f(x_i)) = 1 - \left(1 - \frac{(y-f(x_i))^2}{2\sigma^2} + \frac{(y-f(x_i))^4}{4! (2\sigma^2)^2} - \cdots \right)
+\)</span>$</p>
+</li>
+<li><p><strong>Simplifying the Expression:</strong></p>
+<p>When we simplify, we find:
+$<span class="math notranslate nohighlight">\(
+V(y-f(x_i)) = \frac{(y-f(x_i))^2}{2\sigma^2} - \frac{(y-f(x_i))^4}{4! (2\sigma^2)^2} + \cdots
+\)</span>$</p>
+</li>
+<li><p><strong>Conclusion: Correntropy and Even Moments</strong></p>
+<ul class="simple">
+<li><p>The correntropy function <span class="math notranslate nohighlight">\((V(Z))\)</span> incorporates contributions from all even moments of <span class="math notranslate nohighlight">\(( Z )\)</span>.</p></li>
+<li><p>Each term in the series represents a different even moment (like variance, kurtosis, etc.) of the distribution of <span class="math notranslate nohighlight">\(( Z )\)</span>.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+<section id="an-example-to-find-the-parameter-values-of-a-regression-model-using-correntropy-cost-function-and-derivation">
+<h2>5. An example to find the parameter values ​​of a regression model using correntropy cost function and derivation<a class="headerlink" href="#an-example-to-find-the-parameter-values-of-a-regression-model-using-correntropy-cost-function-and-derivation" title="Link to this heading">#</a></h2>
+<section id="model-setup">
+<h3>Model Setup<a class="headerlink" href="#model-setup" title="Link to this heading">#</a></h3>
+<p>For our regression model, we define the prediction as:
+$<span class="math notranslate nohighlight">\(
+\hat{y} = w_0 + w_1 x\)</span><span class="math notranslate nohighlight">\(
+where \)</span>( w_0 )<span class="math notranslate nohighlight">\( is the intercept and \)</span>( w_1 )$ is the slope.</p>
+</section>
+<section id="correntropy-loss-function">
+<h3>Correntropy Loss Function<a class="headerlink" href="#correntropy-loss-function" title="Link to this heading">#</a></h3>
+<p>The Correntropy loss function can be expressed as:
+$<span class="math notranslate nohighlight">\(
+L(w_0, w_1) = \frac{1}{N} \sum_{i=1}^{N} \left(1 - e^{-\frac{(y_i - (w_0 + w_1 x_i))^2}{2\sigma^2}}\right)\)</span><span class="math notranslate nohighlight">\(
+where \)</span>( y_i )<span class="math notranslate nohighlight">\( is the true value, \)</span>(\hat{y_i})<span class="math notranslate nohighlight">\( is the predicted value, and \)</span>( \sigma\ )$ is the bandwidth parameter.</p>
+</section>
+<section id="derivative-with-respect-to-w-0">
+<h3>Derivative with Respect to <span class="math notranslate nohighlight">\(( w_0 )\)</span><a class="headerlink" href="#derivative-with-respect-to-w-0" title="Link to this heading">#</a></h3>
+<p>To compute the derivative with respect to <span class="math notranslate nohighlight">\(( w_0 )\)</span>:
+$<span class="math notranslate nohighlight">\(
+\frac{\partial L}{\partial w_0} = \frac{1}{N} \sum_{i=1}^{N} e^{-\frac{(y_i - (w_0 + w_1 x_i))^2}{2\sigma^2}} \cdot (y_i - (w_0 + w_1 x_i))\)</span><span class="math notranslate nohighlight">\(
+Setting this equal to zero:
+\)</span><span class="math notranslate nohighlight">\(
+\frac{1}{N} \sum_{i=1}^{N} e^{-\frac{(y_i - (w_0 + w_1 x_i))^2}{2\sigma^2}} \cdot (y_i - (w_0 + w_1 x_i)) = 0\)</span>$</p>
+<div class="math notranslate nohighlight">
+\[
+w_0 = \frac{\sum_{i=1}^{N} e^{-\frac{(y_i - (w_0 + w_1 x_i))^2}{2\sigma^2}} \cdot y_i  -  w_1 \sum_{i=1}^{N} e^{-\frac{(y_i - (w_0 + w_1 x_i))^2}{2\sigma^2}} \cdot x_i}{\sum_{i=1}^{N} e^{-\frac{(y_i - (w_0 + w_1 x_i))^2}{2\sigma^2}}}.\]</div>
+</section>
+<section id="derivative-with-respect-to-w-1">
+<h3>Derivative with Respect to <span class="math notranslate nohighlight">\(( w_1 )\)</span><a class="headerlink" href="#derivative-with-respect-to-w-1" title="Link to this heading">#</a></h3>
+<p>Similarly, the derivative with respect to <span class="math notranslate nohighlight">\(( w_1 )\)</span> is:
+$<span class="math notranslate nohighlight">\(
+\frac{\partial L}{\partial w_1} = \frac{1}{N} \sum_{i=1}^{N} e^{-\frac{(y_i - (w_0 + w_1 x_i))^2}{2\sigma^2}} \cdot (y_i - (w_0 + w_1 x_i)) \cdot x_i\)</span><span class="math notranslate nohighlight">\(
+Setting this equal zero:
+\)</span><span class="math notranslate nohighlight">\(
+\frac{1}{N} \sum_{i=1}^{N} e^{-\frac{(y_i - (w_0 + w_1 x_i))^2}{2\sigma^2}} \cdot (y_i - (w_0 + w_1 x_i)) \cdot x_i = 0\
+\)</span>$</p>
+<div class="math notranslate nohighlight">
+\[
+w_1 = \frac{\sum_{i=1}^{N} e^{-\frac{(y_i - (w_0 + w_1 x_i))^2}{2\sigma^2}} \cdot y_i \cdot x_i - w_0 \sum_{i=1}^{N} e^{-\frac{(y_i - (w_0 + w_1 x_i))^2}{2\sigma^2}} \cdot x_i}{\sum_{i=1}^{N} e^{-\frac{(y_i - (w_0 + w_1 x_i))^2}{2\sigma^2}} \cdot x_i^2}.
+\]</div>
+</section>
+</section>
+<section id="effect-of-changing">
+<h2>6. Effect of Changing σ<a class="headerlink" href="#effect-of-changing" title="Link to this heading">#</a></h2>
+<p>σ specifies how much of the data is considered in the correntropy calculation. A larger size of σ causes similar distributions to be more affected, resulting in a smoother estimate of the correntropy. Conversely, a smaller size of σ makes it more sensitive to small changes in the data.</p>
+<p>To illustrate how the choice of σ affects the correntropy loss in relation to prediction error, plots can be generated for a range of errors, with each curve corresponding to a different σ. This visualization aids in understanding the sensitivity of correntropy to the bandwidth parameter.</p>
+<p><img alt="sigma" src="../../../_images/sigma.png" /></p>
+<section id="code-example-for-effect-of-changing">
+<h3>Code Example for Effect of Changing σ<a class="headerlink" href="#code-example-for-effect-of-changing" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Function to visualize the effect of different sigma values on correntropy loss based on prediction error</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">correntropy_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">error</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
+
+<span class="k">def</span> <span class="nf">plot_correntropy_loss_vs_error</span><span class="p">(</span><span class="n">sigmas</span><span class="p">,</span> <span class="n">error_range</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    
+    <span class="k">for</span> <span class="n">sigma</span> <span class="ow">in</span> <span class="n">sigmas</span><span class="p">:</span>
+        <span class="n">losses</span> <span class="o">=</span> <span class="p">[</span><span class="n">correntropy_loss</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">error</span><span class="p">]),</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span> <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">error_range</span><span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">error_range</span><span class="p">,</span> <span class="n">losses</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">(</span><span class="n">sigma</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">sigmas</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;σ=</span><span class="si">{</span><span class="n">sigma</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Correntropy Loss vs. Prediction Error for Different Sigma Values&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Prediction Error (y_true - y_pred)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Correntropy Loss&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>  <span class="c1"># Add a horizontal line at y=0</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Define the error range and sigmas</span>
+<span class="n">error_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>  <span class="c1"># Range of prediction errors</span>
+<span class="n">sigmas</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]</span>  <span class="c1"># Updated sigma values</span>
+
+<span class="c1"># Plot the effect of sigma on loss vs error</span>
+<span class="n">plot_correntropy_loss_vs_error</span><span class="p">(</span><span class="n">sigmas</span><span class="p">,</span> <span class="n">error_range</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="applications">
+<h2>7. Applications<a class="headerlink" href="#applications" title="Link to this heading">#</a></h2>
+<p>Correntropy is applicable in several domains:</p>
+<ul class="simple">
+<li><p><strong>Signal Processing</strong>: Used for noise reduction in signals.</p></li>
+<li><p><strong>Robust Statistics</strong>: Provides enhanced parameter estimation in regression.</p></li>
+<li><p><strong>Machine Learning</strong>: Improves performance in models dealing with noisy or extreme data.</p></li>
+</ul>
+</section>
+<section id="types-of-machine-learning-algorithms-using-correntropy">
+<h2>8. Types of Machine Learning Algorithms Using Correntropy<a class="headerlink" href="#types-of-machine-learning-algorithms-using-correntropy" title="Link to this heading">#</a></h2>
+<p>Correntropy is employed in various machine learning models, including:</p>
+<ul class="simple">
+<li><p><strong>Regression Algorithms</strong></p></li>
+<li><p><strong>Support Vector Machines (SVMs)</strong></p></li>
+<li><p><strong>Neural Networks</strong></p></li>
+<li><p><strong>Clustering Algorithms</strong></p></li>
+</ul>
+</section>
+<section id="comparison-with-other-cost-functions">
+<h2>9. Comparison with Other Cost Functions<a class="headerlink" href="#comparison-with-other-cost-functions" title="Link to this heading">#</a></h2>
+<section id="mean-squared-error-mse">
+<h3>9.1 Mean Squared Error (MSE)<a class="headerlink" href="#mean-squared-error-mse" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Definition</strong>: MSE measures the average squared difference between the actual and predicted values. It is defined as:
+$<span class="math notranslate nohighlight">\(
+\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
+\)</span>$</p></li>
+<li><p><strong>Sensitivity to Outliers</strong>:</p>
+<ul>
+<li><p>MSE is very sensitive to outliers because the errors are squared. Large errors have a disproportionately large effect on the overall metric.</p></li>
+</ul>
+</li>
+<li><p><strong>Use Cases</strong>:</p>
+<ul>
+<li><p>Commonly used in regression problems and optimization scenarios where larger errors are more costly.</p></li>
+</ul>
+</li>
+<li><p><strong>Interpretation</strong>:</p>
+<ul>
+<li><p>The unit of MSE is the square of the unit of the target variable, which can complicate interpretations.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="mean-absolute-error-mae">
+<h3>9.2 Mean Absolute Error (MAE)<a class="headerlink" href="#mean-absolute-error-mae" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Definition</strong>: MAE measures the average absolute difference between the actual and predicted values. It is defined as:
+$<span class="math notranslate nohighlight">\(
+\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
+\)</span>$</p></li>
+<li><p><strong>Sensitivity to Outliers</strong>:</p>
+<ul>
+<li><p>MAE is less sensitive to outliers than MSE since it takes the absolute value of errors. However, it still reflects significant errors.</p></li>
+</ul>
+</li>
+<li><p><strong>Use Cases</strong>:</p>
+<ul>
+<li><p>Preferred when all errors should be treated equally and when robustness to outliers is important.</p></li>
+</ul>
+</li>
+<li><p><strong>Interpretation</strong>:</p>
+<ul>
+<li><p>The unit of MAE is the same as the unit of the target variable, making it easier to interpret.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="correntropy">
+<h3>9.3 Correntropy<a class="headerlink" href="#correntropy" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Correntropy is a measure of similarity between two distributions, often used in contexts where robustness to noise and outliers is desired. It is defined as:
+$<span class="math notranslate nohighlight">\(
+\text{Correntropy} = \mathbb{E}[K_{\sigma}(y_i - \hat{y}_i)]
+\)</span>$</p></li>
+<li><p><strong>Sensitivity to Outliers</strong>:</p>
+<ul>
+<li><p>Correntropy is generally more robust to outliers compared to both MSE and MAE, as it uses a kernel function that diminishes the influence of large errors.</p></li>
+</ul>
+</li>
+<li><p><strong>Use Cases</strong>:</p>
+<ul>
+<li><p>Useful in signal processing, machine learning, and contexts where the data may be noisy or contain outliers.</p></li>
+</ul>
+</li>
+<li><p><strong>Interpretation</strong>:</p>
+<ul>
+<li><p>Correntropy provides a measure of similarity, which can be less intuitive than MSE or MAE but offers valuable insights in certain applications.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="comparison-summary">
+<h3>Comparison Summary<a class="headerlink" href="#comparison-summary" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Robustness</strong>:</p>
+<ul>
+<li><p>Correntropy &gt; MAE &gt; MSE in terms of robustness to outliers.</p></li>
+</ul>
+</li>
+<li><p><strong>Sensitivity to Errors</strong>:</p>
+<ul>
+<li><p>MSE is the most sensitive, followed by MAE, with Correntropy being the least sensitive due to its kernel-based approach.</p></li>
+</ul>
+</li>
+<li><p><strong>Interpretability</strong>:</p>
+<ul>
+<li><p>MAE is the easiest to interpret, followed by MSE, while Correntropy might require a deeper understanding of its kernel function.</p></li>
+</ul>
+</li>
+<li><p><strong>Application Suitability</strong>:</p>
+<ul>
+<li><p>Use MSE when large errors are particularly detrimental; MAE for equal treatment of errors; and Correntropy when data is expected to be noisy or have outliers.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="visualization">
+<h2>10. Visualization<a class="headerlink" href="#visualization" title="Link to this heading">#</a></h2>
+<p>To visualize the performance of correntropy compared to MSE and MAE, one can create a plot illustrating the loss values for both functions across a range of predictions. This comparison can help elucidate the strengths of correntropy in the presence of outliers.</p>
+<section id="code-example-for-visualization">
+<h3>Code Example for Visualization<a class="headerlink" href="#code-example-for-visualization" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Generate error values</span>
+<span class="n">errors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+
+<span class="c1"># Mean Squared Error</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">errors</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="c1"># Mean Absolute Error</span>
+<span class="n">mae</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+
+<span class="c1"># Correntropy (using a Gaussian kernel)</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># Bandwidth parameter</span>
+<span class="n">correntropy</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">errors</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span> <span class="n">mse</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Mean Squared Error&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span> <span class="n">mae</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Mean Absolute Error&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span> <span class="n">correntropy</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Correntropy&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Loss Function Comparison&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Error (y - y_hat)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/ff5e4d1c6fdcdf488154a6fb9bde75305cd30395fc216d8a1a9927e602af3cd5.png" src="../../../_images/ff5e4d1c6fdcdf488154a6fb9bde75305cd30395fc216d8a1a9927e602af3cd5.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="example-of-sensitivity-to-outliers">
+<h2>11. Example of sensitivity to Outliers<a class="headerlink" href="#example-of-sensitivity-to-outliers" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Generate a dataset with some outliers</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">true_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">predicted_values</span> <span class="o">=</span> <span class="n">true_values</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Introduce some outliers</span>
+<span class="n">predicted_values</span><span class="p">[::</span><span class="mi">10</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># Adding outliers</span>
+
+<span class="c1"># Calculate errors</span>
+<span class="n">errors</span> <span class="o">=</span> <span class="n">predicted_values</span> <span class="o">-</span> <span class="n">true_values</span>
+
+<span class="c1"># Loss calculations</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">errors</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="n">mae</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">correntropy</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">errors</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span> <span class="n">mse</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MSE&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span> <span class="n">mae</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MAE&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span> <span class="n">correntropy</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Correntropy&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sensitivity to Outliers&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Error (y - y_hat)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/1dc794a79e7eb354f5d3281d3b5d786c92781b78d38c0c430414539eceea049d.png" src="../../../_images/1dc794a79e7eb354f5d3281d3b5d786c92781b78d38c0c430414539eceea049d.png" />
+</div>
+</div>
+</section>
+<section id="example-of-finding-parameters-in-linear-regression-using-correntropy-cost-function-and-gradient-descent">
+<h2>12. Example of finding parameters in linear regression using correntropy cost function and gradient descent<a class="headerlink" href="#example-of-finding-parameters-in-linear-regression-using-correntropy-cost-function-and-gradient-descent" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Correntropy Loss function</span>
+<span class="k">def</span> <span class="nf">correntropy_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">error</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
+
+<span class="c1"># Generate sample data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># 100 random points</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># Linear function with less noise</span>
+
+<span class="c1"># Linear regression model</span>
+<span class="k">def</span> <span class="nf">linear_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">X</span>
+
+<span class="c1"># Train model using Correntropy</span>
+<span class="k">def</span> <span class="nf">train_with_correntropy</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Random initial weights</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">linear_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>  <span class="c1"># Predict using current weights</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">correntropy_loss</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>  <span class="c1"># Calculate loss</span>
+
+        <span class="c1"># Compute gradients</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_pred</span>
+        <span class="n">gradient_w0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">error</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">error</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># Gradient for w0</span>
+        <span class="n">gradient_w1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">error</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">error</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># Gradient for w1</span>
+        
+        <span class="c1"># Update weights</span>
+        <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradient_w0</span>
+        <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradient_w1</span>
+
+        <span class="c1"># (Optional) Display training progress</span>
+        <span class="c1">#if epoch % 100 == 0:</span>
+            <span class="c1">#print(f&#39;Epoch {epoch}, Loss: {loss:.4f}, Weights: {weights}&#39;)</span>
+
+    <span class="k">return</span> <span class="n">weights</span>
+
+<span class="c1"># Parameters</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">train_with_correntropy</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>  <span class="c1"># Train the model</span>
+
+<span class="c1"># Plot results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Data&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># Scatter plot of the data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">linear_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">weights</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Correntropy Regression&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Regression line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Regression using Correntropy Loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Learned weights: </span><span class="si">{</span><span class="n">weights</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Display learned weights</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/e1d882a519c3110f938ec035b720a39aaa9f4e71d677042d0186230897795432.png" src="../../../_images/e1d882a519c3110f938ec035b720a39aaa9f4e71d677042d0186230897795432.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Learned weights: [0.76385163 1.90684434]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion">
+<h2>13. Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>Correntropy offers a robust alternative to traditional loss functions, effectively handling outliers and capturing the underlying structure of data. Its mathematical foundation and properties make it suitable for various applications, from signal processing to robust statistics and machine learning. While correntropy shows considerable advantages, careful selection of the kernel and its parameters is essential for optimal performance.</p>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Correntropy induced loss based sparse robust graph regularized extreme learning machine for cancer classification. <a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7542897/">Link to the paper</a>.</p></li>
+<li><p>From MSE to Correntropy, a friendly survey. <a class="reference external" href="https://sbic.org.br/lnlm/wp-content/uploads/2021/12/vol19-no1-art5.pdf">Link to the paper</a>.</p></li>
+<li><p>Robust Recognition via Information Theoretic Learning.</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR\StudentEffort\correntropy"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../ECG/ecg.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ECG: Measurement of heart rate and probability of heart attack</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../SupplementaryDocuments/Supplementary1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Supplementary Documents</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-correntropy">2. What is the correntropy?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">3. Mathematical Formulation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy-function">3.1 Correntropy Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-correntropy">3.2 Interpretation of Correntropy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-correntropy">4. Properties of Correntropy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy-is-symmetric">4.1 Correntropy is symmetric:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy-is-positive-and-bounded">4.2 Correntropy is positive and bounded:</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#positivity">Positivity</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#boundedness">Boundedness</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy-involves-all-the-even-moments">4.3 Correntropy involves all the even moments</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-to-find-the-parameter-values-of-a-regression-model-using-correntropy-cost-function-and-derivation">5. An example to find the parameter values ​​of a regression model using correntropy cost function and derivation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-setup">Model Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy-loss-function">Correntropy Loss Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivative-with-respect-to-w-0">Derivative with Respect to <span class="math notranslate nohighlight">\(( w_0 )\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivative-with-respect-to-w-1">Derivative with Respect to <span class="math notranslate nohighlight">\(( w_1 )\)</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#effect-of-changing">6. Effect of Changing σ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-example-for-effect-of-changing">Code Example for Effect of Changing σ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">7. Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-machine-learning-algorithms-using-correntropy">8. Types of Machine Learning Algorithms Using Correntropy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-other-cost-functions">9. Comparison with Other Cost Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error-mse">9.1 Mean Squared Error (MSE)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-absolute-error-mae">9.2 Mean Absolute Error (MAE)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy">9.3 Correntropy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-summary">Comparison Summary</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">10. Visualization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-example-for-visualization">Code Example for Visualization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-sensitivity-to-outliers">11. Example of sensitivity to Outliers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-finding-parameters-in-linear-regression-using-correntropy-cost-function-and-gradient-descent">12. Example of finding parameters in linear regression using correntropy cost function and gradient descent</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">13. Conclusion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

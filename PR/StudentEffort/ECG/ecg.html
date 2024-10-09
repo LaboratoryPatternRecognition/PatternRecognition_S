@@ -1,0 +1,1086 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ECG: Measurement of heart rate and probability of heart attack &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/StudentEffort/ECG/ecg';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Supplementary Documents" href="../../SupplementaryDocuments/Supplementary1.html" />
+    <link rel="prev" title="Linear Least Square Method" href="../linear-least-square-final/least-square.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction of PR</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/PR_intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/Model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Clustering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/PR_intro_Clustering.html">Clustering Concept</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Regression</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Introduction_Regression.html">Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classification</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/PR_intro_Classification.html">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">BayesEstimation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/BayesEstimation.html">Bayes Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Student Effort</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Whyprojection1.html">What is Projection?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Star%20Coordinates/Star_Coordinates.html">Star Coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Covariance_Fekri/Covariance_Poorya.html">Covariance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-least-square-final/least-square.html">Linear Least Square Method</a></li>
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ECG: Measurement of heart rate and probability of heart attack</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contact</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FPR/StudentEffort/ECG/ecg.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/PR/StudentEffort/ECG/ecg.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ECG: Measurement of heart rate and probability of heart attack</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-electrocardiogram">What is an electrocardiogram?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-ecg-components">Understanding ECG Components</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-heart-attack">What is a heart attack?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heart-rate">Heart rate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement-of-heart-rate-and-probability-of-heart-attack">Measurement of heart rate and probability of heart attack</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#function-definitions">Function Definitions:</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#detect-heart-rate-ecg-signal-sampling-rate">1- detect_heart_rate(ecg_signal, sampling_rate)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#detect-heart-attack-ecg-signal-sampling-rate">2- detect_heart_attack(ecg_signal, sampling_rate)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-ecg-ecg-signal-sampling-rate-peaks-none">3- visualize_ecg(ecg_signal, sampling_rate, peaks=None)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#note">note</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-ecg-data-plot">Raw ECG Data Plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ecg-signal-with-detected-r-peaks">ECG Signal with Detected R-Peaks</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#output-for-the-first-data">Output for the first data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#output-for-the-second-data">Output for the second data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#output-for-the-third-data">Output for the third data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#output-for-the-fourth-data">Output for the fourth data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ecg-measurement-of-heart-rate-and-probability-of-heart-attack">
+<h1>ECG: Measurement of heart rate and probability of heart attack<a class="headerlink" href="#ecg-measurement-of-heart-rate-and-probability-of-heart-attack" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Author  :  Mohammad Mahdi Khorsand Aalam</p></li>
+<li><p>Contact : <a class="reference external" href="https://github.com/OOiiOOiiOO">Github Page</a></p></li>
+</ul>
+<p><img alt="Mohammad Mahdi Khorsand" src="../../../_images/MyPhoto1.jpeg" /></p>
+<section id="what-is-an-electrocardiogram">
+<h2>What is an electrocardiogram?<a class="headerlink" href="#what-is-an-electrocardiogram" title="Link to this heading">#</a></h2>
+<p>Electrocardiography (ECG or EKG) is a non-invasive diagnostic tool that records the heart’s electrical activity. By placing electrodes on the body’s surface, ECG provides valuable information about the heart’s rate, rhythm, and overall health. Originally invented by Einthoven in 1902 [1], ECG has become a cornerstone of cardiac diagnosis.</p>
+<ul class="simple">
+<li><p><strong>ECG has numerous clinical applications, including:</strong></p>
+<ul>
+<li><p><strong>Diagnosis</strong>: Detecting various heart conditions such as arrhythmias, heart attacks, and cardiomyopathies [2].</p></li>
+<li><p><strong>Monitoring</strong>: Tracking patients on medications and those undergoing non-cardiac surgery [3].</p></li>
+<li><p><strong>Screening</strong>: Identifying individuals at risk of heart disease, including athletes [4].</p></li>
+<li><p><strong>Research</strong>: Investigating the effects of drugs on the heart [4].</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="understanding-ecg-components">
+<h2>Understanding ECG Components<a class="headerlink" href="#understanding-ecg-components" title="Link to this heading">#</a></h2>
+<p><img alt="HP Waves" src="../../../_images/10.png" /></p>
+<p><strong>Axis</strong></p>
+<p>The axis refers to the net direction of electrical activity during the heart’s depolarization. It is typically expressed as an angle, with a normal range of 0° to 120°. A shift in the axis can indicate various heart conditions, such as left or right ventricular hypertrophy or bundle branch blocks.[8][9]
+<img alt="Axis" src="../../../_images/4.png" /></p>
+<p><strong>P Waves</strong></p>
+<p><img alt="P Waves" src="../../../_images/7.jpg" />
+The P wave is the first positive deflection observed on an electrocardiogram (ECG). It represents the electrical depolarization of the heart’s atria, leading to their contraction. Normal P waves are typically small, rounded, and less than 120 milliseconds in duration. Abnormal P waves can indicate various atrial abnormalities, such as enlargement or fibrillation.[8][10]</p>
+<ul class="simple">
+<li><p><em><strong>Normal P Wave Size</strong></em></p>
+<ul>
+<li><p>Duration &lt;120ms (3mm)</p></li>
+<li><p>Amplitude &lt;2.5mm</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>PR interval</strong></p>
+<p><img alt="PR interval" src="../../../_images/8.png" />
+The PR interval is the time from the onset of the P wave to the start of the QRS complex. It reflects conduction through the AV node.
+The normal PR interval is between 120 – 200 ms (0.12-0.20s) in duration (three to five small squares).[11]</p>
+<p>The PR interval reflects the time taken for the electrical impulse to travel from the atria to the ventricles via the AV node.</p>
+<p><strong>QRS Complex</strong></p>
+<p><img alt="QRS Complex" src="../../../_images/9.jpg" />
+he QRS complex is the ventricular contraction (systole) consisting of the Q wave, which is the first negative deviation, followed by the R wave, a positive (upward) deviation. Any negative deflection following immediately after the R portion is termed the S wave.[12]
+The normal duration is 0.06 to 0.10 seconds. A widened QRS complex may suggest bundle branch block or ventricular origin of the depolarization (e.g., in ventricular tachycardia).[13]</p>
+<p><strong>QT Interval</strong></p>
+<p><img alt="QT Interval" src="../../../_images/11.jpg" /></p>
+<p>The QT interval measures the time from the start of the QRS complex to the end of the T wave. It represents the total time required for the ventricles to depolarize and repolarize. A prolonged QT interval can increase the risk of abnormal heart rhythms, such as torsade de pointes.[8][9]</p>
+<p>The QT interval is most commonly measured in lead II for evaluation of serial ECGs, with leads I and V5 being comparable alternatives to lead II. Leads III, aVL and V1 are generally avoided for measurement of QT interval.[14]</p>
+<ul class="simple">
+<li><p><em>Bazett’s formula</em>
+The most commonly used QT correction formula is the Bazett’s formula,[5] named after physiologist Henry Cuthbert Bazett (1885–1950),[6] calculating the heart rate-corrected QT interval (QTcB).[15]
+Bazett’s formula is based on observations from a study in 1920. Bazett’s formula is often given in a form that returns QTc in dimensionally suspect units, square root of seconds. The dimensionally correct form of Bazett’s formula is:
+$<span class="math notranslate nohighlight">\(QTc = QT / √RR\)</span>$</p>
+<ul>
+<li><p>QTc is the corrected QT interval</p></li>
+<li><p>QT is the measured QT interval</p></li>
+<li><p>RR is the interval between two consecutive R waves (representing one heartbeat)</p></li>
+</ul>
+</li>
+<li><p><em>Bazett’s formula</em>
+Fridericia’s formula is another method for calculating the corrected QT interval (QTc) on an electrocardiogram (ECG). It is considered to be more accurate than Bazett’s formula, especially at faster heart rates. [16]
+$<span class="math notranslate nohighlight">\(QTc = QT / RR^(1/3)\)</span>$</p>
+<ul>
+<li><p>QTc is the corrected QT interval</p></li>
+<li><p>QT is the measured QT interval</p></li>
+<li><p>RR is the interval between two consecutive R waves (representing one heartbeat)</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>ST Segment</strong></p>
+<p><img alt="ST Segment" src="../../../_images/12.png" /></p>
+<p>The ST segment is the flat line between the end of the QRS complex and the start of the T wave. It represents the time between ventricular depolarization and repolarization. An elevated ST segment can indicate a heart attack, while a depressed ST segment can indicate myocardial ischemia or other heart conditions.</p>
+<p><strong>T Waves</strong></p>
+<p><img alt="T Waves" src="../../../_images/13.png" /></p>
+<p>The T wave represents ventricular repolarization, the recovery phase after depolarization. It should be upright in most leads and is usually rounded and asymmetrical. Abnormal T waves can suggest myocardial ischemia, electrolyte imbalances, or other conditions.[17]</p>
+</section>
+<section id="what-is-a-heart-attack">
+<h2>What is a heart attack?<a class="headerlink" href="#what-is-a-heart-attack" title="Link to this heading">#</a></h2>
+<p>A heart attack is caused by a blockage in one of the vessels of the heart.</p>
+<p>The most common ECG indicator of a heart attack is ST segment elevation, which represents the start of ventricular relaxation. ST elevation in two or more leads viewing the same heart region increases suspicion of a heart attack .[7]</p>
+<p><img alt="Heart attack" src="../../../_images/2.png" /></p>
+<p>ECG changes, along with elevated troponin levels, can indicate the need for a trip to a Cath Lab to check for heart blockages. In some cases, a person with chest pain and a suspicious ECG may be sent to the Cath Lab before blood test results are available.</p>
+</section>
+<section id="heart-rate">
+<h2>Heart rate<a class="headerlink" href="#heart-rate" title="Link to this heading">#</a></h2>
+<p>Heart rate is the number of beats per minute, and the body adjusts it based on activity or environment. It increases during activity, excitement, or fear, and decreases when resting or calm .[5]</p>
+<p><strong>What is a normal adult heart rate?</strong></p>
+<ul class="simple">
+<li><p><strong>Normal:</strong> 60-100 bpm</p></li>
+<li><p><strong>Tachycardia:</strong> &gt; 100 bpm</p></li>
+<li><p><strong>Bradycardia:</strong> &lt; 60 bpm</p></li>
+</ul>
+<p><strong>Regular heart rhythm</strong></p>
+<p>If a patient has a regular heart rhythm, their heart rate can be calculated using the following method:</p>
+<p>Simply identify two consecutive R waves and count the number of large squares between them. By dividing this number into 300 (remember, this number represents 1 minute) we are able to calculate a person’s heart rate.[6]</p>
+<p>Rate = 300 / number of large squares between consecutive R waves.[6]</p>
+<ul class="simple">
+<li><p><em><strong>Count</strong></em> the number of <em><strong>large squares</strong></em> present within one <em><strong>R-R interval</strong></em>.</p></li>
+<li><p><em><strong>Divide</strong></em> 300 by this number to calculate heart rate.</p></li>
+</ul>
+<p><em><strong>Heart rate calculation example</strong></em>
+4 large squares in an R-R interval
+300/4 = 75 beats per minute
+<img alt="Heart rate calculation" src="../../../_images/1.jpg" /></p>
+</section>
+<section id="measurement-of-heart-rate-and-probability-of-heart-attack">
+<h2>Measurement of heart rate and probability of heart attack<a class="headerlink" href="#measurement-of-heart-rate-and-probability-of-heart-attack" title="Link to this heading">#</a></h2>
+<p>In this project, we want to measure and predict the probability of heart attack and heart rate based on ECG signals.</p>
+<p><strong>Dataset</strong>
+In this project, I use the data of MIT-BIH Arrhythmia Database, which is a data with a free use license.
+<a class="reference external" href="https://www.physionet.org/content/mitdb/1.0.0/">MIT-BIH Arrhythmia Database Link</a></p>
+<p><strong>Libraries</strong></p>
+<ul class="simple">
+<li><p><em><strong>wfdb</strong></em>
+This library allows you to load and manipulate ECG data files stored in a specific format commonly used in research (WFDB format).</p></li>
+<li><p><em><strong>scipy.signal (find_peaks)</strong></em>
+This function helps identify peaks (highest points) in the ECG signal, which are crucial for heart rate calculation.</p></li>
+<li><p><em><strong>matplotlib.pyplot (plt)</strong></em>
+This library is used to create visualizations like plots of the ECG signal.</p></li>
+<li><p><em><strong>numpy (np)</strong></em>
+This library provides powerful numerical computing functionalities used for calculations throughout the code.</p></li>
+</ul>
+<section id="function-definitions">
+<h3>Function Definitions:<a class="headerlink" href="#function-definitions" title="Link to this heading">#</a></h3>
+<section id="detect-heart-rate-ecg-signal-sampling-rate">
+<h4>1- detect_heart_rate(ecg_signal, sampling_rate)<a class="headerlink" href="#detect-heart-rate-ecg-signal-sampling-rate" title="Link to this heading">#</a></h4>
+<p>This function calculates the heart rate from the ECG signal.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">detect_heart_rate</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">):</span>
+    <span class="n">peaks</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">find_peaks</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">),</span> <span class="n">distance</span><span class="o">=</span><span class="n">sampling_rate</span><span class="o">/</span><span class="mf">2.5</span><span class="p">)</span>
+    <span class="n">rr_intervals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span> <span class="o">/</span> <span class="n">sampling_rate</span> 
+    <span class="n">heart_rate</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rr_intervals</span><span class="p">)</span> 
+    <span class="k">return</span> <span class="n">heart_rate</span><span class="p">,</span> <span class="n">peaks</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>R-Peak Detection:</strong>
+Uses <em>find_peaks</em> to identify <em>R peaks</em>, which correspond to the QRS complex (ventricular depolarization).</p>
+<ul>
+<li><p>Sets a peak height threshold <em>(height=np.mean(ecg_signal))</em> to filter out small fluctuations.</p></li>
+<li><p>Defines a minimum distance between peaks <em>(distance=sampling_rate/2.5)</em> to avoid detecting multiplepeaks from the same QRS complex.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="detect-heart-attack-ecg-signal-sampling-rate">
+<h4>2- detect_heart_attack(ecg_signal, sampling_rate)<a class="headerlink" href="#detect-heart-attack-ecg-signal-sampling-rate" title="Link to this heading">#</a></h4>
+<p>This Python function, detect_heart_attack <em>(ecg_signal, sampling_rate)</em>, identifies potential signs of heart attack by detecting ST-segment abnormalities (elevation or depression) in an ECG signal.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">detect_heart_attack</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">):</span>
+    <span class="n">st_segment_detected</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">st_window_start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.08</span> <span class="o">*</span> <span class="n">sampling_rate</span><span class="p">)</span>
+    <span class="n">st_window_end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.12</span> <span class="o">*</span> <span class="n">sampling_rate</span><span class="p">)</span>
+    <span class="n">st_elevations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">r_peaks</span> <span class="o">=</span> <span class="n">detect_heart_rate</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">r_peak</span> <span class="ow">in</span> <span class="n">r_peaks</span><span class="p">:</span>
+        <span class="n">st_segment</span> <span class="o">=</span> <span class="n">ecg_signal</span><span class="p">[</span><span class="n">r_peak</span> <span class="o">+</span> <span class="n">st_window_start</span> <span class="p">:</span> <span class="n">r_peak</span> <span class="o">+</span> <span class="n">st_window_end</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">st_segment</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">st_elevation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">st_segment</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">[:</span><span class="n">r_peak</span><span class="p">])</span>
+            <span class="n">st_elevations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">st_elevation</span><span class="p">)</span>
+    <span class="n">avg_st_elevation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">st_elevations</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">avg_st_elevation</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">:</span>
+        <span class="n">st_segment_detected</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Possible ST-segment elevation detected: </span><span class="si">{</span><span class="n">avg_st_elevation</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> mV&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">avg_st_elevation</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">:</span>
+        <span class="n">st_segment_detected</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Possible ST-segment depression detected: </span><span class="si">{</span><span class="n">avg_st_elevation</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> mV&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">st_segment_detected</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><em><strong>ST Segment Window:</strong></em>
+Defines start and end of the ST-segment window relative to each R-peak (0.08s - 0.12s  post R-peak).</p></li>
+<li><p><em><strong>R-Peak Detection:</strong></em>
+Uses the detect_heart_rate function to detect R-peaks in the ECG signal.</p></li>
+<li><p><em><strong>ST-Segment Analysis:</strong></em>
+For each R-peak, extracts the corresponding ST-segment and calculates the ST-segment elevation by comparingits average amplitude to the baseline (mean of the signal before the R-peak).</p></li>
+<li><p><em><strong>Abnormality Detection:</strong></em>
+If average ST-segment elevation &gt; 0.1 mV, it’s flagged as potential ST-segment elevation (possible heartattack).
+If average ST-segment deviation &lt; -0.1 mV, it’s flagged as ST-segment depression.</p></li>
+</ul>
+</section>
+<section id="visualize-ecg-ecg-signal-sampling-rate-peaks-none">
+<h4>3- visualize_ecg(ecg_signal, sampling_rate, peaks=None)<a class="headerlink" href="#visualize-ecg-ecg-signal-sampling-rate-peaks-none" title="Link to this heading">#</a></h4>
+<p>This function generates a visualization of the ECG signal.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">visualize_ecg</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">,</span> <span class="n">peaks</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">)</span> <span class="o">/</span> <span class="n">sampling_rate</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">))</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">ecg_signal</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;ECG Signal&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">peaks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="n">peaks</span><span class="p">],</span> <span class="n">ecg_signal</span><span class="p">[</span><span class="n">peaks</span><span class="p">],</span> <span class="s1">&#39;rx&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;R-peaks&#39;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ECG Signal with Detected R-Peaks&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Amplitude (mV)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Time Range:</strong>
+Calculates the start and end samples based on the <em>start_time</em> and duration parameters.</p></li>
+<li><p><strong>Time Axis:</strong>
+Creates a time axis for the plot using <em>np.linspace</em> based on the signal’s length and sampling rate.</p></li>
+<li><p><strong>R-Peak Visualization:</strong>
+If <em>R-peaks</em> are provided, marks them on the plot with red <em>“x”</em> symbols.</p></li>
+<li><p><strong>Customization:</strong>
+Adds titles, axis labels, gridlines, and a legend to the plot for clarity.</p></li>
+</ul>
+<p><strong>Plotting the ECG Signal:</strong></p>
+<ul class="simple">
+<li><p>Plots the ECG signal (amplitude in mV) over time (seconds).</p></li>
+<li><p>Labels the ECG signal as “ECG Signal”.</p></li>
+</ul>
+</section>
+</section>
+<section id="note">
+<h3>note<a class="headerlink" href="#note" title="Link to this heading">#</a></h3>
+<p>Before running the code, please install the required module using the command below and make sure your computer is connected to the Internet.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># install the module</span>
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>wfdb
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>^C
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">wfdb</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">find_peaks</span>
+
+
+<span class="k">def</span> <span class="nf">detect_heart_rate</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">):</span>
+    <span class="n">peaks</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">find_peaks</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">),</span> <span class="n">distance</span><span class="o">=</span><span class="n">sampling_rate</span><span class="o">/</span><span class="mf">2.5</span><span class="p">)</span>
+    <span class="n">rr_intervals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span> <span class="o">/</span> <span class="n">sampling_rate</span> 
+    <span class="n">heart_rate</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rr_intervals</span><span class="p">)</span> 
+    <span class="k">return</span> <span class="n">heart_rate</span><span class="p">,</span> <span class="n">peaks</span>
+
+
+<span class="k">def</span> <span class="nf">detect_heart_attack</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">):</span>
+    <span class="n">st_segment_detected</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">st_window_start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.08</span> <span class="o">*</span> <span class="n">sampling_rate</span><span class="p">)</span>
+    <span class="n">st_window_end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.12</span> <span class="o">*</span> <span class="n">sampling_rate</span><span class="p">)</span>
+    <span class="n">st_elevations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">r_peaks</span> <span class="o">=</span> <span class="n">detect_heart_rate</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">r_peak</span> <span class="ow">in</span> <span class="n">r_peaks</span><span class="p">:</span>
+        <span class="n">st_segment</span> <span class="o">=</span> <span class="n">ecg_signal</span><span class="p">[</span><span class="n">r_peak</span> <span class="o">+</span> <span class="n">st_window_start</span> <span class="p">:</span> <span class="n">r_peak</span> <span class="o">+</span> <span class="n">st_window_end</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">st_segment</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">st_elevation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">st_segment</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">[:</span><span class="n">r_peak</span><span class="p">])</span>
+            <span class="n">st_elevations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">st_elevation</span><span class="p">)</span>
+    
+    <span class="n">avg_st_elevation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">st_elevations</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">avg_st_elevation</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">:</span>
+        <span class="n">st_segment_detected</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Possible ST-segment elevation detected: </span><span class="si">{</span><span class="n">avg_st_elevation</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> mV&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">avg_st_elevation</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">:</span>
+        <span class="n">st_segment_detected</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Possible ST-segment depression detected: </span><span class="si">{</span><span class="n">avg_st_elevation</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> mV&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">st_segment_detected</span>
+
+
+<span class="k">def</span> <span class="nf">visualize_ecg</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">,</span> <span class="n">peaks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+
+
+    <span class="n">start_sample</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start_time</span> <span class="o">*</span> <span class="n">sampling_rate</span><span class="p">)</span>
+    <span class="n">end_sample</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">start_time</span> <span class="o">+</span> <span class="n">duration</span><span class="p">)</span> <span class="o">*</span> <span class="n">sampling_rate</span><span class="p">)</span>
+    
+    <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">start_time</span> <span class="o">+</span> <span class="n">duration</span><span class="p">,</span> <span class="n">end_sample</span> <span class="o">-</span> <span class="n">start_sample</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span> 
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">ecg_signal</span><span class="p">[</span><span class="n">start_sample</span><span class="p">:</span><span class="n">end_sample</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;ECG Signal&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">peaks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">peaks_in_range</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">peaks</span> <span class="k">if</span> <span class="n">start_sample</span> <span class="o">&lt;=</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="n">end_sample</span><span class="p">]</span>
+        <span class="n">peaks_in_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">peaks_in_range</span><span class="p">)</span> 
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="n">peaks_in_range</span> <span class="o">-</span> <span class="n">start_sample</span><span class="p">],</span> <span class="n">ecg_signal</span><span class="p">[</span><span class="n">peaks_in_range</span><span class="p">],</span> <span class="s1">&#39;rx&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;R-peaks&#39;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ECG Signal with Detected R-Peaks (Time: </span><span class="si">{</span><span class="n">start_time</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">start_time</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">duration</span><span class="si">}</span><span class="s2"> s)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Amplitude (mV)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+
+
+<span class="k">def</span> <span class="nf">display_raw_data</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+
+    <span class="n">sampling_rate</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">fs</span>
+    <span class="n">start_sample</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start_time</span> <span class="o">*</span> <span class="n">sampling_rate</span><span class="p">)</span>
+    <span class="n">end_sample</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">start_time</span> <span class="o">+</span> <span class="n">duration</span><span class="p">)</span> <span class="o">*</span> <span class="n">sampling_rate</span><span class="p">)</span>
+    
+    <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">start_time</span> <span class="o">+</span> <span class="n">duration</span><span class="p">,</span> <span class="n">end_sample</span> <span class="o">-</span> <span class="n">start_sample</span><span class="p">)</span>
+
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>  
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[</span><span class="n">start_sample</span><span class="p">:</span><span class="n">end_sample</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Lead 1&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Raw ECG Data (Time: </span><span class="si">{</span><span class="n">start_time</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">start_time</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">duration</span><span class="si">}</span><span class="s2"> s)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Amplitude&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    
+    <span class="n">record_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;100&#39;</span><span class="p">,</span> <span class="s1">&#39;101&#39;</span><span class="p">,</span> <span class="s1">&#39;102&#39;</span><span class="p">,</span> <span class="s1">&#39;103&#39;</span><span class="p">]</span> 
+
+    <span class="k">for</span> <span class="n">record_name</span> <span class="ow">in</span> <span class="n">record_list</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Processing ECG record: </span><span class="si">{</span><span class="n">record_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="n">record</span> <span class="o">=</span> <span class="n">wfdb</span><span class="o">.</span><span class="n">rdrecord</span><span class="p">(</span><span class="n">record_name</span><span class="p">)</span>  
+        <span class="n">ecg_signal</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">p_signal</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>  
+        <span class="n">sampling_rate</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">fs</span>  
+        
+        <span class="n">display_raw_data</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        
+    
+        <span class="n">heart_rate</span><span class="p">,</span> <span class="n">r_peaks</span> <span class="o">=</span> <span class="n">detect_heart_rate</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected Heart Rate: </span><span class="si">{</span><span class="n">heart_rate</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> bpm&quot;</span><span class="p">)</span>
+        
+        <span class="n">st_segment_detected</span> <span class="o">=</span> <span class="n">detect_heart_attack</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">st_segment_detected</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Possible heart attack (ST-segment abnormality) detected!&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No significant ST-segment abnormality detected.&quot;</span><span class="p">)</span>
+        
+        <span class="n">visualize_ecg</span><span class="p">(</span><span class="n">ecg_signal</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">,</span> <span class="n">peaks</span><span class="o">=</span><span class="n">r_peaks</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Processing ECG record: 100
+</pre></div>
+</div>
+<img alt="../../../_images/d3ef24d6148a4202a3767b155401cc4e2b8ba13a95ead882a0eeed7d130ef6e1.png" src="../../../_images/d3ef24d6148a4202a3767b155401cc4e2b8ba13a95ead882a0eeed7d130ef6e1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Detected Heart Rate: 99.37 bpm
+No significant ST-segment abnormality detected.
+</pre></div>
+</div>
+<img alt="../../../_images/9b62ead36ae9b9b82acbdee56a30bc7eb5136ccd3fbc7b986989ba535a0f0a0f.png" src="../../../_images/9b62ead36ae9b9b82acbdee56a30bc7eb5136ccd3fbc7b986989ba535a0f0a0f.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Processing ECG record: 101
+</pre></div>
+</div>
+<img alt="../../../_images/339fbb0cb1d5d33b68b3944e2f7fdd46eaa5f371c71395aa8d14a32ee3550e23.png" src="../../../_images/339fbb0cb1d5d33b68b3944e2f7fdd46eaa5f371c71395aa8d14a32ee3550e23.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Detected Heart Rate: 82.29 bpm
+No significant ST-segment abnormality detected.
+</pre></div>
+</div>
+<img alt="../../../_images/180dd5bf75fb0e543ebcfd8948980229831e83392767cf6342fafd1f054edd32.png" src="../../../_images/180dd5bf75fb0e543ebcfd8948980229831e83392767cf6342fafd1f054edd32.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Processing ECG record: 102
+</pre></div>
+</div>
+<img alt="../../../_images/dadce00f9849c2a4270a7fb34d8421568fcc6a8a11e3204410e45b37bc370589.png" src="../../../_images/dadce00f9849c2a4270a7fb34d8421568fcc6a8a11e3204410e45b37bc370589.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Detected Heart Rate: 117.05 bpm
+No significant ST-segment abnormality detected.
+</pre></div>
+</div>
+<img alt="../../../_images/9781246f0b6d1a3539fb0a3abc931c02dc24a972f947722475fc57dbd5840c7e.png" src="../../../_images/9781246f0b6d1a3539fb0a3abc931c02dc24a972f947722475fc57dbd5840c7e.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Processing ECG record: 103
+</pre></div>
+</div>
+<img alt="../../../_images/deb39aa7e1870a02ba76fc4a3e41328bae0f593d4c9409f972442afb7a5b404c.png" src="../../../_images/deb39aa7e1870a02ba76fc4a3e41328bae0f593d4c9409f972442afb7a5b404c.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Detected Heart Rate: 103.91 bpm
+Possible ST-segment depression detected: -0.135 mV
+Warning: Possible heart attack (ST-segment abnormality) detected!
+</pre></div>
+</div>
+<img alt="../../../_images/82ed33d28b3a52333756ae994ec34bab5ee711f64a250f91c1108f582afa0436.png" src="../../../_images/82ed33d28b3a52333756ae994ec34bab5ee711f64a250f91c1108f582afa0436.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="output">
+<h2>Output<a class="headerlink" href="#output" title="Link to this heading">#</a></h2>
+<section id="raw-ecg-data-plot">
+<h3>Raw ECG Data Plot<a class="headerlink" href="#raw-ecg-data-plot" title="Link to this heading">#</a></h3>
+<p>This plot displays the raw ECG signal for the specified duration (default: first 10 seconds). The X-axis represents time in seconds, and the Y-axis represents the electrical signal of the heart in millivolts (mV). Important features of the ECG signal, such as P waves, QRS complexes, and T waves, can be observed in this plot.</p>
+</section>
+<section id="ecg-signal-with-detected-r-peaks">
+<h3>ECG Signal with Detected R-Peaks<a class="headerlink" href="#ecg-signal-with-detected-r-peaks" title="Link to this heading">#</a></h3>
+<p>This plot shows the ECG signal along with the detected R-peaks (red crosses). The X-axis represents time in seconds, and the Y-axis represents the heart’s electrical signal in millivolts (mV). The red crosses indicate the R-peaks of the QRS complex, which are used to calculate the heart rate. This visualization helps in confirming the accuracy of R-peak detection and understanding the heart’s rhythm.</p>
+<section id="output-for-the-first-data">
+<h4>Output for the first data<a class="headerlink" href="#output-for-the-first-data" title="Link to this heading">#</a></h4>
+<p><img alt="ECG" src="../../../_images/e1.png" /></p>
+<p><img alt="ECG" src="../../../_images/e2.png" /></p>
+<p><em><strong>Detected Heart Rate: 99.37 bpm</strong></em>
+<em><strong>No significant ST-segment abnormality detected.</strong></em></p>
+</section>
+<section id="output-for-the-second-data">
+<h4>Output for the second data<a class="headerlink" href="#output-for-the-second-data" title="Link to this heading">#</a></h4>
+<p><img alt="ECG" src="../../../_images/e3.png" /></p>
+<p><img alt="ECG" src="../../../_images/e4.png" /></p>
+<p><em><strong>Detected Heart Rate: 82.29 bpm</strong></em>
+<em><strong>No significant ST-segment abnormality detected.</strong></em></p>
+</section>
+<section id="output-for-the-third-data">
+<h4>Output for the third data<a class="headerlink" href="#output-for-the-third-data" title="Link to this heading">#</a></h4>
+<p><img alt="ECG" src="../../../_images/e5.png" /></p>
+<p><img alt="ECG" src="../../../_images/e6.png" /></p>
+<p><em><strong>Detected Heart Rate: 117.05 bpm</strong></em>
+<em><strong>No significant ST-segment abnormality detected.</strong></em></p>
+</section>
+<section id="output-for-the-fourth-data">
+<h4>Output for the fourth data<a class="headerlink" href="#output-for-the-fourth-data" title="Link to this heading">#</a></h4>
+<p><img alt="ECG" src="../../../_images/e7.png" /></p>
+<p><img alt="ECG" src="../../../_images/e8.png" /></p>
+<p><em><strong>Detected Heart Rate: 103.91 bpm</strong></em>
+<em><strong>Possible ST-segment depression detected: -0.135 mV</strong></em>
+<em><strong>Warning: Possible heart attack (ST-segment abnormality) detected!</strong></em></p>
+</section>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<p><strong>1.</strong> Krikler DM. Historical aspects of electrocardiography. Cardiol Clin. 1987 Aug;5(3):349-55. <a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/3319160/">PubMed</a></p>
+<p><strong>2.</strong> <a class="reference external" href="https://www.hopkinsmedicine.org/health/treatment-tests-and-therapies/electrocardiogram">https://www.hopkinsmedicine.org/health/treatment-tests-and-therapies/electrocardiogram</a></p>
+<p><strong>3.</strong> Fye WB. A history of the origin, evolution, and impact of electrocardiography. Am J Cardiol. 1994 May 15;73(13):937-49. <a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/8184849/">PubMed</a></p>
+<p><strong>4.</strong> Rundo F, Conoci S, Ortis A, Battiato S. An Advanced Bio-Inspired PhotoPlethysmoGraphy (PPG) and ECG Pattern Recognition System for Medical Assessment. Sensors (Basel). 2018 Jan 30;18(2) <a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/29385774/">PubMed</a></p>
+<p><strong>5.</strong> Zhang GQ, Zhang W (2009). “Heart rate, lifespan, and mortality risk”. Ageing Research Reviews. 8 (1)<a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/19022405/">PubMed</a></p>
+<p><strong>6.</strong> <a class="reference external" href="https://geekymedics.com/what-is-cardiac-axis/">https://geekymedics.com/what-is-cardiac-axis/</a></p>
+<p><strong>7.</strong> <a class="reference external" href="https://seermedical.com/blog/calculate-heart-rate-ecg">https://seermedical.com/blog/calculate-heart-rate-ecg</a></p>
+<p><strong>8.</strong> Goldberger, A. L. (2012). Clinical Electrocardiography: A Simplified Interpretation. Mosby Elsevier. <a class="reference external" href="https://shop.elsevier.com/books/clinical-electrocardiography-a-simplified-approach/goldberger/978-0-323-08786-5">elsevier</a></p>
+<p><strong>9.</strong> Braunwald, E., &amp; Bonow, R. O. (2018). Braunwald’s Heart Disease: A Textbook of Cardiovascular Medicine. Elsevier.<a class="reference external" href="https://shop.elsevier.com/books/braunwalds-heart-disease-a-textbook-of-cardiovascular-medicine-single-volume/mann/978-1-4557-5134-1">elsevier</a></p>
+<p><strong>10.</strong> <a class="reference external" href="https://sunfox.in/blogs/p-wave-ecg-abnormalities-and-their-role-in-cardiac-wellness/">https://sunfox.in/blogs/p-wave-ecg-abnormalities-and-their-role-in-cardiac-wellness/</a></p>
+<p><strong>11.</strong> <a class="reference external" href="https://litfl.com/pr-interval-ecg-library/">https://litfl.com/pr-interval-ecg-library/</a></p>
+<p><strong>12.</strong> <a class="reference external" href="https://www.sciencedirect.com/topics/biochemistry-genetics-and-molecular-biology/qrs-complex">https://www.sciencedirect.com/topics/biochemistry-genetics-and-molecular-biology/qrs-complex</a></p>
+<p><strong>13.</strong> Harrison’s Principles of Internal Medicine (20th edition), Chapter on Cardiac Electrophysiology.</p>
+<p><strong>14.</strong> Panicker GK, Salvi V, Karnad DR, Chakraborty S, Manohar D, Lokhandwala Y, Kothari S (2014). “Drug-induced QT prolongation when QT interval is measured in each of the 12 ECG leads in men and women in a thorough QT study”. Journal of Electrocardiology. 47 (2): 155–157.</p>
+<p><strong>15.</strong> Bazett HC (1920). “An analysis of the time-relations of electrocardiograms”. Heart (7): 353–370.</p>
+<p><strong>16.</strong>  Fridericia LS (1920). “The duration of systole in the electrocardiogram of normal subjects and of patients with heart disease”. Acta Medica Scandinavica (53): 469–486.</p>
+<p><strong>17.</strong> Dubin’s Rapid Interpretation of EKG’s (6th edition), Chapter on T Wave Changes.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR\StudentEffort\ECG"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../linear-least-square-final/least-square.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Linear Least Square Method</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../SupplementaryDocuments/Supplementary1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Supplementary Documents</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-electrocardiogram">What is an electrocardiogram?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-ecg-components">Understanding ECG Components</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-heart-attack">What is a heart attack?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heart-rate">Heart rate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measurement-of-heart-rate-and-probability-of-heart-attack">Measurement of heart rate and probability of heart attack</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#function-definitions">Function Definitions:</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#detect-heart-rate-ecg-signal-sampling-rate">1- detect_heart_rate(ecg_signal, sampling_rate)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#detect-heart-attack-ecg-signal-sampling-rate">2- detect_heart_attack(ecg_signal, sampling_rate)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-ecg-ecg-signal-sampling-rate-peaks-none">3- visualize_ecg(ecg_signal, sampling_rate, peaks=None)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#note">note</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-ecg-data-plot">Raw ECG Data Plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ecg-signal-with-detected-r-peaks">ECG Signal with Detected R-Peaks</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#output-for-the-first-data">Output for the first data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#output-for-the-second-data">Output for the second data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#output-for-the-third-data">Output for the third data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#output-for-the-fourth-data">Output for the fourth data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
