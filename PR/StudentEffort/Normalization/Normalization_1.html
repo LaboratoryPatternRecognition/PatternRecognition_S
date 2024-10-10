@@ -1,0 +1,1682 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Normalization &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/StudentEffort/Normalization/Normalization_1';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Supplementary Documents" href="../../SupplementaryDocuments/Supplementary1.html" />
+    <link rel="prev" title="Understanding Correntropy as a Loss Function" href="../correntropy/correntropy.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction of PR</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/PR_intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/Model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Clustering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/PR_intro_Clustering.html">Clustering Concept</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Regression</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Introduction_Regression.html">Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classification</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/PR_intro_Classification.html">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">BayesEstimation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/BayesEstimation.html">Bayes Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Student Effort</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Whyprojection1.html">What is Projection?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Star%20Coordinates/Star_Coordinates.html">Star Coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Covariance_Fekri/Covariance_Poorya.html">Covariance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-least-square-final/least-square.html">Linear Least Square Method</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../ECG/ecg.html">ECG: Measurement of heart rate and probability of heart attack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../correntropy/correntropy.html">Understanding Correntropy as a Loss Function</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Normalization</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contact</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FPR/StudentEffort/Normalization/Normalization_1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/PR/StudentEffort/Normalization/Normalization_1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data Normalization</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Data Normalization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#min-max-normalization">1. Min-Max Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formula">Formula:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps">Steps:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advantages">Advantages:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">Limitations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#z-score-normalization-standardization">2. Z-Score Normalization (Standardization)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Formula:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Steps:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Example:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Advantages:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Limitations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decimal-scaling">3. Decimal Scaling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Formula:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Steps:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Example:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#max-abs-normalization">4. Max Abs Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Formula:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Steps:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Example:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Advantages:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Limitations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#robust-scaler">5. Robust Scaler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Formula:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Steps:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Example:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Advantages:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Limitations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#log-transformation">6. Log Transformation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Formula:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">Example:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">Advantages:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">Limitations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#power-transformation">7. Power Transformation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#box-cox-transformation">1. <strong>Box-Cox Transformation</strong>:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yeo-johnson-transformation">2. <strong>Yeo-Johnson Transformation</strong>:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">Purpose:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">Example:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">Advantages:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">Limitations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#l1-normalization">8. L1 Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-characteristics">Key Characteristics:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">Example:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#l2-normalization">9. L2 Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">Formula:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">Steps:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">Example:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">Advantages:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">Limitations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#my-experience-at-pishgam-iranian-company">10. My Experience at Pishgam Iranian Company</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sum-up">Sum up</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#refrences">Refrences</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-normalization">
+<h1>Data Normalization<a class="headerlink" href="#data-normalization" title="Link to this heading">#</a></h1>
+<p>Author : Arash Ghazi</p>
+<p>Contact : <a class="reference external" href="mailto:arash&#46;ghazi&#46;2012&#37;&#52;&#48;gmail&#46;com">arash<span>&#46;</span>ghazi<span>&#46;</span>2012<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<p><img alt="Normalization" src="../../../_images/Normalization-1.jpg" /></p>
+<p>Data normalization is a crucial step in data preprocessing in order to standardize and scale data values across various ranges. This helps improve the performance and accuracy of machine learning models. Here are several different methods of normalization, each suited for different scenarios:</p>
+<section id="min-max-normalization">
+<h2>1. Min-Max Normalization<a class="headerlink" href="#min-max-normalization" title="Link to this heading">#</a></h2>
+<p><strong>Min-Max Normalization</strong> is a data normalization technique used to scale data values to a specific range, typically between 0 and 1. This method adjusts the data so that the minimum value of the dataset becomes 0 and the maximum value becomes 1, with other values linearly adjusted in between. This approach is often useful when you want to bring all features to a common scale without distorting differences in the ranges of values.</p>
+<section id="formula">
+<h3>Formula:<a class="headerlink" href="#formula" title="Link to this heading">#</a></h3>
+<p>Min-Max Normalization follows this formula:</p>
+<p>[
+X’ = \frac{X - X_{\text{min}}}{X_{\text{max}} - X_{\text{min}}}
+]</p>
+<p>Where:</p>
+<ul class="simple">
+<li><p>( X ) is the original value of the data.</p></li>
+<li><p>( X’ ) is the normalized value.</p></li>
+<li><p>( X_{\text{min}} ) is the minimum value in the dataset.</p></li>
+<li><p>( X_{\text{max}} ) is the maximum value in the dataset.</p></li>
+</ul>
+</section>
+<section id="steps">
+<h3>Steps:<a class="headerlink" href="#steps" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Find the minimum and maximum values</strong> in the dataset.</p></li>
+<li><p><strong>Subtract the minimum value</strong> from each data point.</p></li>
+<li><p><strong>Divide the result</strong> by the range (i.e., the difference between the maximum and minimum values).</p></li>
+<li><p>The result is a normalized value between 0 and 1.</p></li>
+</ol>
+</section>
+<section id="example">
+<h3>Example:<a class="headerlink" href="#example" title="Link to this heading">#</a></h3>
+<p>Consider the following data: [200, 300, 400, 500, 600].</p>
+<ol class="arabic simple">
+<li><p><strong>Find the minimum</strong> ( X_{\text{min}} = 200 ) and <strong>maximum</strong> ( X_{\text{max}} = 600 ).</p></li>
+<li><p>Apply the Min-Max Normalization formula for each value:</p>
+<ul class="simple">
+<li><p>( X’ = \frac{200 - 200}{600 - 200} = 0 )</p></li>
+<li><p>( X’ = \frac{300 - 200}{600 - 200} = 0.25 )</p></li>
+<li><p>( X’ = \frac{400 - 200}{600 - 200} = 0.50 )</p></li>
+<li><p>( X’ = \frac{500 - 200}{600 - 200} = 0.75 )</p></li>
+<li><p>( X’ = \frac{600 - 200}{600 - 200} = 1 )</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="advantages">
+<h3>Advantages:<a class="headerlink" href="#advantages" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>It preserves the relationships between data points, making it useful for algorithms based on distance metrics.</p></li>
+<li><p>It’s simple and computationally efficient.</p></li>
+</ul>
+</section>
+<section id="limitations">
+<h3>Limitations:<a class="headerlink" href="#limitations" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Min-Max normalization is sensitive to outliers. If outliers exist in the data, the normalized values can get skewed and not be evenly distributed across the range.</p></li>
+<li><p>If new data points are introduced that are outside the original minimum and maximum values, the normalization formula may result in values outside the desired range [0, 1].</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing necessary libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+
+<span class="c1"># Generate some example data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>  <span class="c1"># 20 random integer values between 100 and 1000</span>
+
+<span class="c1"># Reshape data for the scaler</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Function to apply Min-Max Normalization</span>
+<span class="n">min_max_scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+<span class="n">normalized_data</span> <span class="o">=</span> <span class="n">min_max_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Plot the original and normalized data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot original data with a specific color</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">data</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original Data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Index&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Value&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot normalized data with a different color</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">normalized_data</span><span class="p">)),</span> <span class="n">normalized_data</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;salmon&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Min-Max Normalized Data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Index&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Normalized Value (0-1)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Show the plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/5ecce971fae3efe8e3913966fd6728e8214a793b2e7009676b254f544c616cb7.png" src="../../../_images/5ecce971fae3efe8e3913966fd6728e8214a793b2e7009676b254f544c616cb7.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="z-score-normalization-standardization">
+<h2>2. Z-Score Normalization (Standardization)<a class="headerlink" href="#z-score-normalization-standardization" title="Link to this heading">#</a></h2>
+<p><strong>Z-Score Normalization</strong> (also known as <strong>Standardization</strong>) is a widely used technique for scaling data. This method transforms the data such that the mean of each feature becomes 0 and the standard deviation becomes 1. It centers the values of a feature around the mean and adjusts the spread of the data based on the standard deviation.</p>
+<section id="id1">
+<h3>Formula:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>The formula for Z-Score normalization is:</p>
+<p>[
+Z = \frac{X - \mu}{\sigma}
+]</p>
+<p>Where:</p>
+<ul class="simple">
+<li><p>( Z ) is the normalized value (the Z-Score).</p></li>
+<li><p>( X ) is the original data point.</p></li>
+<li><p>( \mu ) is the mean of the feature.</p></li>
+<li><p>( \sigma ) is the standard deviation of the feature.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>Steps:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Calculate the mean</strong> of the data for each feature.</p></li>
+<li><p><strong>Subtract the mean</strong> from each data point to center the data around 0.</p></li>
+<li><p><strong>Divide by the standard deviation</strong> to scale the data in terms of standard deviations from the mean.</p></li>
+</ol>
+</section>
+<section id="id3">
+<h3>Example:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Consider the following data: [200, 300, 400, 500, 600].</p>
+<ol class="arabic simple">
+<li><p><strong>Calculate the mean</strong>: ( \mu = 400 ).</p></li>
+<li><p><strong>Calculate the standard deviation</strong>: ( \sigma = 141.42 ).</p></li>
+<li><p><strong>Apply Z-Score formula</strong>:</p>
+<ul class="simple">
+<li><p>( Z = \frac{200 - 400}{141.42} = -1.41 )</p></li>
+<li><p>( Z = \frac{300 - 400}{141.42} = -0.71 )</p></li>
+<li><p>( Z = \frac{400 - 400}{141.42} = 0 )</p></li>
+<li><p>( Z = \frac{500 - 400}{141.42} = 0.71 )</p></li>
+<li><p>( Z = \frac{600 - 400}{141.42} = 1.41 )</p></li>
+</ul>
+</li>
+</ol>
+<p>The transformed data values are now standardized with a mean of 0 and a standard deviation of 1.</p>
+</section>
+<section id="id4">
+<h3>Advantages:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Centers the data</strong>: Each feature will have a mean of 0 and standard deviation of 1, which helps algorithms converge faster.</p></li>
+<li><p><strong>Less sensitive to outliers</strong>: Unlike Min-Max normalization, which is sensitive to outliers, Z-Score normalization is more robust in that regard.</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>Limitations:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Outliers can still affect results</strong>: Extreme outliers can impact the calculation of the mean and standard deviation, which might skew the normalized data.</p></li>
+<li><p><strong>Doesn’t restrict the range</strong>: Unlike Min-Max normalization, Z-Score normalization does not bound the data to a specific range (e.g., [0, 1]).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Generate some example data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>  <span class="c1"># 20 random integer values between 100 and 1000</span>
+
+<span class="c1"># Reshape data for the scaler</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Apply Z-Score Normalization (Standardization)</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">normalized_data</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Plot the original and normalized data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot original data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">data</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original Data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Index&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Value&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot normalized data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">normalized_data</span><span class="p">)),</span> <span class="n">normalized_data</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Z-Score Normalized Data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Index&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Normalized Value&quot;</span><span class="p">)</span>
+
+<span class="c1"># Show the plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/80265ef88a820a98b77eec6158e5fdfefe5d3e85e8fc2f2b932e0b00b76575c3.png" src="../../../_images/80265ef88a820a98b77eec6158e5fdfefe5d3e85e8fc2f2b932e0b00b76575c3.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="decimal-scaling">
+<h2>3. Decimal Scaling<a class="headerlink" href="#decimal-scaling" title="Link to this heading">#</a></h2>
+<p><strong>Decimal Scaling</strong> is a normalization technique used to scale data by moving the decimal point of the values. The goal is to transform the data so that it falls within a specific range, typically between -1 and 1. Decimal scaling adjusts the values of data based on the maximum absolute value of the dataset.</p>
+<section id="id6">
+<h3>Formula:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>The transformation is done using the following formula:</p>
+<p>[
+X’ = \frac{X}{10^j}
+]</p>
+<p>Where:</p>
+<ul class="simple">
+<li><p>( X ) is the original value of the data.</p></li>
+<li><p>( X’ ) is the normalized value.</p></li>
+<li><p>( j ) is the smallest integer such that ( |X’| &lt; 1 ), meaning that the maximum absolute value of the data is reduced to a value less than 1.</p></li>
+</ul>
+</section>
+<section id="id7">
+<h3>Steps:<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Find the maximum absolute value in the dataset.</p></li>
+<li><p>Determine the number of decimal places ( j ) needed to scale the maximum value to fall between -1 and 1.</p></li>
+<li><p>Divide each data point by ( 10^j ).</p></li>
+</ol>
+</section>
+<section id="id8">
+<h3>Example:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Suppose we have the following data: [200, 300, 400, 500, 600].</p>
+<ol class="arabic simple">
+<li><p>The maximum absolute value in the dataset is 600.</p></li>
+<li><p>To scale this value so that it falls between -1 and 1, we need to move the decimal point three places, as ( 600 \div 10^3 = 0.6 ). Hence, ( j = 3 ).</p></li>
+<li><p>Now, divide each value by ( 10^3 ):</p>
+<ul class="simple">
+<li><p>( 200 \div 10^3 = 0.2 )</p></li>
+<li><p>( 300 \div 10^3 = 0.3 )</p></li>
+<li><p>( 400 \div 10^3 = 0.4 )</p></li>
+<li><p>( 500 \div 10^3 = 0.5 )</p></li>
+<li><p>( 600 \div 10^3 = 0.6 )</p></li>
+</ul>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Generate some example data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>  <span class="c1"># 20 random integer values between 100 and 1000</span>
+
+<span class="c1"># Function to apply Decimal Scaling Normalization</span>
+<span class="k">def</span> <span class="nf">decimal_scaling</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">max_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">max_value</span><span class="p">))</span>
+    <span class="n">normalized_data</span> <span class="o">=</span> <span class="n">data</span> <span class="o">/</span> <span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="n">j</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">normalized_data</span>
+
+<span class="c1"># Apply Decimal Scaling normalization</span>
+<span class="n">normalized_data</span> <span class="o">=</span> <span class="n">decimal_scaling</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Plot the original and normalized data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot original data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original Data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Index&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Value&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot normalized data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">normalized_data</span><span class="p">)),</span> <span class="n">normalized_data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Decimal Scaling Normalized Data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Index&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Normalized Value&quot;</span><span class="p">)</span>
+
+<span class="c1"># Show the plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/cfe95fbe77d161d7288eb2e6cf68062ba4bebd6a11eb1a9ccd2f3ec4e98f8cd9.png" src="../../../_images/cfe95fbe77d161d7288eb2e6cf68062ba4bebd6a11eb1a9ccd2f3ec4e98f8cd9.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="max-abs-normalization">
+<h2>4. Max Abs Normalization<a class="headerlink" href="#max-abs-normalization" title="Link to this heading">#</a></h2>
+<p><strong>Max Abs Normalization</strong> is a data normalization technique that scales the data by dividing each value by the maximum absolute value in the dataset. This method ensures that the range of the values is between -1 and 1, without distorting the sign of the data points.</p>
+<p>Max Abs Normalization is particularly useful when working with datasets that have both positive and negative values, and where the relative scale of the data is important but does not need to be constrained within a fixed range like [0, 1].</p>
+<section id="id9">
+<h3>Formula:<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>The formula for Max Abs Normalization is:</p>
+<p>[
+X’ = \frac{X}{|X_{\text{max}}|}
+]</p>
+<p>Where:</p>
+<ul class="simple">
+<li><p>( X ) is the original value.</p></li>
+<li><p>( X’ ) is the normalized value.</p></li>
+<li><p>( X_{\text{max}} ) is the maximum absolute value in the dataset.</p></li>
+</ul>
+</section>
+<section id="id10">
+<h3>Steps:<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Find the maximum absolute value</strong> in the dataset.</p></li>
+<li><p><strong>Divide each value</strong> in the dataset by this maximum absolute value.</p></li>
+</ol>
+</section>
+<section id="id11">
+<h3>Example:<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>Consider the following dataset: [100, -50, 300, -400, 200].</p>
+<ol class="arabic simple">
+<li><p><strong>Find the maximum absolute value</strong>: In this case, ( X_{\text{max}} = 400 ).</p></li>
+<li><p>Normalize the data:</p>
+<ul class="simple">
+<li><p>( X’ = \frac{100}{400} = 0.25 )</p></li>
+<li><p>( X’ = \frac{-50}{400} = -0.125 )</p></li>
+<li><p>( X’ = \frac{300}{400} = 0.75 )</p></li>
+<li><p>( X’ = \frac{-400}{400} = -1 )</p></li>
+<li><p>( X’ = \frac{200}{400} = 0.5 )</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="id12">
+<h3>Advantages:<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Retains the sign</strong> of the data, which can be important in certain applications.</p></li>
+<li><p><strong>Efficient for sparse data</strong>: Since it doesn’t shift the data (as with Z-Score), it’s a good choice when dealing with large sparse matrices.</p></li>
+</ul>
+</section>
+<section id="id13">
+<h3>Limitations:<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>It only scales based on the maximum absolute value, so if your dataset contains extreme outliers, this method can compress other values too much, limiting its effectiveness for datasets with large outliers.</p></li>
+<li><p>It does not center the data around 0, meaning that the mean of the dataset may not be 0 after normalization.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MaxAbsScaler</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Generate some example data with both positive and negative values</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>  <span class="c1"># 20 random integer values between -1000 and 1000</span>
+
+<span class="c1"># Reshape data for the scaler</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Apply Max Abs Normalization</span>
+<span class="n">max_abs_scaler</span> <span class="o">=</span> <span class="n">MaxAbsScaler</span><span class="p">()</span>
+<span class="n">normalized_data</span> <span class="o">=</span> <span class="n">max_abs_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Plot the original and normalized data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot original data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">data</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightcoral&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original Data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Index&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Value&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot normalized data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">normalized_data</span><span class="p">)),</span> <span class="n">normalized_data</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;mediumseagreen&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Max Abs Normalized Data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Index&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Normalized Value (-1 to 1)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Show the plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/c7ad7e1c8bec08fac170c21caeda4e40de442ee051f4232a0d1bda24da775033.png" src="../../../_images/c7ad7e1c8bec08fac170c21caeda4e40de442ee051f4232a0d1bda24da775033.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="robust-scaler">
+<h2>5. Robust Scaler<a class="headerlink" href="#robust-scaler" title="Link to this heading">#</a></h2>
+<p><strong>Robust Scaler</strong> is a normalization technique that scales data using statistics that are robust to outliers, particularly the <strong>median</strong> and the <strong>interquartile range (IQR)</strong>. This method is useful when the data contains extreme values or outliers, which can disproportionately influence the results of other scaling techniques such as Min-Max or Z-Score normalization.</p>
+<section id="id14">
+<h3>Formula:<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>Robust Scaler transforms the data using the following formula:</p>
+<p>[
+X’ = \frac{X - \text{median}}{IQR}
+]</p>
+<p>Where:</p>
+<ul class="simple">
+<li><p>( X ) is the original data value.</p></li>
+<li><p>( X’ ) is the scaled value.</p></li>
+<li><p><strong>Median</strong> is the central value of the dataset.</p></li>
+<li><p><strong>IQR (Interquartile Range)</strong> is the range between the 25th percentile (Q1) and the 75th percentile (Q3), i.e., ( IQR = Q3 - Q1 ).</p></li>
+</ul>
+</section>
+<section id="id15">
+<h3>Steps:<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Calculate the median</strong> of the feature.</p></li>
+<li><p><strong>Calculate the IQR</strong> (the difference between the 75th and 25th percentiles).</p></li>
+<li><p><strong>Subtract the median</strong> from each data point to center the data.</p></li>
+<li><p><strong>Divide by the IQR</strong> to scale the data.</p></li>
+</ol>
+</section>
+<section id="id16">
+<h3>Example:<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>Consider the following dataset: [10, 15, 14, 12, 200].</p>
+<ol class="arabic simple">
+<li><p><strong>Median</strong>: The median of this dataset is 14.</p></li>
+<li><p><strong>IQR</strong>: The IQR is the difference between the 75th percentile (15) and the 25th percentile (12), so IQR = 15 - 12 = 3.</p></li>
+<li><p>Normalize each value:</p>
+<ul class="simple">
+<li><p>( X’ = \frac{10 - 14}{3} = -1.33 )</p></li>
+<li><p>( X’ = \frac{15 - 14}{3} = 0.33 )</p></li>
+<li><p>( X’ = \frac{14 - 14}{3} = 0 )</p></li>
+<li><p>( X’ = \frac{12 - 14}{3} = -0.67 )</p></li>
+<li><p>( X’ = \frac{200 - 14}{3} = 62 )</p></li>
+</ul>
+</li>
+</ol>
+<p>Notice how the outlier (200) doesn’t skew the scaling as it would with Min-Max normalization or Z-Score normalization, and the rest of the values are scaled relative to the IQR.</p>
+</section>
+<section id="id17">
+<h3>Advantages:<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Resistant to outliers</strong>: Unlike Min-Max and Z-Score normalization, Robust Scaler focuses on the middle 50% of the data, making it less sensitive to outliers.</p></li>
+<li><p><strong>Centers the data</strong>: Similar to Z-Score normalization, it centers the data by subtracting the median but scales by the IQR instead of the standard deviation.</p></li>
+</ul>
+</section>
+<section id="id18">
+<h3>Limitations:<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Does not bound values</strong>: Unlike Min-Max scaling, it doesn’t ensure the data is bounded within a specific range (such as [0, 1]).</p></li>
+<li><p><strong>Not effective for small datasets</strong>: If the dataset is small or doesn’t have a large enough spread of values, Robust Scaler may not be as effective.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">RobustScaler</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Generate some example data with outliers</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">18</span><span class="p">)</span>  <span class="c1"># 18 random integer values between 1 and 100</span>
+<span class="n">data_with_outliers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">])</span>  <span class="c1"># Adding outliers to the data</span>
+
+<span class="c1"># Reshape data for the scaler</span>
+<span class="n">data_with_outliers</span> <span class="o">=</span> <span class="n">data_with_outliers</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Apply Robust Scaler Normalization</span>
+<span class="n">robust_scaler</span> <span class="o">=</span> <span class="n">RobustScaler</span><span class="p">()</span>
+<span class="n">normalized_data</span> <span class="o">=</span> <span class="n">robust_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data_with_outliers</span><span class="p">)</span>
+
+<span class="c1"># Plot the original and normalized data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot original data with outliers</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_with_outliers</span><span class="p">)),</span> <span class="n">data_with_outliers</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original Data with Outliers&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Index&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Value&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot normalized data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">normalized_data</span><span class="p">)),</span> <span class="n">normalized_data</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Robust Scaled Data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Index&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Normalized Value&quot;</span><span class="p">)</span>
+
+<span class="c1"># Show the plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/cf29fa6fa53fa6e62416fa9970d36984106d5dcd80b82a94a5e82d2c9c7badd4.png" src="../../../_images/cf29fa6fa53fa6e62416fa9970d36984106d5dcd80b82a94a5e82d2c9c7badd4.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="log-transformation">
+<h2>6. Log Transformation<a class="headerlink" href="#log-transformation" title="Link to this heading">#</a></h2>
+<p><strong>Log Transformation</strong> is a data normalization technique that applies the logarithmic function to the data. It is often used when the data spans multiple orders of magnitude or when there is a significant skew in the data distribution. By applying a log transformation, the wide range of values is compressed, making the data more manageable and potentially more suitable for machine learning algorithms.</p>
+<section id="id19">
+<h3>Formula:<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>The formula for log transformation is:</p>
+<p>[
+X’ = \log(X + 1)
+]</p>
+<p>Where:</p>
+<ul class="simple">
+<li><p>( X ) is the original data point.</p></li>
+<li><p>( X’ ) is the transformed value.</p></li>
+<li><p>The ( +1 ) is used to avoid taking the log of zero, as the logarithm of zero is undefined.</p></li>
+</ul>
+</section>
+<section id="purpose">
+<h3>Purpose:<a class="headerlink" href="#purpose" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Compress large values</strong>: Log transformation reduces the effect of very large values by compressing the data, making large differences smaller.</p></li>
+<li><p><strong>Reduce skewness</strong>: It helps in transforming skewed data into a more normal distribution, which is beneficial for many machine learning algorithms that assume normally distributed input.</p></li>
+</ul>
+</section>
+<section id="id20">
+<h3>Example:<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>Consider the dataset: [1, 10, 100, 1000, 10000].</p>
+<ol class="arabic simple">
+<li><p>Apply the log transformation:</p>
+<ul class="simple">
+<li><p>( \log(1 + 1) = \log(2) \approx 0.30 )</p></li>
+<li><p>( \log(10 + 1) = \log(11) \approx 2.40 )</p></li>
+<li><p>( \log(100 + 1) = \log(101) \approx 4.61 )</p></li>
+<li><p>( \log(1000 + 1) = \log(1001) \approx 6.91 )</p></li>
+<li><p>( \log(10000 + 1) = \log(10001) \approx 9.21 )</p></li>
+</ul>
+</li>
+</ol>
+<p>Now the values have been compressed, and the extreme differences between the original values are reduced.</p>
+</section>
+<section id="id21">
+<h3>Advantages:<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Reduces the impact of large values</strong>: It compresses the range of data, particularly when dealing with large or small numbers.</p></li>
+<li><p><strong>Helps to stabilize variance</strong>: By transforming the data, log transformation can reduce the variance in data, making it more homogeneous.</p></li>
+</ul>
+</section>
+<section id="id22">
+<h3>Limitations:<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Only applicable to positive values</strong>: Log transformation can only be applied to positive values, as the logarithm of zero or negative values is undefined. A shift like adding 1 is usually applied to handle zero values.</p></li>
+<li><p><strong>Loss of interpretability</strong>: After applying the transformation, the transformed values may lose their original interpretability, especially if the relationship between features is non-linear.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Generate some example data, including large values</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>  <span class="c1"># 20 random integer values between 1 and 1000</span>
+
+<span class="c1"># Apply Log Transformation (log(x + 1) to avoid log(0))</span>
+<span class="n">log_transformed_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># log1p is equivalent to log(x + 1)</span>
+
+<span class="c1"># Plot the original and log-transformed data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot original data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">data</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightpink&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original Data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Index&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Value&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot log-transformed data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">log_transformed_data</span><span class="p">)),</span> <span class="n">log_transformed_data</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Log-Transformed Data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Index&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Log Value&quot;</span><span class="p">)</span>
+
+<span class="c1"># Show the plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/9046620b5ca4a58ad4eb54fef0288829044442af1d530a9610c9760856ad9320.png" src="../../../_images/9046620b5ca4a58ad4eb54fef0288829044442af1d530a9610c9760856ad9320.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="power-transformation">
+<h2>7. Power Transformation<a class="headerlink" href="#power-transformation" title="Link to this heading">#</a></h2>
+<p><strong>Power Transformation</strong> is a family of normalization techniques that aim to stabilize variance, make the data more Gaussian-like (normally distributed), and reduce the impact of skewness in the dataset. This technique is especially useful when the data does not fit well with linear models due to non-normal distributions or heteroscedasticity (unequal spread of residuals). Two common types of power transformations are the <strong>Box-Cox</strong> and <strong>Yeo-Johnson</strong> transformations.</p>
+<section id="box-cox-transformation">
+<h3>1. <strong>Box-Cox Transformation</strong>:<a class="headerlink" href="#box-cox-transformation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The <strong>Box-Cox</strong> transformation is suitable for data that is strictly positive (greater than 0).</p></li>
+<li><p>It applies the following transformation depending on a parameter ( \lambda ):</p></li>
+</ul>
+<p>[
+X’ =
+\begin{cases}
+\frac{X^\lambda - 1}{\lambda}, &amp; \text{if } \lambda \neq 0 \
+\log(X), &amp; \text{if } \lambda = 0
+\end{cases}
+]</p>
+<p>Where:</p>
+<ul class="simple">
+<li><p>( X ) is the original data point.</p></li>
+<li><p>( X’ ) is the transformed data.</p></li>
+<li><p>( \lambda ) is a parameter that determines the shape of the transformation.</p></li>
+</ul>
+<p>The <strong>Box-Cox</strong> transformation seeks to find the optimal value of ( \lambda ) that makes the data as close to normal as possible.</p>
+</section>
+<section id="yeo-johnson-transformation">
+<h3>2. <strong>Yeo-Johnson Transformation</strong>:<a class="headerlink" href="#yeo-johnson-transformation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The <strong>Yeo-Johnson</strong> transformation is an extension of Box-Cox that can handle both <strong>positive and negative values</strong>.</p></li>
+<li><p>It applies different transformations based on whether the data is positive or negative:</p></li>
+</ul>
+<p>[
+X’ =
+\begin{cases}
+\frac{(X + 1)^\lambda - 1}{\lambda}, &amp; \text{if } \lambda \neq 0 \text{ and } X \geq 0 \
+\frac{-(|X| + 1)^{2 - \lambda} - 1}{2 - \lambda}, &amp; \text{if } \lambda \neq 2 \text{ and } X &lt; 0
+\end{cases}
+]</p>
+<p>Where ( \lambda ) is chosen to make the distribution more normal.</p>
+</section>
+<section id="id23">
+<h3>Purpose:<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Stabilizing variance</strong>: Power transformations reduce variance when the spread of the data increases with its mean.</p></li>
+<li><p><strong>Making data more Gaussian</strong>: Many machine learning algorithms, especially linear models, perform better when data is normally distributed.</p></li>
+<li><p><strong>Handling skewed data</strong>: It is particularly useful for skewed data, helping reduce the effect of outliers or extreme values.</p></li>
+</ul>
+</section>
+<section id="id24">
+<h3>Example:<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<p>Consider the dataset: [1, 2, 3, 4, 5, 6, 1000].</p>
+<ul class="simple">
+<li><p>Applying the <strong>Box-Cox</strong> transformation with an appropriate ( \lambda ) compresses the high value (1000) and stretches the smaller values (1, 2, 3), making the distribution more symmetric.</p></li>
+<li><p>If the dataset contains negative values, you would use the <strong>Yeo-Johnson</strong> transformation instead, which can handle negative values while achieving a similar effect.</p></li>
+</ul>
+</section>
+<section id="id25">
+<h3>Advantages:<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Flexible</strong>: It can be adapted to a wide range of data types, including positive and negative values (Yeo-Johnson) or strictly positive values (Box-Cox).</p></li>
+<li><p><strong>Improves normality</strong>: By transforming skewed data into a more normal distribution, it helps improve the performance of many machine learning models that assume normally distributed input.</p></li>
+</ul>
+</section>
+<section id="id26">
+<h3>Limitations:<a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Sensitive to parameter tuning</strong>: The optimal ( \lambda ) must be carefully selected to achieve the best results.</p></li>
+<li><p><strong>Complexity</strong>: It can add complexity to the data preprocessing pipeline, as different transformations may be needed for different features.</p></li>
+<li><p><strong>Non-reversible</strong>: After applying a power transformation, the original data may lose its interpretability, especially if the relationship between features is non-linear.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PowerTransformer</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Generate some example data with skewness</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># 100 values from an exponential distribution (skewed data)</span>
+
+<span class="c1"># Reshape data for the transformer</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Apply Power Transformation using Yeo-Johnson (works with both positive and negative data)</span>
+<span class="n">power_transformer</span> <span class="o">=</span> <span class="n">PowerTransformer</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;yeo-johnson&#39;</span><span class="p">)</span>
+<span class="n">normalized_data</span> <span class="o">=</span> <span class="n">power_transformer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Plot the original and power-transformed data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot original data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightcoral&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original Skewed Data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Value&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frequency&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot power-transformed data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">normalized_data</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Power Transformed Data (Yeo-Johnson)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Transformed Value&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frequency&quot;</span><span class="p">)</span>
+
+<span class="c1"># Show the plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/2461e7c83c1b2742605e9976109c12907f399a2a8b0d8cd26dbf274b7d14ddc0.png" src="../../../_images/2461e7c83c1b2742605e9976109c12907f399a2a8b0d8cd26dbf274b7d14ddc0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="l1-normalization">
+<h2>8. L1 Normalization<a class="headerlink" href="#l1-normalization" title="Link to this heading">#</a></h2>
+<p><strong>L1 Normalization</strong> is a technique used to normalize the features of a dataset by ensuring that the sum of the absolute values of the feature vector equals 1. This is done by dividing each feature by the sum of the absolute values of all features.</p>
+<p>The formula for L1 normalization for a feature vector ( X = [x_1, x_2, \dots, x_n] ) is:</p>
+<p>[
+x_i^{’} = \frac{x_i}{\sum_{i=1}^{n} |x_i|}
+]</p>
+<p>Where ( x_i^{’} ) is the normalized value of feature ( x_i ), and ( n ) is the number of features in the vector.</p>
+<section id="key-characteristics">
+<h3>Key Characteristics:<a class="headerlink" href="#key-characteristics" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Preserves Sparsity</strong>: L1 normalization is particularly useful when working with sparse datasets, such as in <strong>natural language processing (NLP)</strong>, because it keeps the sparsity of the vector intact. Sparsity means that most values are zero, which is common in text data or recommendation systems.</p></li>
+<li><p><strong>Feature Scaling</strong>: It scales the features such that the sum of their absolute values is 1, ensuring that no single feature disproportionately affects the outcome.</p></li>
+<li><p><strong>Used in Distance Metrics</strong>: L1 normalization is commonly used in algorithms like <strong>K-Nearest Neighbors (KNN)</strong>, where Manhattan distance (L1 distance) is the metric for measuring similarity.</p></li>
+</ul>
+</section>
+<section id="id27">
+<h3>Example:<a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
+<p>For a feature vector ( [3, -2, 5] ), the L1 normalization would be calculated as:</p>
+<ol class="arabic simple">
+<li><p>Sum of absolute values: ( |3| + |-2| + |5| = 3 + 2 + 5 = 10 )</p></li>
+<li><p>Normalize each feature:</p>
+<ul class="simple">
+<li><p>( \frac{3}{10} = 0.3 )</p></li>
+<li><p>( \frac{-2}{10} = -0.2 )</p></li>
+<li><p>( \frac{5}{10} = 0.5 )</p></li>
+</ul>
+</li>
+</ol>
+<p>Thus, the L1-normalized vector would be ( [0.3, -0.2, 0.5] ).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># More data for L1 normalization</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+
+<span class="c1"># L1 Normalization</span>
+<span class="n">l1_normalized_data</span> <span class="o">=</span> <span class="n">data</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+<span class="c1"># Plotting histograms</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Original Data Histogram</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Original Data Histogram&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Values&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frequency&quot;</span><span class="p">)</span>
+
+<span class="c1"># L1 Normalized Data Histogram</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">l1_normalized_data</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;L1 Normalized Data Histogram&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Values&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frequency&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/0668cb99b6df281288ac32632a6c54f550e2a0683bfb982263534d13bb5e74db.png" src="../../../_images/0668cb99b6df281288ac32632a6c54f550e2a0683bfb982263534d13bb5e74db.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="l2-normalization">
+<h2>9. L2 Normalization<a class="headerlink" href="#l2-normalization" title="Link to this heading">#</a></h2>
+<p><strong>L2 Normalization</strong> (also known as <strong>vector normalization</strong>) is a normalization technique that transforms data points into unit vectors, ensuring that the <strong>Euclidean norm</strong> (also called the L2 norm) of each data point is equal to 1. This technique is typically used when you want to ensure that all features contribute equally to the model by scaling them based on the length of the data vector.</p>
+<p>L2 Normalization is particularly useful for machine learning models that rely on distance metrics (e.g., K-Nearest Neighbors, Support Vector Machines, and Linear Regression) or in models where it’s important to have the same magnitude for all feature vectors.</p>
+<section id="id28">
+<h3>Formula:<a class="headerlink" href="#id28" title="Link to this heading">#</a></h3>
+<p>The L2 norm of a vector is defined as the square root of the sum of the squared values. The formula for L2 normalization is:</p>
+<p>[
+X’ = \frac{X}{|X|_2}
+]</p>
+<p>Where:</p>
+<ul class="simple">
+<li><p>( X ) is the original vector (data point).</p></li>
+<li><p>( X’ ) is the L2-normalized vector.</p></li>
+<li><p>( |X|_2 ) is the L2 norm, calculated as:</p></li>
+</ul>
+<p>[
+|X|_2 = \sqrt{x_1^2 + x_2^2 + \dots + x_n^2}
+]</p>
+</section>
+<section id="id29">
+<h3>Steps:<a class="headerlink" href="#id29" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Compute the L2 norm</strong>: Calculate the Euclidean norm (L2 norm) for each data point (vector).</p></li>
+<li><p><strong>Divide each value</strong>: Divide each component of the data point by the L2 norm to scale the vector.</p></li>
+</ol>
+</section>
+<section id="id30">
+<h3>Example:<a class="headerlink" href="#id30" title="Link to this heading">#</a></h3>
+<p>Consider a 2D data point: ( X = [3, 4] ).</p>
+<ol class="arabic simple">
+<li><p><strong>Calculate the L2 norm</strong>:
+[
+|X|_2 = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5
+]</p></li>
+<li><p><strong>Normalize the vector</strong>:
+[
+X’ = \frac{[3, 4]}{5} = [0.6, 0.8]
+]</p></li>
+</ol>
+<p>Now, the length (L2 norm) of the new vector ( X’ ) is equal to 1.</p>
+</section>
+<section id="id31">
+<h3>Advantages:<a class="headerlink" href="#id31" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Equal contribution</strong>: It ensures that all features contribute equally to the model by normalizing them based on their magnitude.</p></li>
+<li><p><strong>Prevents domination</strong>: Features with larger magnitudes won’t dominate the results, which is especially useful when features have vastly different scales.</p></li>
+</ul>
+</section>
+<section id="id32">
+<h3>Limitations:<a class="headerlink" href="#id32" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Sensitive to outliers</strong>: L2 normalization is sensitive to outliers. If a feature has extreme values, the L2 norm will be large, and smaller feature values may be reduced to very small numbers, which can negatively affect the model’s performance.</p></li>
+<li><p><strong>Non-sparse results</strong>: L2 normalization does not encourage sparsity in the data. If you need a sparse representation (i.e., more zeros in the dataset), L1 normalization may be a better choice.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Adjusting the plot to avoid the error with quiver plotting</span>
+<span class="c1"># The idea is to plot vectors from the origin and normalize them</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">Normalizer</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1"># Generate some example data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># 20 random 2D data points (for simplicity)</span>
+
+<span class="c1"># Apply L2 Normalization</span>
+<span class="n">l2_normalizer</span> <span class="o">=</span> <span class="n">Normalizer</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="s1">&#39;l2&#39;</span><span class="p">)</span>
+<span class="n">normalized_data</span> <span class="o">=</span> <span class="n">l2_normalizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Plot the original and L2-normalized data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot original data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original Data Vectors&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;X2&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot L2-normalized data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">normalized_data</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">normalized_data</span><span class="p">)),</span> <span class="n">normalized_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">normalized_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;L2 Normalized Data Vectors&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;X2&quot;</span><span class="p">)</span>
+
+<span class="c1"># Show the plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/6799883a39a95dc1b3f40b10afb9f98e64adb35ed450e94be4fb45f2555b5cfd.png" src="../../../_images/6799883a39a95dc1b3f40b10afb9f98e64adb35ed450e94be4fb45f2555b5cfd.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="my-experience-at-pishgam-iranian-company">
+<h2>10. My Experience at Pishgam Iranian Company<a class="headerlink" href="#my-experience-at-pishgam-iranian-company" title="Link to this heading">#</a></h2>
+<p><strong>My Experience at Pishgam Iranian Company in External Quality Assessment of Laboratories</strong></p>
+<p>At Pishgam Iranian Company, we use a detailed methodology for the external quality assessment of laboratories, involving comprehensive analysis of laboratory data and quality control procedures. This process generally includes the following steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Sorting and Determining the Median (X*)</strong>:
+In the first step, we sort the laboratory data from smallest to largest and determine the median (X*). Then, we calculate the absolute deviation of each result from the median.</p></li>
+<li><p><strong>Calculating the Median of Absolute Deviations and S*</strong>:
+The median of the absolute deviations is computed, and to obtain the parameter S*, we multiply the value by 1.483. To determine δ, this value is multiplied by 1.5.</p></li>
+<li><p><strong>Defining the Chart Range</strong>:
+The range of the chart is determined by adding and subtracting δ to/from the median. If a data point falls outside the defined minimum or maximum range, it is replaced with the min or max value. In this way, the values of laboratories outside the range are “transformed,” but in the “SDI” score section, instead of displaying a numerical value, the phrase “Out Of Range” is shown.</p></li>
+<li><p><strong>Calculating the New Mean and Standard Deviation</strong>:
+With the new data (including transformed and untransformed values), the mean and standard deviation (SD) are calculated. The obtained standard deviation is then multiplied by 1.134 to determine SD*. Additionally, the mean coefficient of variation (CV̅) is calculated based on SD*.</p></li>
+<li><p><strong>Repeating the Process Until Achieving the Desired Range</strong>:
+This process is repeated with the new transformed values until all readings fall within the defined min and max range. It is important to note that, in the “Your Result” section of the results form, the actual value of each laboratory is displayed, even if it was transformed in the calculation.</p></li>
+<li><p><strong>Calculating SDI and Related Metrics</strong>:
+The SDI is calculated using the following formula:
+[
+SDI = \frac{(Laboratory Result - Target)}{SD : Acceptable}
+]
+The value of SD Acceptable is calculated based on the permissible CV̅ using the following formula:
+[
+SD : Acceptable = \frac{ccv \times Target}{100}
+]</p></li>
+<li><p><strong>Calculating RMSDI and %Dev</strong>:
+For each parameter (such as the glucose test), the mean of SDIs from recent rounds (from 2 to 10 rounds) is used to calculate the Relative Mean SDI (RMSDI). The percentage deviation (%Dev) is also calculated as follows:
+[
+%Dev = \frac{(Laboratory Result - Target)}{Target} \times 100
+]
+The average of deviations for each parameter (RM%Dev) is also calculated and reported.</p></li>
+<li><p><strong>Calculating Uncertainty (Um)</strong>:
+To calculate the uncertainty (Um), we use the following formula, which is detailed in the ISO 13528 standard:
+[
+Um = \frac{1.25 \times SD^*}{\sqrt{n}}
+]</p></li>
+</ol>
+<p><img alt="ISO 13528 Approch" src="../../../_images/pishgam.png" /></p>
+<section id="sum-up">
+<h3>Sum up<a class="headerlink" href="#sum-up" title="Link to this heading">#</a></h3>
+<p>Choosing the right normalization method depends on the characteristics of the data and the algorithm being used. Proper normalization can lead to significant improvements in model performance by ensuring that features contribute equally to the model.</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="refrences">
+<h1>Refrences<a class="headerlink" href="#refrences" title="Link to this heading">#</a></h1>
+<ol class="arabic simple">
+<li><p><strong>Scikit-learn Documentation</strong>:<br />
+The official documentation of Scikit-learn, a popular Python library, is a key source for the implementation of normalization methods such as Z-Score Normalization, Min-Max Normalization, Power Transformation, Robust Scaler, and L2 Normalization.</p>
+<ul class="simple">
+<li><p>Documentation link: <a class="reference external" href="https://scikit-learn.org/stable/modules/preprocessing.html">https://scikit-learn.org/stable/modules/preprocessing.html</a></p></li>
+</ul>
+</li>
+<li><p><strong>16 Data Normalization Methods</strong></p>
+<ul class="simple">
+<li><p>Documentation link: <a class="reference external" href="https://medium.com/&#64;reinapeh/16-data-normalization-methods-using-python-with-examples-part-5-of-6-8744cb2b2e15">https://medium.com/&#64;reinapeh/16-data-normalization-methods-using-python-with-examples-part-5-of-6-8744cb2b2e15</a></p></li>
+</ul>
+</li>
+<li><p><strong>ISO 13528</strong></p>
+<ul class="simple">
+<li><p>Chapter 9 Calculation of performance statistics</p></li>
+</ul>
+</li>
+</ol>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR\StudentEffort\Normalization"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../correntropy/correntropy.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Understanding Correntropy as a Loss Function</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../SupplementaryDocuments/Supplementary1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Supplementary Documents</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Data Normalization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#min-max-normalization">1. Min-Max Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formula">Formula:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps">Steps:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advantages">Advantages:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">Limitations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#z-score-normalization-standardization">2. Z-Score Normalization (Standardization)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Formula:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Steps:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Example:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Advantages:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Limitations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decimal-scaling">3. Decimal Scaling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Formula:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Steps:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Example:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#max-abs-normalization">4. Max Abs Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Formula:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Steps:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Example:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Advantages:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Limitations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#robust-scaler">5. Robust Scaler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Formula:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Steps:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Example:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Advantages:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Limitations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#log-transformation">6. Log Transformation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Formula:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">Example:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">Advantages:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">Limitations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#power-transformation">7. Power Transformation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#box-cox-transformation">1. <strong>Box-Cox Transformation</strong>:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yeo-johnson-transformation">2. <strong>Yeo-Johnson Transformation</strong>:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">Purpose:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">Example:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">Advantages:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">Limitations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#l1-normalization">8. L1 Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-characteristics">Key Characteristics:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">Example:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#l2-normalization">9. L2 Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">Formula:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">Steps:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">Example:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">Advantages:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">Limitations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#my-experience-at-pishgam-iranian-company">10. My Experience at Pishgam Iranian Company</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sum-up">Sum up</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#refrences">Refrences</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
