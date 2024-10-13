@@ -1,0 +1,1054 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>SOFM - Clustering and dimensionality reduction &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/StudentEffort/SOFM/SOFM';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Supplementary Documents" href="../../SupplementaryDocuments/Supplementary1.html" />
+    <link rel="prev" title="Word2Vec" href="../Word2Vec/Word2Vec.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction of PR</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/PR_intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/Model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Visualization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Clustering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/PR_intro_Clustering.html">Clustering Concept</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Regression</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Introduction_Regression.html">Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classification</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/PR_intro_Classification.html">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">BayesEstimation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/BayesEstimation.html">Bayes Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BayesEstimation/GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Student Effort</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Whyprojection1.html">What is Projection?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Star%20Coordinates/Star_Coordinates.html">Star Coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Covariance_Fekri/Covariance_Poorya.html">Covariance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linear-least-square-final/least-square.html">Linear Least Square Method</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../ECG/ecg.html">ECG: Measurement of heart rate and probability of heart attack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../correntropy/correntropy.html">Understanding Correntropy as a Loss Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Normalization/Normalization_1.html">Data Normalization</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../Chernoff/ChernoffEsri.html">Chernoff Faces in ESRI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GloVe/GloVe1.html">GloVe: Word Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LinkageClustering1/linkageclustering2.html">Linkage Clustering Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Word2Vec/Word2Vec.html">Word2Vec</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">SOFM - Clustering and dimensionality reduction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contact</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FPR/StudentEffort/SOFM/SOFM.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/PR/StudentEffort/SOFM/SOFM.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>SOFM - Clustering and dimensionality reduction</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-sofm-works">How SOFM Works ?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-understanding-of-sofm">Mathematical Understanding of SOFM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-definition-and-mathematical-parameters">1. Problem Definition and Mathematical Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-best-matching-unit-bmu">2. Finding the Best Matching Unit (BMU)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-weights">3. Updating the Weights</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-rate-and-neighborhood-function">4. Learning Rate and Neighborhood Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topology-and-mapping">5. Topology and Mapping</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-algorithm-for-sofm">General Algorithm for SOFM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-of-sofm">Applications of SOFM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advantages">Advantages</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-and-dimensionality-reduction-with-sofm">Clustering and dimensionality reduction with sofm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libraries">Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-the-sofm-code-with-mathematical-relationships">Analysis of the SOFM Code with Mathematical Relationships</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#import-necessary-libraries">1. Import Necessary Libraries</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-the-sofm-class">2. Defining the SOFM Class</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3. Finding the Best Matching Unit (BMU)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#neighborhood-function">4.  Neighborhood Function</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#training-the-sofm">5. Training the SOFM</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-wine-dataset">6. Loading the Wine Dataset</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-and-training-the-sofm">7. Creating and Training the SOFM</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-results">8. Visualizing the Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-the-output-colors-and-numbers">Interpretation of the output (colors and numbers)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="sofm-clustering-and-dimensionality-reduction">
+<h1>SOFM - Clustering and dimensionality reduction<a class="headerlink" href="#sofm-clustering-and-dimensionality-reduction" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Author  :  Mohammad Mahdi Khorsand Aalam</p></li>
+<li><p>Contact : <a class="reference external" href="https://github.com/OOiiOOiiOO">Github Page</a></p></li>
+</ul>
+<p><img alt="Mohammad Mahdi Khorsand" src="../../../_images/MyPhoto2.jpeg" /></p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>A self-organizing map (SOM) or self-organizing feature map (SOFM) is an unsupervised machine learning method that creates a low-dimensional representation of high-dimensional data while maintaining its topological structure. A common example for teaching SOM principles is mapping colors from their RGB components into two dimensions. The network learns to represent these colors as 3D vectors in a 2D space, clustering similar colors into adjacent regions, which is a beneficial feature of Kohonen maps.</p>
+<p><img alt="Intro" src="../../../_images/110.jpg" /></p>
+</section>
+<section id="how-sofm-works">
+<h2>How SOFM Works ?<a class="headerlink" href="#how-sofm-works" title="Link to this heading">#</a></h2>
+<p>SOFM operates based on competitive learning. In this learning method, neurons in the network compete to adapt to the input, and only one or a group of neurons “win.” The winning neuron, known as the Best Matching Unit (BMU), and its neighboring neurons are updated to align with the input.</p>
+<p><img alt="really happens" src="PR/StudentEffort/SOFM/4.webp" /></p>
+<p>architecture of the Self Organizing Map with two clusters and n input features of any sample is given below:</p>
+<p><img alt="Intro" src="../../../_images/5.png" /></p>
+<p><img alt="Intro" src="../../../_images/3.png" /></p>
+</section>
+<section id="mathematical-understanding-of-sofm">
+<h2>Mathematical Understanding of SOFM<a class="headerlink" href="#mathematical-understanding-of-sofm" title="Link to this heading">#</a></h2>
+<section id="problem-definition-and-mathematical-parameters">
+<h3>1. Problem Definition and Mathematical Parameters<a class="headerlink" href="#problem-definition-and-mathematical-parameters" title="Link to this heading">#</a></h3>
+<p>In SOFM, the main objective is to map a high-dimensional input space to a lower-dimensional output space (usually 2D) while preserving the topological structure of the data.</p>
+<p>Assume:</p>
+<ul class="simple">
+<li><p>A high-dimensional input vector <span class="math notranslate nohighlight">\(\mathbf{x} \in \mathbb{R}^n\)</span>, where <span class="math notranslate nohighlight">\(n\)</span> is the number of features (dimensions).</p></li>
+<li><p>The SOFM network consists of a two-dimensional grid of neurons, where each neuron has a weight vector <span class="math notranslate nohighlight">\(\mathbf{w}_{ij} \in \mathbb{R}^n\)</span> associated with it, where <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> represent the coordinates of the neuron on the grid.</p></li>
+<li><p>The neurons are arranged on a two-dimensional grid of size <span class="math notranslate nohighlight">\(m \times m\)</span>. Thus, the number of neurons is <span class="math notranslate nohighlight">\(m^2\)</span>, and each neuron has a weight vector of length <span class="math notranslate nohighlight">\(n\)</span>, corresponding to the number of input features.</p></li>
+</ul>
+</section>
+<section id="finding-the-best-matching-unit-bmu">
+<h3>2. Finding the Best Matching Unit (BMU)<a class="headerlink" href="#finding-the-best-matching-unit-bmu" title="Link to this heading">#</a></h3>
+<p>To find the Best Matching Unit (BMU), we calculate the Euclidean distance between the input vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and the weight vector of each neuron <span class="math notranslate nohighlight">\(\mathbf{w}_{ij}\)</span>.
+The formula for the Euclidean distance is as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+d_{ij} = \|\mathbf{x} - \mathbf{w}_{ij}\| = \sqrt{\sum_{k=1}^{n} (x_k - w_{ij,k})^2}
+\]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(d_{ij}\)</span> is the Euclidean distance between the input vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and the weight vector <span class="math notranslate nohighlight">\(\mathbf{w}_{ij}\)</span> of the neuron.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_k\)</span> and <span class="math notranslate nohighlight">\(w_{ij,k}\)</span> are the <span class="math notranslate nohighlight">\(k\)</span>-th components of the input vector and the neuron’s weight vector, respectively.</p></li>
+</ul>
+<p>The neuron with the smallest distance is selected as the BMU:</p>
+<div class="math notranslate nohighlight">
+\[
+BMU = \arg \min_{i,j} d_{ij}
+\]</div>
+</section>
+<section id="updating-the-weights">
+<h3>3. Updating the Weights<a class="headerlink" href="#updating-the-weights" title="Link to this heading">#</a></h3>
+<p>After finding the BMU, the weights of this neuron and its neighboring neurons in the grid are adjusted towards the input vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>. This process is performed such that neurons closer to the BMU undergo larger changes, while neurons further away undergo smaller changes.</p>
+<p>The weights are updated using the following formula:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{w}_{ij}(t+1) = \mathbf{w}_{ij}(t) + \eta(t) \cdot h_{BMU,ij}(t) \cdot (\mathbf{x}(t) - \mathbf{w}_{ij}(t))
+\]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(t\)</span> is the time step (or learning iteration).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\eta(t)\)</span> is the learning rate, which decreases over time. For example, it can decay exponentially:
+$<span class="math notranslate nohighlight">\(
+\eta(t) = \eta_0 \cdot \exp\left(-\frac{t}{\tau}\right)
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span>\eta_0<span class="math notranslate nohighlight">\( is the initial learning rate and \)</span>\tau$ is the time constant.</p></li>
+<li><p><span class="math notranslate nohighlight">\(h_{BMU,ij}(t)\)</span> is the neighborhood function that defines the influence of neuron <span class="math notranslate nohighlight">\(\mathbf{w}_{ij}\)</span> from the BMU. This function depends on the distance between neuron <span class="math notranslate nohighlight">\((i,j)\)</span> and the BMU and is usually defined as a Gaussian:
+$<span class="math notranslate nohighlight">\(
+h_{BMU,ij}(t) = \exp\left(-\frac{\|\mathbf{r}_{BMU} - \mathbf{r}_{ij}\|^2}{2\sigma^2(t)}\right)
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span>\mathbf{r}<em>{BMU}<span class="math notranslate nohighlight">\( and \)</span>\mathbf{r}</em>{ij}<span class="math notranslate nohighlight">\( are the positions of the BMU and the \)</span>(i,j)$ neuron on the grid, respectively.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma(t)\)</span> is the neighborhood radius, which also decreases over time. It typically decays exponentially:
+$<span class="math notranslate nohighlight">\(
+\sigma(t) = \sigma_0 \cdot \exp\left(-\frac{t}{\tau_\sigma}\right)
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span>\sigma_0<span class="math notranslate nohighlight">\( is the initial neighborhood radius and \)</span>\tau_\sigma$ is the time constant for the neighborhood size.</p></li>
+</ul>
+</section>
+<section id="learning-rate-and-neighborhood-function">
+<h3>4. Learning Rate and Neighborhood Function<a class="headerlink" href="#learning-rate-and-neighborhood-function" title="Link to this heading">#</a></h3>
+<p>There are two key factors in SOFM that change over time:</p>
+<ul class="simple">
+<li><p>The <strong>learning rate</strong> <span class="math notranslate nohighlight">\(\eta(t)\)</span>: Initially, it is large to allow the network to respond quickly to the input, but it decreases over time to ensure more fine-tuned learning.</p></li>
+<li><p>The <strong>neighborhood radius</strong> <span class="math notranslate nohighlight">\(\sigma(t)\)</span>: Initially large, it allows more neurons to be influenced by the BMU, enabling a more global learning phase. As time progresses, this radius decreases, so only neurons close to the BMU are updated, leading to finer, localized learning.</p></li>
+</ul>
+<p>The decay of both the learning rate and the neighborhood radius ensures that the network converges to a stable mapping of the input data.</p>
+</section>
+<section id="topology-and-mapping">
+<h3>5. Topology and Mapping<a class="headerlink" href="#topology-and-mapping" title="Link to this heading">#</a></h3>
+<p>SOFM is designed to preserve the topological structure of the input data. This means that if two input vectors <span class="math notranslate nohighlight">\(\mathbf{x}_1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}_2\)</span> are close to each other in the high-dimensional space, their corresponding BMUs should also be close to each other in the two-dimensional grid.</p>
+<p>This topological preservation occurs because of the neighborhood function and the weight update rule that allows neighboring neurons to be updated along with the BMU. As a result, SOFM naturally clusters the data and maintains the topological structure of the input space.</p>
+</section>
+</section>
+<section id="general-algorithm-for-sofm">
+<h2>General Algorithm for SOFM<a class="headerlink" href="#general-algorithm-for-sofm" title="Link to this heading">#</a></h2>
+<p>The general SOFM algorithm includes the following steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Initialization</strong>:</p>
+<ul class="simple">
+<li><p>The weights of the neurons are initialized randomly.</p></li>
+<li><p>The initial learning rate <span class="math notranslate nohighlight">\(\eta(0)\)</span> and neighborhood radius <span class="math notranslate nohighlight">\(\sigma(0)\)</span> are set.</p></li>
+</ul>
+</li>
+<li><p><strong>Repeat for each input sample</strong>:</p>
+<ul class="simple">
+<li><p>An input vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is chosen.</p></li>
+<li><p>The distance between the input vector and the weight vector of each neuron <span class="math notranslate nohighlight">\(\mathbf{w}_{ij}\)</span> is calculated.</p></li>
+<li><p>The Best Matching Unit (BMU) is identified.</p></li>
+<li><p>The weights of the BMU and its neighbors are updated using the formulas above.</p></li>
+<li><p>The learning rate <span class="math notranslate nohighlight">\(\eta(t)\)</span> and neighborhood radius <span class="math notranslate nohighlight">\(\sigma(t)\)</span> are decayed.</p></li>
+</ul>
+</li>
+<li><p><strong>End</strong>:</p>
+<ul class="simple">
+<li><p>The learning process is stopped after a certain number of iterations or when convergence is achieved.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="applications-of-sofm">
+<h2>Applications of SOFM<a class="headerlink" href="#applications-of-sofm" title="Link to this heading">#</a></h2>
+<p><strong>Clustering:</strong>
+SOFM can automatically cluster data. Similar data points are mapped to neurons close to each other on the map.</p>
+<p><strong>Data Visualization:</strong>
+Due to SOFM’s ability to map high-dimensional data into a 2D space, it is an effective tool for visualizing data and hidden patterns within it.</p>
+<p><strong>Image Processing:</strong>
+SOFM is used in image processing and pattern recognition, as it can map image features to a simpler topological map.</p>
+<p><strong>Medical Data Analysis:</strong>
+In analyzing medical signals like EEG and ECG, SOFM helps identify significant patterns.</p>
+<p><strong>Market Analysis:</strong>
+In financial markets, SOFM can be used for clustering and analyzing behavioral patterns in financial data.</p>
+<section id="advantages">
+<h3>Advantages<a class="headerlink" href="#advantages" title="Link to this heading">#</a></h3>
+<p><strong>Unsupervised Learning:</strong> SOFM does not require labeled data and can automatically identify patterns.
+<strong>Topology Preservation:</strong> SOFM maps data to a 2D space while maintaining similarities and differences.
+<strong>Dimensionality Reduction:</strong> SOFM is one of the best methods for visualizing complex data in a 2D space.
+<strong>Automatic Clustering:</strong> Data is automatically clustered into different groups.</p>
+</section>
+</section>
+<section id="clustering-and-dimensionality-reduction-with-sofm">
+<h2>Clustering and dimensionality reduction with sofm<a class="headerlink" href="#clustering-and-dimensionality-reduction-with-sofm" title="Link to this heading">#</a></h2>
+<p>In this project, we use SOFM methods and formulas to cluster and reduce data dimensions</p>
+<section id="dataset">
+<h3>Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h3>
+<p>The Wine dataset from the UCI Machine Learning Repository is a well-known dataset used for classification and clustering tasks. It consists of 178 instances and 13 chemical attributes that describe wines from three different classes. Key features include alcohol content, malic acid, ash, magnesium, flavanoids, color intensity, and proline levels. The dataset is typically in CSV format and is primarily used for classification, predicting the wine class based on its chemical properties. It can also be applied to clustering tasks using unsupervised learning methods like SOFM to discover patterns without labels.</p>
+</section>
+<section id="libraries">
+<h3>Libraries<a class="headerlink" href="#libraries" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><em><strong>NumPy:</strong></em>
+A powerful library for numerical computations, providing support for arrays and matrices. In the code, it is used to handle numerical data and calculations efficiently.</p></li>
+<li><p><em><strong>Pandas:</strong></em>
+A data manipulation library used for loading and organizing the dataset into a structured format (DataFrame). It simplifies data handling and processing.</p></li>
+<li><p><em><strong>MinMaxScaler (from sklearn.preprocessing):</strong></em>
+A tool to normalize the dataset by scaling features to a range (0, 1). It ensures that all features have the same weight in the SOFM training.</p></li>
+<li><p><em><strong>MiniSom:</strong></em>
+A library specifically for Self-Organizing Maps (SOMs). It helps in initializing, training, and organizing high-dimensional data into a low-dimensional grid.</p></li>
+<li><p><em><strong>Matplotlib:</strong></em>
+A plotting library used for visualizing the trained SOM and its clustering results. It helps generate graphs and scatter plots for interpretation.</p></li>
+</ul>
+</section>
+<section id="analysis-of-the-sofm-code-with-mathematical-relationships">
+<h3>Analysis of the SOFM Code with Mathematical Relationships<a class="headerlink" href="#analysis-of-the-sofm-code-with-mathematical-relationships" title="Link to this heading">#</a></h3>
+<section id="import-necessary-libraries">
+<h4>1. Import Necessary Libraries<a class="headerlink" href="#import-necessary-libraries" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Description:
+In this section, the required libraries for loading data, normalization, creating SOFM and drawing graphs are loaded.</p></li>
+<li><p>Relevance:
+This section is known as the prerequisites for implementing SOFM and working with input data.</p></li>
+</ul>
+</section>
+<section id="defining-the-sofm-class">
+<h4>2. Defining the SOFM Class<a class="headerlink" href="#defining-the-sofm-class" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SOFM</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">,</span> <span class="n">map_size</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_dim</span> <span class="o">=</span> <span class="n">input_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map_size</span> <span class="o">=</span> <span class="n">map_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">learning_rate</span> <span class="o">=</span> <span class="n">learning_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span> <span class="k">if</span> <span class="n">sigma</span> <span class="k">else</span> <span class="n">map_size</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_iterations</span> <span class="o">=</span> <span class="n">max_iterations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">map_size</span><span class="p">,</span> <span class="n">map_size</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>input_dim :</strong> Number of input features.
+<strong>map_size :</strong> Size of the SOFM grid.
+<strong>learning_rate :</strong> Controls the convergence speed.
+<strong>sigma :</strong> The radius of the neighborhood function.
+<strong>max_iterations :</strong> Maximum number of training iterations.
+<strong>weights :</strong> Randomly initialized weight matrix for the SOFM neurons.</p>
+</section>
+<section id="id1">
+<h4>3. Finding the Best Matching Unit (BMU)<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_bmu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">-</span> <span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">distances</span><span class="p">),</span> <span class="n">distances</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>BMU Calculation</strong>
+The BMU for an input vector <em>“x”</em> is found by calculating the Euclidean distance to each weight vector:
+$<span class="math notranslate nohighlight">\(Distance=|| \text{Weight} - x ||\)</span>$
+The index of the minimum distance is returned as the BMU.</p>
+</section>
+<section id="neighborhood-function">
+<h4>4.  Neighborhood Function<a class="headerlink" href="#neighborhood-function" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="k">def</span> <span class="nf">neighborhood_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bmu</span><span class="p">,</span> <span class="n">iteration</span><span class="p">):</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">iteration</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iterations</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">)))</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">indices</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">map_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">map_size</span><span class="p">))</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bmu</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">distances</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)))</span>
+
+</pre></div>
+</div>
+<p><strong>Neighborhood Function:</strong>
+This function computes the neighborhood influence for the BMU based on a Gaussian function:</p>
+<div class="math notranslate nohighlight">
+\[Neighborhood = \exp\left(-\frac{2}{\sigma^2}||i - BMU||^2\right)\]</div>
+</section>
+<section id="training-the-sofm">
+<h4>5. Training the SOFM<a class="headerlink" href="#training-the-sofm" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iterations</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]</span>  
+        <span class="n">bmu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_bmu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">learning_rate_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">iteration</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_iterations</span><span class="p">)</span>
+        <span class="n">neighborhood</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_function</span><span class="p">(</span><span class="n">bmu</span><span class="p">,</span> <span class="n">iteration</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map_size</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map_size</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">learning_rate_t</span> <span class="o">*</span> <span class="n">neighborhood</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+      
+</pre></div>
+</div>
+<p><strong>Training Process:</strong>
+The training process consists of the following steps:</p>
+<ul class="simple">
+<li><p>Randomly select an input vector  𝑥</p></li>
+<li><p>Find the BMU for  𝑥</p></li>
+<li><p>Update the weights of the neurons using the learning rate and neighborhood function:
+$<span class="math notranslate nohighlight">\(Weights_{new} = Weights_{old} + learning\_rate \cdot Neighborhood \cdot (x - Weights_{old})\)</span>$</p></li>
+</ul>
+</section>
+<section id="loading-the-wine-dataset">
+<h4>6. Loading the Wine Dataset<a class="headerlink" href="#loading-the-wine-dataset" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> 
+</pre></div>
+</div>
+<p><strong>Dataset Loading:</strong>
+The Wine dataset is loaded without labels for unsupervised learning.</p>
+</section>
+<section id="creating-and-training-the-sofm">
+<h4>7. Creating and Training the SOFM<a class="headerlink" href="#creating-and-training-the-sofm" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sofm</span> <span class="o">=</span> <span class="n">SOFM</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">map_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">sofm</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>SOFM Initialization and Training:</strong>
+An instance of the SOFM class is created with specified parameters and trained on the Wine dataset.</p>
+</section>
+<section id="visualizing-the-results">
+<h4>8. Visualizing the Results<a class="headerlink" href="#visualizing-the-results" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span> 
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">sofm</span><span class="o">.</span><span class="n">find_bmu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">rainbow</span><span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)),</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="s1">&#39;fontsize&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">})</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">sofm</span><span class="o">.</span><span class="n">weights</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">sofm</span><span class="o">.</span><span class="n">weights</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Self-Organizing Feature Map (SOFM) - Clustering Data (Without KMeans)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>  <span class="c1"># Increase </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+
+<span class="k">class</span> <span class="nc">SOFM</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">,</span> <span class="n">map_size</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_dim</span> <span class="o">=</span> <span class="n">input_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map_size</span> <span class="o">=</span> <span class="n">map_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">learning_rate</span> <span class="o">=</span> <span class="n">learning_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span> <span class="k">if</span> <span class="n">sigma</span> <span class="k">else</span> <span class="n">map_size</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_iterations</span> <span class="o">=</span> <span class="n">max_iterations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">map_size</span><span class="p">,</span> <span class="n">map_size</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">find_bmu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Find the Best Matching Unit (BMU) &quot;&quot;&quot;</span>
+        <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">-</span> <span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">distances</span><span class="p">),</span> <span class="n">distances</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">neighborhood_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bmu</span><span class="p">,</span> <span class="n">iteration</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Neighborhood function (Gaussian decay) &quot;&quot;&quot;</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">iteration</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iterations</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">)))</span>
+        <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">indices</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">map_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">map_size</span><span class="p">))</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bmu</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">distances</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)))</span>
+
+    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iterations</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]</span> 
+            <span class="n">bmu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_bmu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">learning_rate_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">iteration</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_iterations</span><span class="p">)</span>
+            <span class="n">neighborhood</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood_function</span><span class="p">(</span><span class="n">bmu</span><span class="p">,</span> <span class="n">iteration</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map_size</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map_size</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">learning_rate_t</span> <span class="o">*</span> <span class="n">neighborhood</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+
+<span class="n">sofm</span> <span class="o">=</span> <span class="n">SOFM</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="n">X_scaled</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">map_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">sofm</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">):</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">sofm</span><span class="o">.</span><span class="n">find_bmu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">rainbow</span><span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)),</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="s1">&#39;fontsize&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">sofm</span><span class="o">.</span><span class="n">weights</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">sofm</span><span class="o">.</span><span class="n">weights</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Self-Organizing Feature Map (SOFM) - Clustering Data (Without KMeans)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/c3bc2854a2d8b86a9956cee1bcd19bba5cf2560ed62536afcd0d83488277a8c5.png" src="../../../_images/c3bc2854a2d8b86a9956cee1bcd19bba5cf2560ed62536afcd0d83488277a8c5.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="output">
+<h2>Output<a class="headerlink" href="#output" title="Link to this heading">#</a></h2>
+<p><img alt="SOFM" src="../../../_images/1.png" /></p>
+<section id="interpretation-of-the-output-colors-and-numbers">
+<h3>Interpretation of the output (colors and numbers)<a class="headerlink" href="#interpretation-of-the-output-colors-and-numbers" title="Link to this heading">#</a></h3>
+<p><strong>1. Colors</strong></p>
+<ul class="simple">
+<li><p>The colors in the plot correspond to the data points (each input feature).</p></li>
+<li><p>Each point has a specific color assigned to it, primarily based on its position on the weight map (SOFM).</p></li>
+<li><p>In this case, the colors do not indicate different clusters; rather, they are used for aesthetic purposes and to distinguish the points.</p></li>
+</ul>
+<p><strong>2. Numbers</strong></p>
+<ul class="simple">
+<li><p>The numbers next to each point represent the data points. In your code, these numbers are assigned sequentially to the data points and placed at their respective locations in the plot.</p></li>
+<li><p>These numbers can represent the identifiers or indices of the data points, helping users identify the data.</p></li>
+</ul>
+<p><strong>3. Overall Meaning</strong></p>
+<ul class="simple">
+<li><p>Generally, each point on the SOFM represents input data features that are closer to a specific neuron (as the BMU).</p></li>
+<li><p>However, in this particular implementation, there is no predefined clustering, and the numbers and colors are only used as a representation of the data.</p></li>
+<li><p>If we want to identify specific patterns within the data, we need to look for actual clustering results and the differences between colors and numbers.</p></li>
+</ul>
+<p><strong>4. Summary</strong>
+Ultimately, in this type of visualization, colors and numbers act as tools for visualizing data points on the SOFM and help the user understand how the points are distributed in the feature space and which points are closer together.</p>
+</section>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h3>
+<p>In this plot, there may be points numbered 1, 2, 3, etc., each having different colors. These numbers simply indicate the indices of the points, and the colors are used purely for visual distinction.</p>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<p><strong>1.</strong> <a class="reference external" href="http://www.ai-junkie.com/ann/som/som1.html">http://www.ai-junkie.com/ann/som/som1.html</a></p>
+<p><strong>2.</strong> Applications of the growing self-organizing map, Th. Villmann, H.-U. Bauer, May 1998</p>
+<p><strong>3.</strong> <a class="reference external" href="https://towardsdatascience.com/som-the-data-science-tool-you-didnt-know-you-need-98e7e1460112">A Comprehensive Introduction to Self-Organizing Maps</a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR\StudentEffort\SOFM"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../Word2Vec/Word2Vec.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Word2Vec</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../SupplementaryDocuments/Supplementary1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Supplementary Documents</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-sofm-works">How SOFM Works ?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-understanding-of-sofm">Mathematical Understanding of SOFM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-definition-and-mathematical-parameters">1. Problem Definition and Mathematical Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-best-matching-unit-bmu">2. Finding the Best Matching Unit (BMU)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-weights">3. Updating the Weights</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-rate-and-neighborhood-function">4. Learning Rate and Neighborhood Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topology-and-mapping">5. Topology and Mapping</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-algorithm-for-sofm">General Algorithm for SOFM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-of-sofm">Applications of SOFM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advantages">Advantages</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-and-dimensionality-reduction-with-sofm">Clustering and dimensionality reduction with sofm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libraries">Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-the-sofm-code-with-mathematical-relationships">Analysis of the SOFM Code with Mathematical Relationships</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#import-necessary-libraries">1. Import Necessary Libraries</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-the-sofm-class">2. Defining the SOFM Class</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3. Finding the Best Matching Unit (BMU)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#neighborhood-function">4.  Neighborhood Function</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#training-the-sofm">5. Training the SOFM</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-wine-dataset">6. Loading the Wine Dataset</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-and-training-the-sofm">7. Creating and Training the SOFM</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-results">8. Visualizing the Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-the-output-colors-and-numbers">Interpretation of the output (colors and numbers)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
