@@ -16,37 +16,40 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-
-  
-  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=f281be69"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -66,6 +69,7 @@
     <link rel="prev" title="GloVe: Word Representation" href="../GloVe/GloVe1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -81,19 +85,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -101,7 +94,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -109,8 +101,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -126,7 +118,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -141,6 +134,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="../../../pattern_recognition.html">
   
@@ -154,21 +149,17 @@
     
     
     <img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
-    <script>document.write(`<img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+    <img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark pst-js-only" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -250,6 +241,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../GloVe/GloVe1.html">GloVe: Word Representation</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Linkage Clustering Algorithm</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Word2Vec/Word2Vec.html">Word2Vec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SOFM/SOFM.html">SOFM - Clustering and dimensionality reduction</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary</span></p>
 <ul class="nav bd-sidenav">
@@ -291,9 +283,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -416,27 +408,19 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -1036,14 +1020,17 @@ d_{\text{Manhattan}}(x, y) &amp;= |3 - 7| + |4 - 1| \\
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Euclidean Distance: 5.00
-Manhattan Distance: 7.00
-Minkowski Distance (p=3): 4.50
-Cosine Distance: 0.29
-Hamming Distance: 1
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Define the points</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;matplotlib&#39;
 </pre></div>
 </div>
-<img alt="../../../_images/e6f41c8d9ba51ae900e4aafd86ac08faf37091d83153e2b303d3e4621eafa29f.png" src="../../../_images/e6f41c8d9ba51ae900e4aafd86ac08faf37091d83153e2b303d3e4621eafa29f.png" />
 </div>
 </div>
 </section>
@@ -1321,10 +1308,10 @@ D_{\text{Ward}}(A, B) = \sqrt{\Delta(A, B)} = \sqrt{28.25} \approx 5.3151
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/31e2a65b0792634d60258f82a2e20c44f0183739e4694b2ba209f8cead1f3484.png" src="../../../_images/31e2a65b0792634d60258f82a2e20c44f0183739e4694b2ba209f8cead1f3484.png" />
-<img alt="../../../_images/a16c242a89cb529e0e473b3fa704c82889db73978d9382754ce657e239910a81.png" src="../../../_images/a16c242a89cb529e0e473b3fa704c82889db73978d9382754ce657e239910a81.png" />
-<img alt="../../../_images/345896b091077cd0faeed5a452741fc040bf0c43e09733e1609fca1b47395300.png" src="../../../_images/345896b091077cd0faeed5a452741fc040bf0c43e09733e1609fca1b47395300.png" />
-<img alt="../../../_images/cfe3628c31da7cd3c74c02a9980e3b0ab6ffac369d0c2eec77a6a3e19bb6a670.png" src="../../../_images/cfe3628c31da7cd3c74c02a9980e3b0ab6ffac369d0c2eec77a6a3e19bb6a670.png" />
+<img alt="../../../_images/c0adfdc1fd09d84dd902d01111cbf80e32d5f468b936d85f570276c89e3f775d.png" src="../../../_images/c0adfdc1fd09d84dd902d01111cbf80e32d5f468b936d85f570276c89e3f775d.png" />
+<img alt="../../../_images/3d5af3823c1a58e1f123ae2e0c91c1e5dc22dd233f2a497287362e02936d4861.png" src="../../../_images/3d5af3823c1a58e1f123ae2e0c91c1e5dc22dd233f2a497287362e02936d4861.png" />
+<img alt="../../../_images/52406d3eaacb4ef199f0340128641f7d6aacf2212b4bcde003054c388c20dba2.png" src="../../../_images/52406d3eaacb4ef199f0340128641f7d6aacf2212b4bcde003054c388c20dba2.png" />
+<img alt="../../../_images/9cf62b0903c9b9d9487658fa699de14b6681f1db28a2f5573cbe52cbf07dd035.png" src="../../../_images/9cf62b0903c9b9d9487658fa699de14b6681f1db28a2f5573cbe52cbf07dd035.png" />
 </div>
 </div>
 </section>
@@ -2035,7 +2022,7 @@ Cora             4    5
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/a0c691022567ce228c91aea40b15b0c081f5fa6982ce34c61e864c85a6c05c47.png" src="../../../_images/a0c691022567ce228c91aea40b15b0c081f5fa6982ce34c61e864c85a6c05c47.png" />
+<img alt="../../../_images/becbe2708d87bfc4565d09180e2bad8abcd48179b186bfcb4df15298bbc760cd.png" src="../../../_images/becbe2708d87bfc4565d09180e2bad8abcd48179b186bfcb4df15298bbc760cd.png" />
 </div>
 </div>
 <ul class="simple">
@@ -2193,8 +2180,8 @@ Clusters after merging:
   Cluster 4: [&#39;Alan&#39;, &#39;Max&#39;]
 </pre></div>
 </div>
-<img alt="../../../_images/31c8781e51b0f2cf523f424b667695527e388f30a879862540379e73163fae59.png" src="../../../_images/31c8781e51b0f2cf523f424b667695527e388f30a879862540379e73163fae59.png" />
-<img alt="../../../_images/5c48de5f84a40beb2eaefdda5786ef7b38b7a4212fd79c9588794fcc71e83102.png" src="../../../_images/5c48de5f84a40beb2eaefdda5786ef7b38b7a4212fd79c9588794fcc71e83102.png" />
+<img alt="../../../_images/1041068e9dfe71d73984d2690fc56283ec50d27f88a49b2e9c5d670f3ff70bf2.png" src="../../../_images/1041068e9dfe71d73984d2690fc56283ec50d27f88a49b2e9c5d670f3ff70bf2.png" />
+<img alt="../../../_images/65b362c92341593a3135d5a2e894b4a63ee49e5a2fabb3c262f6a6cec032cd35.png" src="../../../_images/65b362c92341593a3135d5a2e894b4a63ee49e5a2fabb3c262f6a6cec032cd35.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Step 2 ---
 Clusters after merging:
   Cluster 1: [&#39;Cora&#39;]
@@ -2202,23 +2189,23 @@ Clusters after merging:
   Cluster 3: [&#39;Lisa&#39;, &#39;Joe&#39;]
 </pre></div>
 </div>
-<img alt="../../../_images/164519b0d7dc081008fdb4abc694e4dad7682f04813c07c3d679e1fcb4b6d61a.png" src="../../../_images/164519b0d7dc081008fdb4abc694e4dad7682f04813c07c3d679e1fcb4b6d61a.png" />
-<img alt="../../../_images/26ced7c5a133f581ad905a5b1377c58fc9f60ea98daa0e4e1ef00e7b0d7e6cf2.png" src="../../../_images/26ced7c5a133f581ad905a5b1377c58fc9f60ea98daa0e4e1ef00e7b0d7e6cf2.png" />
+<img alt="../../../_images/ae0348bd58878fa6837c401ccf936f14e4c5a860eccf9421a8c6173adef017dc.png" src="../../../_images/ae0348bd58878fa6837c401ccf936f14e4c5a860eccf9421a8c6173adef017dc.png" />
+<img alt="../../../_images/d8c412110c5aad4549238677a5978bd8ac2a5d9441d6bb82fa3b292665608e2a.png" src="../../../_images/d8c412110c5aad4549238677a5978bd8ac2a5d9441d6bb82fa3b292665608e2a.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Step 3 ---
 Clusters after merging:
   Cluster 1: [&#39;Cora&#39;]
   Cluster 2: [&#39;Alan&#39;, &#39;Max&#39;, &#39;Lisa&#39;, &#39;Joe&#39;]
 </pre></div>
 </div>
-<img alt="../../../_images/d8bac74eca8b2aef1b979bd286f951631688355f599bfb0d1969e74508bdf013.png" src="../../../_images/d8bac74eca8b2aef1b979bd286f951631688355f599bfb0d1969e74508bdf013.png" />
-<img alt="../../../_images/d4b51155d71877b4dc7a34b92224fe3991dfd73267e265712efdbcfe1e1cb63d.png" src="../../../_images/d4b51155d71877b4dc7a34b92224fe3991dfd73267e265712efdbcfe1e1cb63d.png" />
+<img alt="../../../_images/3dec77d450f00ca1102467ab689350b069b3e70d424b0b77ace4489ed5eaa1e4.png" src="../../../_images/3dec77d450f00ca1102467ab689350b069b3e70d424b0b77ace4489ed5eaa1e4.png" />
+<img alt="../../../_images/82fda192c075fde9176e05879f2e752a03511352a85ade272155dfa405f24700.png" src="../../../_images/82fda192c075fde9176e05879f2e752a03511352a85ade272155dfa405f24700.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Step 4 ---
 Clusters after merging:
   Cluster 1: [&#39;Cora&#39;, &#39;Alan&#39;, &#39;Max&#39;, &#39;Lisa&#39;, &#39;Joe&#39;]
 </pre></div>
 </div>
-<img alt="../../../_images/ba38ecbfc3483aa301a1aeb461e93d55ce86cd8a38010ab0e007e4c75a8033a9.png" src="../../../_images/ba38ecbfc3483aa301a1aeb461e93d55ce86cd8a38010ab0e007e4c75a8033a9.png" />
-<img alt="../../../_images/a9e752f86b181dc90eb85a0e3bc30c2925477192eb1fe49dfdd193f8dd930d3d.png" src="../../../_images/a9e752f86b181dc90eb85a0e3bc30c2925477192eb1fe49dfdd193f8dd930d3d.png" />
+<img alt="../../../_images/e1b13d4c3cb198a191e8ba1efdf23a770da52375cde360977a07f1d08a502df9.png" src="../../../_images/e1b13d4c3cb198a191e8ba1efdf23a770da52375cde360977a07f1d08a502df9.png" />
+<img alt="../../../_images/ec6cc134e8db7378201c7c01dc740f957f33ed073f0ca737ab90c05da38c90fa.png" src="../../../_images/ec6cc134e8db7378201c7c01dc740f957f33ed073f0ca737ab90c05da38c90fa.png" />
 </div>
 </div>
 <p>-The code implements step-by-step agglomerative clustering, merging two clusters at each iteration. Here’s a detailed breakdown:</p>
@@ -2387,7 +2374,7 @@ Max              7    4
 Cora             4    5
 </pre></div>
 </div>
-<img alt="../../../_images/a0c691022567ce228c91aea40b15b0c081f5fa6982ce34c61e864c85a6c05c47.png" src="../../../_images/a0c691022567ce228c91aea40b15b0c081f5fa6982ce34c61e864c85a6c05c47.png" />
+<img alt="../../../_images/becbe2708d87bfc4565d09180e2bad8abcd48179b186bfcb4df15298bbc760cd.png" src="../../../_images/becbe2708d87bfc4565d09180e2bad8abcd48179b186bfcb4df15298bbc760cd.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Starting Agglomerative Clustering:
 
 --- Step 1 ---
@@ -2398,8 +2385,8 @@ Clusters after merging:
   Cluster 4: [&#39;Alan&#39;, &#39;Max&#39;]
 </pre></div>
 </div>
-<img alt="../../../_images/31c8781e51b0f2cf523f424b667695527e388f30a879862540379e73163fae59.png" src="../../../_images/31c8781e51b0f2cf523f424b667695527e388f30a879862540379e73163fae59.png" />
-<img alt="../../../_images/5c48de5f84a40beb2eaefdda5786ef7b38b7a4212fd79c9588794fcc71e83102.png" src="../../../_images/5c48de5f84a40beb2eaefdda5786ef7b38b7a4212fd79c9588794fcc71e83102.png" />
+<img alt="../../../_images/1041068e9dfe71d73984d2690fc56283ec50d27f88a49b2e9c5d670f3ff70bf2.png" src="../../../_images/1041068e9dfe71d73984d2690fc56283ec50d27f88a49b2e9c5d670f3ff70bf2.png" />
+<img alt="../../../_images/65b362c92341593a3135d5a2e894b4a63ee49e5a2fabb3c262f6a6cec032cd35.png" src="../../../_images/65b362c92341593a3135d5a2e894b4a63ee49e5a2fabb3c262f6a6cec032cd35.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Step 2 ---
 Clusters after merging:
   Cluster 1: [&#39;Cora&#39;]
@@ -2407,23 +2394,23 @@ Clusters after merging:
   Cluster 3: [&#39;Lisa&#39;, &#39;Joe&#39;]
 </pre></div>
 </div>
-<img alt="../../../_images/164519b0d7dc081008fdb4abc694e4dad7682f04813c07c3d679e1fcb4b6d61a.png" src="../../../_images/164519b0d7dc081008fdb4abc694e4dad7682f04813c07c3d679e1fcb4b6d61a.png" />
-<img alt="../../../_images/26ced7c5a133f581ad905a5b1377c58fc9f60ea98daa0e4e1ef00e7b0d7e6cf2.png" src="../../../_images/26ced7c5a133f581ad905a5b1377c58fc9f60ea98daa0e4e1ef00e7b0d7e6cf2.png" />
+<img alt="../../../_images/ae0348bd58878fa6837c401ccf936f14e4c5a860eccf9421a8c6173adef017dc.png" src="../../../_images/ae0348bd58878fa6837c401ccf936f14e4c5a860eccf9421a8c6173adef017dc.png" />
+<img alt="../../../_images/d8c412110c5aad4549238677a5978bd8ac2a5d9441d6bb82fa3b292665608e2a.png" src="../../../_images/d8c412110c5aad4549238677a5978bd8ac2a5d9441d6bb82fa3b292665608e2a.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Step 3 ---
 Clusters after merging:
   Cluster 1: [&#39;Cora&#39;]
   Cluster 2: [&#39;Alan&#39;, &#39;Max&#39;, &#39;Lisa&#39;, &#39;Joe&#39;]
 </pre></div>
 </div>
-<img alt="../../../_images/d8bac74eca8b2aef1b979bd286f951631688355f599bfb0d1969e74508bdf013.png" src="../../../_images/d8bac74eca8b2aef1b979bd286f951631688355f599bfb0d1969e74508bdf013.png" />
-<img alt="../../../_images/d4b51155d71877b4dc7a34b92224fe3991dfd73267e265712efdbcfe1e1cb63d.png" src="../../../_images/d4b51155d71877b4dc7a34b92224fe3991dfd73267e265712efdbcfe1e1cb63d.png" />
+<img alt="../../../_images/3dec77d450f00ca1102467ab689350b069b3e70d424b0b77ace4489ed5eaa1e4.png" src="../../../_images/3dec77d450f00ca1102467ab689350b069b3e70d424b0b77ace4489ed5eaa1e4.png" />
+<img alt="../../../_images/82fda192c075fde9176e05879f2e752a03511352a85ade272155dfa405f24700.png" src="../../../_images/82fda192c075fde9176e05879f2e752a03511352a85ade272155dfa405f24700.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Step 4 ---
 Clusters after merging:
   Cluster 1: [&#39;Cora&#39;, &#39;Alan&#39;, &#39;Max&#39;, &#39;Lisa&#39;, &#39;Joe&#39;]
 </pre></div>
 </div>
-<img alt="../../../_images/ba38ecbfc3483aa301a1aeb461e93d55ce86cd8a38010ab0e007e4c75a8033a9.png" src="../../../_images/ba38ecbfc3483aa301a1aeb461e93d55ce86cd8a38010ab0e007e4c75a8033a9.png" />
-<img alt="../../../_images/a9e752f86b181dc90eb85a0e3bc30c2925477192eb1fe49dfdd193f8dd930d3d.png" src="../../../_images/a9e752f86b181dc90eb85a0e3bc30c2925477192eb1fe49dfdd193f8dd930d3d.png" />
+<img alt="../../../_images/e1b13d4c3cb198a191e8ba1efdf23a770da52375cde360977a07f1d08a502df9.png" src="../../../_images/e1b13d4c3cb198a191e8ba1efdf23a770da52375cde360977a07f1d08a502df9.png" />
+<img alt="../../../_images/ec6cc134e8db7378201c7c01dc740f957f33ed073f0ca737ab90c05da38c90fa.png" src="../../../_images/ec6cc134e8db7378201c7c01dc740f957f33ed073f0ca737ab90c05da38c90fa.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Final Clusters:
   Cluster 1: [&#39;Cora&#39;, &#39;Alan&#39;, &#39;Max&#39;, &#39;Lisa&#39;, &#39;Joe&#39;]
 </pre></div>
@@ -2501,7 +2488,8 @@ Clusters after merging:
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -2661,8 +2649,8 @@ By Dr.Hadi Sadoghi Yazdi
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

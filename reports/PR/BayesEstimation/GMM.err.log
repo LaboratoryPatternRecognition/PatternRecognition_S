@@ -1,0 +1,102 @@
+Traceback (most recent call last):
+  File "H:\HadiSadoghiYazdi\Circuit\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+    ~~~~~~~~~^
+        nb,
+        ^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "H:\HadiSadoghiYazdi\Circuit\Lib\site-packages\nbclient\client.py", line 1314, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "H:\HadiSadoghiYazdi\Circuit\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Program Files\Python313\Lib\asyncio\base_events.py", line 721, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "H:\HadiSadoghiYazdi\Circuit\Lib\site-packages\nbclient\client.py", line 709, in async_execute
+    await self.async_execute_cell(
+        cell, index, execution_count=self.code_cells_executed + 1
+    )
+  File "H:\HadiSadoghiYazdi\Circuit\Lib\site-packages\nbclient\client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "H:\HadiSadoghiYazdi\Circuit\Lib\site-packages\nbclient\client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import numpy as np
+from sklearn.mixture import GaussianMixture
+import matplotlib.pyplot as plt
+
+# Generate sample data with 2-dimensional features
+np.random.seed(0)
+n_samples = 100
+
+# Generate data from two different 2D Gaussian distributions
+mean1 = [-2, 0]
+cov1 = [[1, 0.5], [0.5, 1]]
+X1 = np.random.multivariate_normal(mean1, cov1, n_samples // 2)
+
+mean2 = [3, 5]
+cov2 = [[1, -0.5], [-0.5, 1]]
+X2 = np.random.multivariate_normal(mean2, cov2, n_samples // 2)
+
+# Combine the datasets
+X = np.vstack((X1, X2))
+
+# Fit a Gaussian Mixture Model with 2 components
+gmm = GaussianMixture(n_components=2, random_state=0)
+gmm.fit(X)
+
+# Predict the component assignments
+labels = gmm.predict(X)
+
+# Plot the data and the GMM components
+plt.scatter(X[:, 0], X[:, 1], c=labels, s=40, cmap='viridis', marker='o')
+plt.scatter(gmm.means_[:, 0], gmm.means_[:, 1], c='red', s=100, marker='x')
+plt.title('Gaussian Mixture Model')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+
+# Plot the covariances as ellipses
+from matplotlib.patches import Ellipse
+
+def plot_cov_ellipse(cov, pos, nstd=2, **kwargs):
+    """
+    Plots an ellipse representing the covariance matrix cov centered at pos
+    """
+    eigvals, eigvecs = np.linalg.eigh(cov)
+    order = eigvals.argsort()[::-1]
+    eigvals, eigvecs = eigvals[order], eigvecs[:, order]
+    theta = np.degrees(np.arctan2(*eigvecs[:, 0][::-1]))
+    width, height = 2 * nstd * np.sqrt(eigvals)
+    ellip = Ellipse(xy=pos, width=width, height=height, angle=theta, **kwargs)
+    return ellip
+
+ax = plt.gca()
+
+for i in range(2):
+    cov = gmm.covariances_[i]
+    mean = gmm.means_[i]
+    ellip = plot_cov_ellipse(cov, mean, nstd=2, alpha=0.3, color='red')
+    ax.add_artist(ellip)
+
+plt.show()
+
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+Cell [1;32mIn[1], line 2[0m
+[0;32m      1[0m [38;5;28;01mimport[39;00m [38;5;21;01mnumpy[39;00m [38;5;28;01mas[39;00m [38;5;21;01mnp[39;00m
+[1;32m----> 2[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m[38;5;21;01m.[39;00m[38;5;21;01mmixture[39;00m [38;5;28;01mimport[39;00m GaussianMixture
+[0;32m      3[0m [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpyplot[39;00m [38;5;28;01mas[39;00m [38;5;21;01mplt[39;00m
+[0;32m      5[0m [38;5;66;03m# Generate sample data with 2-dimensional features[39;00m
+
+[1;31mModuleNotFoundError[0m: No module named 'sklearn'
+
